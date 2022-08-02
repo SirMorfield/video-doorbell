@@ -18,7 +18,7 @@
 	- dtmf
 	- MCAST listening|paging
 
-- Netgear FS116P		Switch
+- Netgear FS116P		Switch 8 PoE ports + 8 normal ports
 
 
 ## Technologies
@@ -30,7 +30,39 @@
 - RTP (Real-time Transport Protocol), RTCP, SRTP
 	- RTP is a network protocol for delivering audio and video over IP networks.
 	- RFC 3550
+
 	- https://github.com/j0r1/JRTPLIB
 	- https://www.gnu.org/software/ccrtp/
 
 - VoIP
+
+## Reminders
+- SIP is default on port 5060
+- RTP is default on port 5004
+- RTCP is default on port 5005
+- RTSP is default on port 554
+
+## Thoughts
+- Is the 100Mbt Ethernet enough for the audio+video stream?
+- Can we connect multiple PoE network switches together?
+- Save this repo to a USB stick with all the documentation on it.
+- Host info etch on joppekoers.nl that redirects to github.
+- C++ gui options:
+	- Qt
+	- GTK
+	- Nuklear
+	- Imgui
+
+
+
+## Links
+http://192.168.2.11/admin-bin/editcgi.cgi?file=/
+http://192.168.2.11/admin-bin/editcgi.cgi?file=/usr/html/axis-cgi
+
+http://192.168.2.11/axis-cgi/mjpg/video.cgi
+http://192.168.2.11/mjpg/video.mjpg
+rtsp://192.168.2.11:554/axis-media/media.amp
+
+
+## Test
+rtsp://192.168.2.11:8083/onvif-media/media.amp # or other port

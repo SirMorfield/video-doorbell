@@ -62,10 +62,13 @@ http://192.168.2.11/mjpg/video.mjpg
 rtsp://192.168.2.11:554/axis-media/media.amp
 
 https://github.com/mailrocketsystems/AsteriskVOIP
-
+https://mir-server.io/docs/make-a-secure-ubuntu-web-kiosk
+https://stackoverflow.com/questions/43743005/is-group-calling-over-sip-possible-with-asterisk
+https://github.com/antonraharja/book-asterisk-101/blob/master/book-contents/en/Chapter_04/Ring-Groups.md
 
 ## Test
 rtsp://192.168.2.11:8083/onvif-media/media.amp # or other port
+
 ## Reminders
 Remove DHCP bindings from test network
 For the automatic doorbell:  Fanvil -> Settings -> action
@@ -83,7 +86,7 @@ Time server
 - Correct datetime on the indoor stations
 - Select best sound and video codecs
 - Do not connect call between front door camera and client when they are not home
-
+- Enable ICE
 
 ## Technologies explained
 SIP (Session Initiation Protocol)

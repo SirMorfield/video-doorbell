@@ -12,7 +12,6 @@
 	- SIP v1 (RFC2543), v2 (RFC3261) over UDP/TCP/TLS
 	- STUN (Session Traversal Utilities for NAT)
 		- RFC3489, RFC5389
-
 	- L2TP
 	- TR-069
 	- dtmf
@@ -65,6 +64,7 @@ https://github.com/mailrocketsystems/AsteriskVOIP
 https://mir-server.io/docs/make-a-secure-ubuntu-web-kiosk
 https://stackoverflow.com/questions/43743005/is-group-calling-over-sip-possible-with-asterisk
 https://github.com/antonraharja/book-asterisk-101/blob/master/book-contents/en/Chapter_04/Ring-Groups.md
+http://www.asteriskdocs.org/en/3rd_Edition/asterisk-book-html/asterisk-book.html
 
 ## Test
 rtsp://192.168.2.11:8083/onvif-media/media.amp # or other port

@@ -15,8 +15,8 @@ CMD asterisk -vvvv -c
 
 
 # docker build -t asterisk . && \
-# docker run -it --net=host \
+# docker run -it --net=host --name asterisk \
 # -v $PWD/sip_server/etc/asterisk/sip.conf:/etc/asterisk/sip.conf \
-# -v $PWD/sip_server/etc/asterisk/extentions.conf:/etc/asterisk/extentions.conf \
+# -v $PWD/sip_server/etc/asterisk/extensions.conf:/etc/asterisk/extensions.conf \
 # -v $PWD/sip_server/etc/asterisk/voicemail.conf:/etc/asterisk/voicemail.conf \
 # asterisk

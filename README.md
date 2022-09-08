@@ -46,9 +46,6 @@ SCTP (Stream Control Transmission Protocol)
 TLS (Transport Layer Security)
 	- Secure SIP messages
 
-SDP (Session Description Protocol)
-	- Describes the media streams in a SIP session
-
 RTP (Real-time Transport Protocol) SRTP (Secure Real-time Transport Protocol)
 	- Transports the media (audio/video) streams
 

@@ -1,4 +1,3 @@
 #!/bin/bash
 
-channel originate sip/7004 extension 7003@internal
 channel originate sip/7003 extension 7004@internal

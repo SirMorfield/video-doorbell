@@ -19,39 +19,6 @@
 
 - Netgear FS116P		Switch 8 PoE ports + 8 normal ports
 
-
-## Technologies
-- SIP (Session Initiation Protocol)
-	- https://github.com/pjsip/pjproject
-	- RFC3261
-
-
-- RTP (Real-time Transport Protocol), RTCP, SRTP
-	- RTP is a network protocol for delivering audio and video over IP networks.
-	- RFC 3550
-
-	- https://github.com/j0r1/JRTPLIB
-	- https://www.gnu.org/software/ccrtp/
-
-- VoIP
-
-## Reminders
-- SIP is default on port 5060
-- RTP is default on port 5004
-- RTCP is default on port 5005
-- RTSP is default on port 554
-
-## Thoughts
-- Is the 100Mbt Ethernet enough for the audio+video stream?
-- Can we connect multiple PoE network switches together?
-- Save this repo to a USB stick with all the documentation on it.
-- Host info etch on joppekoers.nl that redirects to github.
-- C++ gui options:
-	- Qt
-	- GTK
-	- Nuklear
-	- Imgui
-
 ## Links
 http://192.168.2.11/admin-bin/editcgi.cgi?file=/
 http://192.168.2.11/admin-bin/editcgi.cgi?file=/usr/html/axis-cgi
@@ -66,29 +33,8 @@ https://stackoverflow.com/questions/43743005/is-group-calling-over-sip-possible-
 https://github.com/antonraharja/book-asterisk-101/blob/master/book-contents/en/Chapter_04/Ring-Groups.md
 http://www.asteriskdocs.org/en/3rd_Edition/asterisk-book-html/asterisk-book.html
 
-## Test
-rtsp://192.168.2.11:8083/onvif-media/media.amp # or other port
 
-## Reminders
-Remove DHCP bindings from test network
-For the automatic doorbell:  Fanvil -> Settings -> action
-Disable automatic hangup timeout
-Time server
-
-
-## Possible future upgrades
-- Multiple cameras at the Door
-- Alarm mode
-- (Motion) security camera
-	- Saving video file every time someone opens the door
-- Logging who opened the door when
-- Calling between clients
-- Correct datetime on the indoor stations
-- Select best sound and video codecs
-- Do not connect call between front door camera and client when they are not home
-- Enable ICE
-
-## Technologies explained
+## Abbreviations
 SIP (Session Initiation Protocol)
 	- A signaling protocol used for initiating, maintaining, and terminating communication sessions that include voice, video and messaging applications.
 

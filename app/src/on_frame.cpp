@@ -38,7 +38,9 @@ void on_frame() {
 		text += key_pressed;
 	}
 	if (ImGui::Button("call")) {
-		std::cout << "calling " << text << std::endl;
+		const std::string cmd = commands::ring(text);
+		std::cout << "running: " << cmd << std::endl;
+		ASSERT(exec(cmd).has_value(), ==, true);
 	}
 
 	ImGui::End();

@@ -18,15 +18,16 @@ char get_line_pressed(const std::string& line) {
 }
 
 char get_key_pressed() {
-	char key_pressed = 0;
+	char c[] = {
+		get_line_pressed("qwertyuiop"),
+		get_line_pressed(" asdfghjkl"),
+		get_line_pressed("  zxcvbnm")};
 
-	if (!key_pressed)
-		key_pressed = get_line_pressed("qwertyuiop");
-	if (!key_pressed)
-		key_pressed = get_line_pressed(" asdfghjkl");
-	if (!key_pressed)
-		key_pressed = get_line_pressed("  zxcvbnm");
-	return key_pressed;
+	for (size_t i = 0; i < sizeof(c) / sizeof(c[0]); i++)
+		if (c[i])
+			return c[i];
+
+	return 0;
 }
 
 void on_frame() {

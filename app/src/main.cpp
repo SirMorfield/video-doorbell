@@ -3,6 +3,7 @@
 #include "imgui_impl_opengl3.h"
 #include <iostream>
 #include <stdio.h>
+#include <vector>
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <GLES2/gl2.h>
 #endif
@@ -14,6 +15,8 @@
 #if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
+
+#define GL_SILENCE_DEPRECATION 1
 
 static void glfw_error_callback(int error, const char* description) {
 	fprintf(stderr, "Glfw Error %d: %s\n", error, description);
@@ -85,7 +88,8 @@ int main(int, char**) {
 	// ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
 	// IM_ASSERT(font != NULL);
 
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	ImVec4		clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	std::string text;
 
 	while (!glfwWindowShouldClose(window)) {
 		// Poll and handle events (inputs, window resize, etc.)
@@ -100,22 +104,18 @@ int main(int, char**) {
 		ImGui::NewFrame();
 
 		{
-			static int counter = 0;
+			ImGui::Begin("Virtual Keyboard");
+			ImGui::Text("%s", text.c_str());
 
-			// Create a window called "Hello, world!" and append into it.
-			ImGui::Begin("Hello, world!");
-
-			ImGui::Text("This is some useful text.");
-
-			if (ImGui::Button("Button"))
-				counter++;
-			ImGui::SameLine();
-			ImGui::Text("counter = %d", counter);
-
+			for (size_t i = 0; i < 4; i++) {
+				char name[2] = {static_cast<char>('0' + i), 0};
+				if (ImGui::Button(name, ImVec2(46, 32))) {
+					text += static_cast<char>('0' + i);
+				}
+				ImGui::SameLine();
+			}
 			ImGui::End();
 		}
-		std::cout << 'l' << std::endl;
-
 		// Rendering
 		ImGui::Render();
 		int display_w, display_h;

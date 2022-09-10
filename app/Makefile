@@ -14,37 +14,27 @@
 #CXX = g++
 #CXX = clang++
 
-EXE 	= example_glfw_opengl3
-IMGUI_DIR = lib/imgui
-SOURCES += $(IMGUI_DIR)/main.cpp
-SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
-SOURCES += $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
-OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
-UNAME_S := $(shell uname -s)
-LINUX_GL_LIBS = -lGL
+NAME			= app
+IMGUI_DIR		= lib/imgui
 
-CXXFLAGS = -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
-CXXFLAGS += -g -Wall -Wformat
-LIBS =
+SRC				= $(IMGUI_DIR)/main.cpp
+SRC 			+= $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
+SRC 			+= $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
+OBJS			= $(addsuffix .o, $(basename $(notdir $(SRC))))
+UNAME_S			:= $(shell uname -s)
+LINUX_GL_LIBS	= -lGL
 
-##---------------------------------------------------------------------
-## OPENGL ES
-##---------------------------------------------------------------------
-
-## This assumes a GL ES library available in the system, e.g. libGLESv2.so
-# CXXFLAGS += -DIMGUI_IMPL_OPENGL_ES2
-# LINUX_GL_LIBS = -lGLESv2
-
-##---------------------------------------------------------------------
-## BUILD FLAGS PER PLATFORM
-##---------------------------------------------------------------------
+FLAGS			= -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
+FLAGS			+= -g -Wall -Wformat
+LIBS			=
 
 ifeq ($(UNAME_S), Linux) #LINUX
 	ECHO_MESSAGE = "Linux"
-	LIBS += $(LINUX_GL_LIBS) `pkg-config --static --libs glfw3`
+	LIBS += -lGL `pkg-config --static --libs glfw3`
+	# LIBS += -lGLESv2 `pkg-config --static --libs glfw3`
 
-	CXXFLAGS += `pkg-config --cflags glfw3`
-	CFLAGS = $(CXXFLAGS)
+	FLAGS += `pkg-config --cflags glfw3`
+	CFLAGS = $(FLAGS)
 endif
 
 ifeq ($(UNAME_S), Darwin) #APPLE
@@ -54,8 +44,8 @@ ifeq ($(UNAME_S), Darwin) #APPLE
 	#LIBS += -lglfw3
 	LIBS += -lglfw
 
-	CXXFLAGS += -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include
-	CFLAGS = $(CXXFLAGS)
+	FLAGS += -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include
+	CFLAGS = $(FLAGS)
 endif
 
 
@@ -64,19 +54,19 @@ endif
 ##---------------------------------------------------------------------
 
 %.o:%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(FLAGS) -c -o $@ $<
 
 %.o:$(IMGUI_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(FLAGS) -c -o $@ $<
 
 %.o:$(IMGUI_DIR)/backends/%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $(FLAGS) -c -o $@ $<
 
-all: $(EXE)
+all: $(NAME)
 	@echo Build complete for $(ECHO_MESSAGE)
 
-$(EXE): $(OBJS)
-	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
+$(NAME): $(OBJS)
+	$(CXX) -o $@ $^ $(FLAGS) $(LIBS)
 
 clean:
-	rm -f $(EXE) $(OBJS)
+	rm -f $(NAME) $(OBJS)

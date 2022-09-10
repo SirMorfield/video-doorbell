@@ -3,7 +3,9 @@
 #include "imgui_impl_opengl3.h"
 #include <iostream>
 #include <stdio.h>
-#include <vector>
+
+#include "main.hpp"
+
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <GLES2/gl2.h>
 #endif
@@ -103,19 +105,7 @@ int main(int, char**) {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		{
-			ImGui::Begin("Virtual Keyboard");
-			ImGui::Text("%s", text.c_str());
-
-			for (size_t i = 0; i < 4; i++) {
-				char name[2] = {static_cast<char>('0' + i), 0};
-				if (ImGui::Button(name, ImVec2(46, 32))) {
-					text += static_cast<char>('0' + i);
-				}
-				ImGui::SameLine();
-			}
-			ImGui::End();
-		}
+		on_frame();
 		// Rendering
 		ImGui::Render();
 		int display_w, display_h;

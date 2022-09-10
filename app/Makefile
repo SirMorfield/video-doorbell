@@ -64,23 +64,23 @@ MAKEFLAGS+="j $(NCPU)"
 ## BUILD RULES
 ##---------------------------------------------------------------------
 
-$(BUILDDIR)/%.o: %.cpp $(BUILDDIR)
-	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
-
-$(BUILDDIR)/%.o: $(IMGUI_DIR)/%.cpp $(BUILDDIR)
-	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
-
-$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(BUILDDIR)
-	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
-
-$(BUILDDIR)/%.o: $(IMGUI_DIR)/backends/%.cpp $(BUILDDIR)
-	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
-
 all: $(NAME)
 	@echo Build complete
 
-$(NAME): $(OBJS)
-	$(CXX) -o $@ $^ $(FLAGS) $(LIBS)
+$(NAME): $(BUILDDIR) $(OBJS)
+	$(CXX) -o $@ $(OBJS) $(FLAGS) $(LIBS)
+
+$(BUILDDIR)/%.o: %.cpp
+	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
+
+$(BUILDDIR)/%.o: $(IMGUI_DIR)/%.cpp
+	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
+
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
+	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
+
+$(BUILDDIR)/%.o: $(IMGUI_DIR)/backends/%.cpp
+	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)

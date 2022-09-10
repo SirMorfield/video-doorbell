@@ -42,6 +42,8 @@ ifeq ($(UNAME_S), Linux) #LINUX
 
 	FLAGS += `pkg-config --cflags glfw3`
 	CFLAGS = $(FLAGS)
+
+	NCPU = $(shell nproc --all) $(NAME)
 endif
 
 ifeq ($(UNAME_S), Darwin) #APPLE
@@ -52,8 +54,11 @@ ifeq ($(UNAME_S), Darwin) #APPLE
 
 	FLAGS += -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include
 	CFLAGS = $(FLAGS)
+
+	NCPU = $(shell sysctl -n hw.ncpu) $(NAME)
 endif
 
+MAKEFLAGS+="j $(NCPU)"
 
 ##---------------------------------------------------------------------
 ## BUILD RULES
@@ -76,6 +81,9 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CXX) -o $@ $^ $(FLAGS) $(LIBS)
+
+$(BUILDDIR)/:
+	mkdir -p $(BUILDDIR)
 
 clean:
 ifneq ($(BUILDDIR),.)

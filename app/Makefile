@@ -17,19 +17,26 @@
 NAME			= app
 IMGUI_DIR		= lib/imgui
 
-SRC				= $(IMGUI_DIR)/main.cpp
+SRCEXT      	= cpp
+SRCDIR      	= src
+OBJEXT      	= o
+HEADEREXT		= hpp
+HEADERDIR		= include
+BUILDDIR    	= obj
+SRC				= $(wildcard $(SRCDIR)/*.$(SRCEXT))
+
 SRC 			+= $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
 SRC 			+= $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
-OBJS			= $(addsuffix .o, $(basename $(notdir $(SRC))))
+OBJS				= $(foreach src,$(SRC),$(BUILDDIR)/$(notdir $(src:.$(SRCEXT)=.$(OBJEXT))))
+
 UNAME_S			:= $(shell uname -s)
 LINUX_GL_LIBS	= -lGL
 
-FLAGS			= -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends
-FLAGS			+= -g -Wall -Wformat
+FLAGS			= -std=c++17 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -I $(HEADERDIR)
+FLAGS			+= -g -Wall -Wextra -Wformat
 LIBS			=
 
 ifeq ($(UNAME_S), Linux) #LINUX
-	ECHO_MESSAGE = "Linux"
 	LIBS += -lGL `pkg-config --static --libs glfw3`
 	# LIBS += -lGLESv2 `pkg-config --static --libs glfw3`
 
@@ -38,7 +45,6 @@ ifeq ($(UNAME_S), Linux) #LINUX
 endif
 
 ifeq ($(UNAME_S), Darwin) #APPLE
-	ECHO_MESSAGE = "Mac OS X"
 	LIBS += -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 	LIBS += -L/usr/local/lib -L/opt/local/lib -L/opt/homebrew/lib
 	#LIBS += -lglfw3
@@ -53,20 +59,26 @@ endif
 ## BUILD RULES
 ##---------------------------------------------------------------------
 
-%.o:%.cpp
-	$(CXX) $(FLAGS) -c -o $@ $<
+$(BUILDDIR)/%.o: %.cpp $(BUILDDIR)
+	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
 
-%.o:$(IMGUI_DIR)/%.cpp
-	$(CXX) $(FLAGS) -c -o $@ $<
+$(BUILDDIR)/%.o: $(IMGUI_DIR)/%.cpp $(BUILDDIR)
+	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
 
-%.o:$(IMGUI_DIR)/backends/%.cpp
-	$(CXX) $(FLAGS) -c -o $@ $<
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(BUILDDIR)
+	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
+
+$(BUILDDIR)/%.o: $(IMGUI_DIR)/backends/%.cpp $(BUILDDIR)
+	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
 
 all: $(NAME)
-	@echo Build complete for $(ECHO_MESSAGE)
+	@echo Build complete
 
 $(NAME): $(OBJS)
 	$(CXX) -o $@ $^ $(FLAGS) $(LIBS)
 
 clean:
-	rm -f $(NAME) $(OBJS)
+ifneq ($(BUILDDIR),.)
+	/bin/rm -rf $(BUILDDIR)/
+endif
+	rm -f $(NAME)

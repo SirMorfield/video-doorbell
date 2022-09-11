@@ -12,13 +12,14 @@
 - `Touchscreen computer`	Select clients by (first letters of) first or last name. Allow for slight typo's
 - `Touchscreen computer`	Select clients by scrolling
 - `Touchscreen computer`	Clients can refer to the same door
-- `Touchscreen computer`	KIOSK mode
 - `Touchscreen computer`	Easily change the client's name via a interface or preferably a text file
 - `Touchscreen computer`	Disable automatic hangup timeout
 - `Touchscreen computer`	On startup stop all calls that might be dangling from a unexpected shutdown
 - `Other`					Some remote popup when one of the clients is not connected
+- `Touchscreen computer`	Fix not rebooting correctly
 
 ## DOING
+- `Touchscreen computer`	KIOSK mode
 
 ## DONE
 - `Touchscreen computer`	SIP server

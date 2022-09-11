@@ -1,5 +1,6 @@
 #include "main.hpp"
 #include <array>
+#include <memory>
 
 std::optional<std::string> exec(const std::string& cmd) {
 	std::array<char, 128>					 buffer;

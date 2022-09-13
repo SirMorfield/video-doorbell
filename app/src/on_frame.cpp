@@ -1,6 +1,24 @@
 #include "main.hpp"
 
-std::string text;
+std::vector<Apartment> get_apartments() {
+	std::vector<Apartment>	 apartments;
+	std::string				 apt_file = read_file("./apartments.csv");
+	std::vector<std::string> lines = ft_split(apt_file, "\n");
+	for (const std::string& line : lines) {
+		std::vector<std::string> fields = ft_split(line, ",");
+		if (fields.size() < 2)
+			continue;
+		Apartment apt;
+		apt.number = fields[0];
+		fields.erase(fields.begin());
+		apt.occupants = fields;
+		apartments.push_back(apt);
+	}
+	return apartments;
+}
+
+const std::vector<Apartment> g_apartments = get_apartments();
+std::string					 text;
 //
 
 char get_line_pressed(const std::string& line) {
@@ -31,9 +49,11 @@ char get_key_pressed() {
 }
 
 void on_frame() {
-	ImGui::Begin("Virtual Keyboard");
+	// ImGui::Begin("Virtual Keyboard");
 	ImGui::Text("%s", text.c_str());
-
+	ImGui::SameLine();
+	if (ImGui::Button("Clear", ImVec2(100, 0)))
+		text.resize(text.size() ? text.size() - 1 : 0);
 	char key_pressed = get_key_pressed();
 	if (key_pressed) {
 		text += key_pressed;
@@ -44,5 +64,5 @@ void on_frame() {
 		ASSERT(exec(cmd).has_value(), ==, true);
 	}
 
-	ImGui::End();
+	// ImGui::End();
 }

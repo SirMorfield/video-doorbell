@@ -1,3 +1,4 @@
 *.o
 /app
 /imgui.ini
+apartments.csv

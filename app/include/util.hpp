@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 #define ASSERT(left, operator, right)                                                                                               \
 	{                                                                                                                               \
@@ -11,3 +12,4 @@
 			exit(EXIT_FAILURE);                                                                                                     \
 		}                                                                                                                           \
 	}
+std::vector<std::string> ft_split(const std::string& s, const std::string& charset);

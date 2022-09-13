@@ -34,6 +34,8 @@ LINUX_GL_LIBS	= -lGL
 
 FLAGS			= -std=c++17 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -I $(HEADERDIR)
 FLAGS			+= -g -Wall -Wextra -Wformat
+# I don't care what you say, if you want to fix it make a pull request
+FLAGS			+= -DGL_SILENCE_DEPRECATION
 LIBS			=
 
 ifeq ($(UNAME_S), Linux) #LINUX

@@ -1,3 +1,4 @@
+#include "imgui_helpers.hpp"
 #include "main.hpp"
 #include <algorithm>
 // Allows all the sizing to be relative, like in css
@@ -89,12 +90,12 @@ char get_key_pressed() {
 	return 0;
 }
 
-void on_frame() {
+void on_frame(ImGui_text& imText) {
 	static std::string text = "";
-	ImGui::Text("%s", text.c_str());
+	imText.text(ImGui_text::Font::Bold, text);
 	const std::vector<Occupant> occupants = get_occupants(text, 5);
 	for (const Occupant& occupant : occupants) {
-		ImGui::Text("%s", occupant.name.c_str());
+		imText.text(ImGui_text::Font::Regular, occupant.name);
 	}
 
 	if (ImGui::Button("Clear", ImVec2(100, 0)))

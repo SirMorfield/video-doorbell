@@ -23,9 +23,11 @@ reboot
 echo 'if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then exec startx; fi' >> ~/.bashrc
 reboot
 
-vi /etc/xdg/openbox/rc.xml
+vim /etc/xdg/openbox/rc.xml
 # add the following lines just before the </applications> tag
 #   <application class="app*">
 #     <maximized>yes</maximized>
 #     <decor>no</decor>
+#     <maximized>yes</maximized>
+#     <direction>Vertical</direction>
 #   </application>

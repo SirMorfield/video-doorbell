@@ -49,7 +49,6 @@ char get_key_pressed() {
 }
 
 void on_frame() {
-	// ImGui::Begin("Virtual Keyboard");
 	ImGui::Text("%s", text.c_str());
 	ImGui::SameLine();
 	if (ImGui::Button("Clear", ImVec2(100, 0)))
@@ -63,6 +62,4 @@ void on_frame() {
 		std::cout << "running: " << cmd << std::endl;
 		ASSERT(exec(cmd).has_value(), ==, true);
 	}
-
-	// ImGui::End();
 }

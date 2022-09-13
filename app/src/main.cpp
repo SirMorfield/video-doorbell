@@ -105,7 +105,26 @@ int main(int, char**) {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		on_frame();
+		{ // Everything happens in a single imgui window that is the same size as the os window
+#ifdef IMGUI_HAS_VIEWPORT
+			ImGuiViewport* viewport = ImGui::GetMainViewport();
+			ImGui::SetNextWindowPos(viewport->GetWorkPos());
+			ImGui::SetNextWindowSize(viewport->GetWorkSize());
+			ImGui::SetNextWindowViewport(viewport->ID);
+#else
+			ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+			ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
+#endif
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+#define IMGUI_FILL_OS_WINDOW ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize
+			ImGui::Begin("document", nullptr, IMGUI_FILL_OS_WINDOW);
+
+			on_frame(); // The actual application is here
+
+			// Cleanup
+			ImGui::End();
+			ImGui::PopStyleVar(1);
+		}
 		// Rendering
 		ImGui::Render();
 		int display_w, display_h;

@@ -90,22 +90,42 @@ char get_key_pressed() {
 	return 0;
 }
 
+void print_occupant(const std::string& name, const std::string& query, ImGui_text& imText) {
+	std::string backlog;
+	size_t		query_pos = 0;
+
+	for (size_t i = 0; i < name.size(); i++) {
+		std::string s;
+		s += name[i];
+		if (query_pos < query.size() &&
+			std::tolower(name[i]) == std::tolower(query[query_pos])) {
+			imText.text(ImGui_text::Font::Bold, s);
+
+			query_pos++;
+		}
+		else
+			imText.text(ImGui_text::Font::Regular, s);
+		if (i + 1 != name.size())
+			ImGui::SameLine();
+	}
+}
+
 void on_frame(ImGui_text& imText) {
-	static std::string text = "";
-	imText.text(ImGui_text::Font::Bold, text);
-	const std::vector<Occupant> occupants = get_occupants(text, 5);
+	static std::string query = "";
+	imText.text(ImGui_text::Font::Bold, query);
+	const std::vector<Occupant> occupants = get_occupants(query, 5);
 	for (const Occupant& occupant : occupants) {
-		imText.text(ImGui_text::Font::Regular, occupant.name);
+		print_occupant(occupant.name, query, imText);
 	}
 
 	if (ImGui::Button("Clear", ImVec2(100, 0)))
-		text.resize(text.size() ? text.size() - 1 : 0);
+		query.resize(query.size() ? query.size() - 1 : 0);
 	char key_pressed = get_key_pressed();
 	if (key_pressed) {
-		text += key_pressed;
+		query += key_pressed;
 	}
 	if (ImGui::Button("call")) {
-		const std::string cmd = commands::ring(text);
+		const std::string cmd = commands::ring(query);
 		std::cout << "running: " << cmd << std::endl;
 		ASSERT(exec(cmd).has_value(), ==, true);
 	}

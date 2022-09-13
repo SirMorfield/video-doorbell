@@ -28,6 +28,7 @@ SRC				= $(wildcard $(SRCDIR)/*.$(SRCEXT))
 SRC 			+= $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
 SRC 			+= $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
 OBJS				= $(foreach src,$(SRC),$(BUILDDIR)/$(notdir $(src:.$(SRCEXT)=.$(OBJEXT))))
+HEADERS 		= $(shell find $(HEADERDIR) -name '*.$(HEADEREXT)')
 
 UNAME_S			:= $(shell uname -s)
 LINUX_GL_LIBS	= -lGL
@@ -73,18 +74,14 @@ MAKEFLAGS+="j $(NCPU)"
 all: $(NAME)
 	@echo Build complete
 
-$(NAME): $(BUILDDIR) $(OBJS)
+$(NAME): $(BUILDDIR) $(OBJS) $(HEADERS)
 	$(CXX) -o $@ $(OBJS) $(FLAGS) $(LIBS)
 
-$(BUILDDIR)/%.o: %.cpp
+$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp $(HEADERS)
 	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
 
 $(BUILDDIR)/%.o: $(IMGUI_DIR)/%.cpp
 	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
-
-$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
-	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
-
 $(BUILDDIR)/%.o: $(IMGUI_DIR)/backends/%.cpp
 	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
 

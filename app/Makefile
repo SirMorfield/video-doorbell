@@ -33,7 +33,11 @@ UNAME_S			:= $(shell uname -s)
 LINUX_GL_LIBS	= -lGL
 
 FLAGS			= -std=c++17 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -I $(HEADERDIR)
-FLAGS			+= -g -Wall -Wextra -Wformat
+FLAGS			+= -Wall -Wextra -Wformat -Wshadow
+
+FLAGS 			+= -g3 -fsanitize=address
+# FLAGS			+= -O3
+
 # I don't care what you say, if you want to fix it make a pull request
 FLAGS			+= -DGL_SILENCE_DEPRECATION
 LIBS			=

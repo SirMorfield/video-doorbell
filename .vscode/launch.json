@@ -1,0 +1,33 @@
+// See: https://go.microsoft.com/fwlink/?linkid=830387
+{
+	"version": "0.2.0",
+	"configurations": [
+
+		{
+			"name": "osx cppdbg",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/app/app",
+			"args": [
+				"testing/default.conf"
+			],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}/app",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb",
+			"preLaunchTask": "make"
+		},
+		{
+			"name": "osx lldb",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/app/app",
+			"args": [
+				"testing/default.conf"
+			],
+			"cwd": "${workspaceFolder}/app",
+			"preLaunchTask": "make"
+		},
+	]
+}

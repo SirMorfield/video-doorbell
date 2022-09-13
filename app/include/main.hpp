@@ -13,10 +13,10 @@ std::optional<std::string> exec(const std::string& cmd);
 std::string				   read_file(const std::string& path);
 
 typedef struct {
-	std::string				 number;
-	std::vector<std::string> occupants;
-} Apartment;
-std::vector<Apartment> get_apartments();
+	std::string number;
+	std::string name;
+} Occupant;
+std::vector<Occupant> get_occupants();
 
 namespace commands {
 

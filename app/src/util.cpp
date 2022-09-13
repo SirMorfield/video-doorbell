@@ -20,6 +20,8 @@ std::optional<std::string> exec(const std::string& cmd) {
 
 std::string read_file(const std::string& path) {
 	std::ifstream t(path);
+	ASSERT(t.is_open(), ==, true);
+
 	return std::string((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
 }
 

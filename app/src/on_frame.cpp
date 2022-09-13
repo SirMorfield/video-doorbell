@@ -18,17 +18,28 @@ std::vector<Occupant> get_occupants() {
 			continue;
 		occupants.push_back((Occupant){.number = fields.at(0), .name = fields.at(1)});
 	}
+	ASSERT(occupants.size(), >=, 1);
 	return occupants;
 }
 
-int match_score(const std::string& name, const std::string& query) {
+// Returns equability score of name and query
+// Higher score means better match with name
+// Score 0~length of query
+unsigned int match_score(const std::string& name, const std::string& query) {
 	std::vector<std::string> words = ft_split(name, " ");
 
-	int						 score = 0;
+	unsigned int			 score = 0;
 	for (const std::string& word : words) {
-		for (size_t i = 0;
-			 i < query.size() &&
-			 std::tolower(word[i]) == std::tolower(query[score]);
+
+		size_t i = 0;
+		if (query.size()) {
+			size_t start = word.find_first_of(query[0]);
+			if (start != std::string::npos)
+				i = start;
+		}
+		for (; i < word.size() &&
+			   score < query.size() &&
+			   std::tolower(word[i]) == std::tolower(query[score]);
 			 i++) {
 			score++;
 		}
@@ -39,14 +50,14 @@ int match_score(const std::string& name, const std::string& query) {
 std::vector<Occupant> get_occupants(const std::string& query, size_t max_results) {
 	static std::vector<Occupant> occupants = get_occupants();
 	std::sort(occupants.begin(), occupants.end(), [](const Occupant& a, const Occupant& b) { return a.name < b.name; });
-	std::vector<int> scores;
+	std::vector<unsigned int> scores;
 
 	for (const Occupant& occupant : occupants) {
 		scores.push_back(match_score(occupant.name, query));
 	}
 
 	std::vector<Occupant> results;
-	int					  highest_score = *std::max_element(scores.begin(), scores.end());
+	unsigned int		  highest_score = *std::max_element(scores.begin(), scores.end());
 	max_results = std::min(max_results, occupants.size());
 	while (highest_score >= 0) {
 		for (size_t i = 0; i < scores.size(); i++) {

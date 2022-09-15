@@ -9,8 +9,6 @@
 - `Indoor station`			Select best sound and video codecs
 
 ## TODO
-- `Touchscreen computer`	Select clients by scrolling
-- `Touchscreen computer`	On startup stop all calls that might be dangling from a unexpected shutdown
 - `Other`					Some remote popup when one of the clients is not connected
 - `Touchscreen computer`	Fix not rebooting correctly
 - `Touchscreen computer`	Disable cursor
@@ -21,6 +19,9 @@
 - `Touchscreen computer`	KIOSK mode
 
 ## DONE
+- `Touchscreen computer`	On startup stop all calls that might be dangling from a unexpected shutdown
+- `Touchscreen computer`	Start call per client
+- `Touchscreen computer`	Select clients by scrolling
 - `Touchscreen computer`	Disable automatic hangup timeout
 - `Touchscreen computer`	Easily change the client's name via a interface or preferably a text file
 - `Touchscreen computer`	Clients can refer to the same door

@@ -41,7 +41,8 @@ const Constants& consts() {
 		.window_width = 720.0f,
 		.window_height = 1280.0f,
 		.n_occupants = 5,
-		.occupants = read_occupants()};
+		.occupants = read_occupants(),
+		.font_door_number = "7004"};
 	return consts;
 }
 

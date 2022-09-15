@@ -1,6 +1,0 @@
-#!/bin/bash
-
-asterisk -rx "sip show peers"
-asterisk -rx "core show channels concise"
-asterisk -rx "hangup request <channel number>"
-asterisk -rx "channel originate sip/7003 extension 7004@internal"

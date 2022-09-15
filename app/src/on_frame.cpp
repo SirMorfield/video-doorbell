@@ -37,28 +37,30 @@ char get_key_pressed() {
 	return 0;
 }
 
-void print_occupant(const std::string& name, const std::string& query) {
+void print_occupant(const Occupant& occupant, const std::string& query) {
 	std::string backlog;
 	size_t		query_pos = 0;
 
-	for (size_t i = 0; i < name.size(); i++) {
+	for (size_t i = 0; i < occupant.name.size(); i++) {
 		std::string s;
-		s += name[i];
+		s += occupant.name[i];
 		if (query_pos < query.size() &&
-			std::tolower(name[i]) == std::tolower(query[query_pos])) {
+			std::tolower(occupant.name[i]) == std::tolower(query[query_pos])) {
 			ImText.text(ImGui_text::Font::Bold, s);
 
 			query_pos++;
 		}
 		else
 			ImText.text(ImGui_text::Font::Regular, s);
-		if (i + 1 != name.size()) {
+		if (i + 1 != occupant.name.size()) {
 			ImGui::SameLine();
 		}
 	};
 	ImText.set_font(ImGui_text::Font::Material_design);
 	sameLineRightAlign(scale(30));
-	ImGui::Button(ICON_MD_PHONE, scale(ImVec2(25, 15)));
+	std::string name = std::string(ICON_MD_PHONE) + std::string("###") + occupant.number + occupant.name; // making the label unique
+	if (ImGui::Button(name.c_str(), scale(ImVec2(25, 15))))
+		sip::ring(occupant.number);
 }
 
 // returns true if there was an update
@@ -68,7 +70,7 @@ bool update_scroll_pos(size_t& pos) {
 	if (ImGui::Button(ICON_MD_EXPAND_LESS) && pos > 0)
 		pos--;
 	ImGui::SameLine();
-	if (ImGui::Button(ICON_MD_EXPAND_MORE) && pos < consts().n_occupants)
+	if (ImGui::Button(ICON_MD_EXPAND_MORE) && pos + consts().n_occupants < consts().occupants.size())
 		pos++;
 	ImGui::SameLine();
 
@@ -101,7 +103,7 @@ void on_frame() {
 	else
 		occupants = get_occupants_query(query, consts().n_occupants);
 	for (const Occupant& occupant : occupants) {
-		print_occupant(occupant.name, query);
+		print_occupant(occupant, query);
 	}
 	update_scroll_pos(scroll_position);
 	if (update_query(query))

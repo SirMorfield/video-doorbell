@@ -1,6 +1,7 @@
 #include "IconsMaterialDesign.h"
 #include "imgui_helpers.hpp"
 #include "main.hpp"
+// #include "test.hpp"
 #include <algorithm>
 
 // Allows all the sizing to be relative, like in css
@@ -41,6 +42,9 @@ void print_occupant(const Occupant& occupant, const std::string& query) {
 	std::string backlog;
 	size_t		query_pos = 0;
 
+	//
+	const ImVec2 spacing = ImGui::GetStyle().ItemSpacing;
+	ImGui::GetStyle().ItemSpacing.x = 0.0f;
 	for (size_t i = 0; i < occupant.name.size(); i++) {
 		std::string s;
 		s += occupant.name[i];
@@ -61,6 +65,7 @@ void print_occupant(const Occupant& occupant, const std::string& query) {
 	std::string name = std::string(ICON_MD_PHONE) + std::string("###") + occupant.number + occupant.name; // making the label unique
 	if (ImGui::Button(name.c_str(), scale(ImVec2(25, 15))))
 		sip::ring(occupant.number);
+	ImGui::GetStyle().ItemSpacing = spacing;
 }
 
 // returns true if there was an update

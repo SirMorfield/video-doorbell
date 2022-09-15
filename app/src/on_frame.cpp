@@ -5,7 +5,7 @@
 #include <algorithm>
 
 // Allows all the sizing to be relative, like in css
-#define SCALE 3.0f
+#define SCALE 1.8f
 constexpr float	 scale(float n) { return n * SCALE; }
 constexpr ImVec2 scale(const ImVec2& v) {
 	return ImVec2(v.x * SCALE, v.y * SCALE);

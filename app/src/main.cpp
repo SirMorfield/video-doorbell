@@ -1,11 +1,11 @@
+#include "main.hpp"
+#include "IconsMaterialDesign.h"
 #include "imgui.h"
 #include "imgui_helpers.hpp"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include <iostream>
 #include <stdio.h>
-
-#include "main.hpp"
 
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <GLES2/gl2.h>
@@ -25,7 +25,15 @@ static void glfw_error_callback(int error, const char* description) {
 	fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
-ImFont* g_fonts[2] = {NULL, NULL};
+static ImFont* load_material_design_font(ImGuiIO& io) {
+	static const ImWchar icons_ranges[] = {ICON_MIN_MD, ICON_MAX_16_MD, 0};
+	ImFontConfig		 icons_config;
+	icons_config.MergeMode = true;
+	icons_config.PixelSnapH = true;
+	ImFont* font = io.Fonts->AddFontFromFileTTF(FONT_ICON_FILE_NAME_MD, 30.0f, &icons_config, icons_ranges);
+	assert(font);
+	return font;
+}
 
 //
 int main(int, char**) {
@@ -79,13 +87,15 @@ int main(int, char**) {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
+	io.Fonts->AddFontDefault();
+
+	// Fonts
 	ImFont*	   fonts[] = {io.Fonts->AddFontFromFileTTF("fonts/RobotoMono-Light.ttf", 30.0f),
-						  io.Fonts->AddFontFromFileTTF("fonts/RobotoMono-Bold.ttf", 30.0f)};
+						  io.Fonts->AddFontFromFileTTF("fonts/RobotoMono-Bold.ttf", 30.0f),
+						  load_material_design_font(io)};
 	ImGui_text text(fonts);
 
-	// ImFont* font = io.Fonts->AddFontFromFileTTF("fonts/DroidSans.ttf", 30.0f);
-
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	ImVec4	   clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	while (!glfwWindowShouldClose(window)) {
 		// Poll and handle events (inputs, window resize, etc.)

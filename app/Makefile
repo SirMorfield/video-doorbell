@@ -27,13 +27,13 @@ SRC				= $(wildcard $(SRCDIR)/*.$(SRCEXT))
 
 SRC 			+= $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
 SRC 			+= $(IMGUI_DIR)/backends/imgui_impl_glfw.cpp $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
-OBJS				= $(foreach src,$(SRC),$(BUILDDIR)/$(notdir $(src:.$(SRCEXT)=.$(OBJEXT))))
+OBJS			= $(foreach src,$(SRC),$(BUILDDIR)/$(notdir $(src:.$(SRCEXT)=.$(OBJEXT))))
 HEADERS 		= $(shell find $(HEADERDIR) -name '*.$(HEADEREXT)')
 
 UNAME_S			:= $(shell uname -s)
 LINUX_GL_LIBS	= -lGL
 
-FLAGS			= -std=c++17 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -I $(HEADERDIR)
+FLAGS			= -std=c++17 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -I$(HEADERDIR) -Ilib/IconFontCppHeaders
 FLAGS			+= -Wall -Wextra -Wformat -Wshadow
 
 FLAGS 			+= -g3 -fsanitize=address

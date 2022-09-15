@@ -15,7 +15,7 @@
 - `Touchscreen computer`	Fix not rebooting correctly
 - `Touchscreen computer`	Disable cursor
 - `Touchscreen computer`	Limit occupant length
-
+- `Touchscreen computer`	Indicate to user that user has picked up the phone
 
 ## DOING
 - `Touchscreen computer`	KIOSK mode

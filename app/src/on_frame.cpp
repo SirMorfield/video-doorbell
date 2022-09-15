@@ -1,11 +1,13 @@
+#include "IconsMaterialDesign.h"
 #include "imgui_helpers.hpp"
 #include "main.hpp"
 #include <algorithm>
+
 // Allows all the sizing to be relative, like in css
 #define SCALE 3.0f
 constexpr float	 scale(float n) { return n * SCALE; }
 constexpr ImVec2 scale(const ImVec2& v) {
-	return ImVec2(v.x * SCALE, v.x * SCALE);
+	return ImVec2(v.x * SCALE, v.y * SCALE);
 }
 
 std::vector<Occupant> get_occupants() {
@@ -116,19 +118,25 @@ void print_occupant(const std::string& name, const std::string& query, ImGui_tex
 		}
 		else
 			imText.text(ImGui_text::Font::Regular, s);
-		if (i + 1 != name.size())
+		if (i + 1 != name.size()) {
 			ImGui::SameLine();
-	}
+		}
+	};
+	imText.set_font(ImGui_text::Font::Material_design);
+	sameLineRightAlign(scale(30));
+	ImGui::Button(ICON_MD_PHONE, scale(ImVec2(25, 15)));
 }
 
 void on_frame(ImGui_text& imText) {
-	static std::string query = "";
-	imText.text(ImGui_text::Font::Bold, query);
+
+	static std::string			query = "";
 	const std::vector<Occupant> occupants = get_occupants(query, 5);
+
 	for (const Occupant& occupant : occupants) {
 		print_occupant(occupant.name, query, imText);
 	}
-
+	imText.text(ImGui_text::Font::Bold, query);
+	imText.set_font(ImGui_text::Font::Regular);
 	if (ImGui::Button("Clear", ImVec2(100, 0)))
 		query.resize(query.size() ? query.size() - 1 : 0);
 	char key_pressed = get_key_pressed();

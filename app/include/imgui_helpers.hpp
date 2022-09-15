@@ -1,5 +1,6 @@
 #pragma once
 #include "imgui.h"
+#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -12,6 +13,7 @@ class ImGui_text {
 	enum class Font {
 		Regular = 0,
 		Bold,
+		Material_design,
 		_Count, // do not use
 	};
 
@@ -57,3 +59,5 @@ class ImGui_text {
 	Font	_font;
 	ImFont* _fonts[(int)Font::_Count];
 };
+
+void sameLineRightAlign(float width);

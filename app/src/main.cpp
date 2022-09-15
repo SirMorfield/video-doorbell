@@ -35,6 +35,16 @@ static ImFont* load_material_design_font(ImGuiIO& io) {
 	return font;
 }
 
+ImGui_text		 ImText;
+const Constants& consts() {
+	static Constants consts = {
+		.window_width = 720.0f,
+		.window_height = 1280.0f,
+		.n_occupants = 5,
+		.occupants = read_occupants()};
+	return consts;
+}
+
 //
 int main(int, char**) {
 	// Setup window
@@ -66,7 +76,7 @@ int main(int, char**) {
 #endif
 
 	// Create window with graphics context
-	GLFWwindow* window = glfwCreateWindow(constants.window_width, constants.window_height, "video doorbell by Joppe Koers", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(consts().window_width, consts().window_height, "video doorbell by Joppe Koers", NULL, NULL);
 	if (window == NULL)
 		return 1;
 	glfwMakeContextCurrent(window);
@@ -90,12 +100,12 @@ int main(int, char**) {
 	io.Fonts->AddFontDefault();
 
 	// Fonts
-	ImFont*	   fonts[] = {io.Fonts->AddFontFromFileTTF("fonts/RobotoMono-Light.ttf", 30.0f),
-						  io.Fonts->AddFontFromFileTTF("fonts/RobotoMono-Bold.ttf", 30.0f),
-						  load_material_design_font(io)};
-	ImGui_text text(fonts);
+	ImFont* fonts[] = {io.Fonts->AddFontFromFileTTF("fonts/RobotoMono-Light.ttf", 30.0f),
+					   io.Fonts->AddFontFromFileTTF("fonts/RobotoMono-Bold.ttf", 30.0f),
+					   load_material_design_font(io)};
 
-	ImVec4	   clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	ImText = ImGui_text(fonts);
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	while (!glfwWindowShouldClose(window)) {
 		// Poll and handle events (inputs, window resize, etc.)
@@ -123,9 +133,9 @@ int main(int, char**) {
 #define IMGUI_FILL_OS_WINDOW ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize
 			ImGui::Begin("document", nullptr, IMGUI_FILL_OS_WINDOW);
 
-			on_frame(text); // The actual application is here
+			on_frame(); // The actual application is here
 
-			text.clear_stack();
+			ImText.clear_stack();
 			// Cleanup
 			ImGui::End();
 			ImGui::PopStyleVar(1);

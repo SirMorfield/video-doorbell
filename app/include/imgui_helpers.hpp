@@ -17,6 +17,7 @@ class ImGui_text {
 		_Count, // do not use
 	};
 
+	ImGui_text(){};
 	ImGui_text(ImFont* fonts[static_cast<size_t>(Font::_Count)]) {
 		for (size_t i = 0; i < static_cast<size_t>(Font::_Count); ++i) {
 			assert(fonts[i]);
@@ -51,13 +52,14 @@ class ImGui_text {
 		}
 	}
 
-	ImGui_text() = delete;
-	ImGui_text(const ImGui_text&) = delete;
-	ImGui_text& operator=(const ImGui_text&) = delete;
+	// ImGui_text() = delete;
+	// ImGui_text(const ImGui_text&) = delete;
+	// ImGui_text& operator=(const ImGui_text&) = delete;
 
   private:
 	Font	_font;
 	ImFont* _fonts[(int)Font::_Count];
 };
 
-void sameLineRightAlign(float width);
+extern ImGui_text ImText;
+void			  sameLineRightAlign(float width);

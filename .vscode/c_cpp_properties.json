@@ -9,7 +9,7 @@
                 "${workspaceFolder}/app/lib/imgui"
             ],
             "compilerPath": "/usr/bin/clang++",
-            "cppStandard": "c++11",
+            "cppStandard": "c++17",
             "intelliSenseMode": "macos-clang-x64",
             "compilerArgs": [
                 "-Wall",

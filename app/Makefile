@@ -45,7 +45,7 @@ LIBS			=
 
 ifeq ($(UNAME_S), Linux) #LINUX
 	LIBS += -lGL `pkg-config --static --libs glfw3`
-	# LIBS += -lGLESv2 `pkg-config --static --libs glfw3`
+# LIBS += -lGLESv2 `pkg-config --static --libs glfw3`
 
 	FLAGS += `pkg-config --cflags glfw3`
 	CFLAGS = $(FLAGS)

@@ -34,7 +34,7 @@ UNAME_S			:= $(shell uname -s)
 LINUX_GL_LIBS	= -lGL
 
 FLAGS			= -std=c++17 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -I$(HEADERDIR) -Ilib/IconFontCppHeaders
-FLAGS			+= -Wall -Wextra -Wformat -Wshadow
+FLAGS			+= -Wall -Wextra -Wformat -Wshadow -Wtype-limits
 
 FLAGS 			+= -g3 -fsanitize=address
 # FLAGS			+= -O3

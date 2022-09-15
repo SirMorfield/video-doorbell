@@ -50,7 +50,7 @@ std::vector<Occupant> get_occupants_query(const std::string& query, size_t max_r
 	std::vector<Occupant> results;
 	unsigned int		  highest_score = *std::max_element(scores.begin(), scores.end());
 	max_results = std::min(max_results, consts().occupants.size());
-	while (highest_score >= 0) {
+	do {
 		for (size_t i = 0; i < scores.size(); i++) {
 			if (scores[i] == highest_score) {
 				results.push_back(consts().occupants[i]);
@@ -59,8 +59,8 @@ std::vector<Occupant> get_occupants_query(const std::string& query, size_t max_r
 				scores[i] = -1;
 			}
 		}
-		highest_score--;
-	}
+
+	} while (highest_score--);
 end:
 	return results;
 }

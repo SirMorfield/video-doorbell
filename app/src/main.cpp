@@ -78,9 +78,14 @@ int main(int, char**) {
 	// glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 #endif
 
+#ifdef __APPLE__
 	// Apple (not me) is multiplying the resolution numbers by 2 somewhere
-	const auto	window_w = __APPLE__ ? consts().window_width / 2 : consts().window_width;
-	const auto	window_h = __APPLE__ ? consts().window_height / 2 : consts().window_height;
+	constexpr auto window_w = consts().window_width / 2;
+	constexpr auto window_h = consts().window_height / 2;
+#else
+	constexpr auto window_w = consts().window_width;
+	constexpr auto window_h = consts().window_height;
+#endif
 	GLFWwindow* window = glfwCreateWindow(window_w, window_h, "video doorbell by Joppe Koers", NULL, NULL);
 
 	if (window == NULL)

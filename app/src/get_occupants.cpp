@@ -2,7 +2,8 @@
 
 std::vector<Occupant> read_occupants() {
 	std::vector<Occupant>	 occupants;
-	std::string				 apt_file = read_file("./occupants.csv");
+	static const std::string path = get_binary_location().value() + "/occupants.csv";
+	std::string				 apt_file = read_file(path);
 	std::vector<std::string> lines = ft_split(apt_file, "\n");
 	for (const std::string& line : lines) {
 		std::vector<std::string> fields = ft_split(line, ",");

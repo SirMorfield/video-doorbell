@@ -11,6 +11,7 @@
 void					   on_frame();
 std::optional<std::string> exec(const std::string& cmd);
 std::string				   read_file(const std::string& path);
+std::optional<std::string> get_binary_location();
 
 typedef struct {
 	std::string number;

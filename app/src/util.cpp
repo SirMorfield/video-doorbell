@@ -5,6 +5,13 @@
 #include <streambuf>
 #include <string>
 
+// for get_binary_location
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#else
+#include <unistd.h>
+#endif
+
 std::optional<std::string> exec(const std::string& cmd) {
 	std::array<char, 128>					 buffer;
 	std::string								 result;
@@ -39,4 +46,25 @@ std::vector<std::string> ft_split(const std::string& s, const std::string& chars
 		out.push_back(s.substr(start, end - start));
 	}
 	return out;
+}
+
+// returns directory in witch this executable finds itself
+std::optional<std::string> get_binary_location() {
+	char buf[PATH_MAX * 2];
+
+#ifdef __APPLE__
+	uint32_t size = sizeof(buf);
+	if (_NSGetExecutablePath(buf, &size) != 0)
+		return {};
+#else
+#include <unistd.h>
+	size_t	size = sizeof(buf);
+	ssize_t ret = readlink("/proc/self/exe", buf, size);
+	if (ret < 0)
+		return {};
+	dirNameBuffer[ret] = '\0';
+#endif
+
+	std::string path = buf;
+	return path.substr(0, path.find_last_of('/'));
 }

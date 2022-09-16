@@ -1,4 +1,5 @@
 #include "main.hpp"
+#include <exception>
 
 std::vector<Occupant> read_occupants() {
 	std::vector<Occupant>	 occupants;
@@ -9,9 +10,18 @@ std::vector<Occupant> read_occupants() {
 		std::vector<std::string> fields = ft_split(line, ",");
 		if (fields.size() < 2)
 			continue;
-		occupants.push_back((Occupant){.number = fields.at(0), .name = fields.at(1)});
+		if (fields.size() > 2)
+			throw std::runtime_error("Invalid line \"" + line + "\" should only contain 2 elements");
+		Occupant occ = {.number = fields.at(0), .name = fields.at(1)};
+		if (occ.name.size() > consts().max_occupant_name_length)
+			throw std::runtime_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(consts().max_occupant_name_length));
+		if (occ.number == consts().font_door_number)
+			throw std::runtime_error("Phone number \"" + occ.number + "\" is already in use by the front door camera");
+		occupants.push_back(occ);
 	}
-	ASSERT(occupants.size(), >=, 1);
+	if (occupants.size() == 0)
+		throw std::runtime_error("occupants.csv is empty");
+
 	std::sort(occupants.begin(), occupants.end(), [](const Occupant& a, const Occupant& b) { return a.name < b.name; });
 	return occupants;
 }

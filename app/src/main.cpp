@@ -40,13 +40,18 @@ const Constants& consts() {
 	static Constants consts = {
 		.window_width = 800.0f,
 		.window_height = 1280.0f,
-		.n_occupants = 5,
+		// Number of occupants to list on the frontend
+		.n_occupants = 12,
 		.occupants = read_occupants(),
-		.font_door_number = "7004"};
+		// The phone number of the front door SIP camera
+		.font_door_number = "7004",
+		.max_occupant_name_length = 12};
 	return consts;
 }
 
+#ifndef PRODUCTION
 std::string resolution;
+#endif
 
 //
 int main(int, char**) {
@@ -145,8 +150,9 @@ int main(int, char**) {
 			ImGui::Begin("document", nullptr, IMGUI_FILL_OS_WINDOW);
 
 			on_frame(); // The actual application is here
-
+#ifndef PRODUCTION
 			ImGui::Text("%s", resolution.c_str());
+#endif
 			ImText.clear_stack();
 			// Cleanup
 			ImGui::End();
@@ -156,7 +162,9 @@ int main(int, char**) {
 		ImGui::Render();
 		int display_w, display_h;
 		glfwGetFramebufferSize(window, &display_w, &display_h);
+#ifndef PRODUCTION
 		resolution = std::to_string(display_w) + "x" + std::to_string(display_h);
+#endif
 		glViewport(0, 0, display_w, display_h);
 		glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT);

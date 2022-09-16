@@ -50,9 +50,10 @@ unsigned int match_score(const std::string& name, const std::string& query);
 typedef struct {
 	float				  window_width;
 	float				  window_height;
-	size_t				  n_occupants; // Number of occupants to list on the frontend
+	size_t				  n_occupants;
 	std::vector<Occupant> occupants;
-	std::string			  font_door_number; // The phone number of the front door SIP camera
+	std::string			  font_door_number;
+	size_t				  max_occupant_name_length;
 } Constants;
 
 const Constants& consts();

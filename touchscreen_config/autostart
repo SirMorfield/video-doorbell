@@ -1,5 +1,0 @@
-# vim /etc/xdg/openbox/autostart
-
-# This script is run when an Openbox X Session is started.
-
-sh /root/video-doorbell/app/production.sh &

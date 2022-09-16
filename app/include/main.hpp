@@ -18,7 +18,7 @@ typedef struct {
 	std::string number;
 	std::string name;
 } Occupant;
-std::vector<Occupant> read_occupants();
+std::vector<Occupant> read_occupants(const std::string& front_door_number, size_t max_occupant_name_length);
 std::vector<Occupant> get_occupants_query(const std::string& query, size_t max_results);
 std::vector<Occupant> get_occupants_scroll(size_t scroll_pos, size_t max_results);
 
@@ -52,7 +52,7 @@ typedef struct {
 	float				  window_height;
 	size_t				  n_occupants;
 	std::vector<Occupant> occupants;
-	std::string			  font_door_number;
+	std::string			  front_door_number;
 	size_t				  max_occupant_name_length;
 } Constants;
 

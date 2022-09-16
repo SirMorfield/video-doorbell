@@ -2,12 +2,23 @@
 
 # See ./installation.sh for prerequists
 
+# echo each command before it is executed
+set -o xtrace
+
 # cd'ing to the directory where the script is located
 SCRIPT_DIR=$(dirname "$0")
 echo moving to $SCRIPT_DIR
 cd "$SCRIPT_DIR"
 
-make -C app
+# kill still runing instances of this app
+pkill --signal 9 app || true
+pkill --signal 9 xinit || true
+# Optional: stop already running containers
+# docker stop $(docker ps -a -q) || true
+# docker rm $(docker ps -a -q) || true
+
+# Build frontend app
+PRODUCTION=1 make -C app
 
 # Tell x-server to use the touchscreen display, also needed for ImGui in the app to work
 export DISPLAY=':0'
@@ -16,6 +27,7 @@ export DISPLAY=':0'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# Run asterisk SIP server
 docker build -t asterisk asterisk || true
 docker run -d --rm --net=host --restart unless-stopped --name asterisk \
 -v $PWD/asterisk/sip.conf:/etc/asterisk/sip.conf \
@@ -23,9 +35,11 @@ docker run -d --rm --net=host --restart unless-stopped --name asterisk \
 -v $PWD/asterisk/voicemail.conf:/etc/asterisk/voicemail.conf \
 asterisk
 
-#TODO restart auto
+# TODO restart after crash
 xinit /root/video-doorbell/app/app -- :0 -nocursor &
 
+# TODO improve this
+# Wait a little before xinit has started
 sleep 10
 
 # Keep screen on

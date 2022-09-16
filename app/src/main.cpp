@@ -42,10 +42,11 @@ const Constants& consts() {
 		.window_height = 1280.0f,
 		// Number of occupants to list on the frontend
 		.n_occupants = 12,
-		.occupants = read_occupants(),
 		// The phone number of the front door SIP camera
-		.font_door_number = "7004",
-		.max_occupant_name_length = 12};
+		.occupants = read_occupants("7004", 12),
+		.front_door_number = "7004",
+		.max_occupant_name_length = 12,
+	};
 	return consts;
 }
 

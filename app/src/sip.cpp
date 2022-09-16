@@ -3,7 +3,7 @@
 namespace commands {
 
 std::string ring(const std::string& phonenumber) {
-	return "docker exec -it asterisk asterisk -rx 'channel originate sip/" + phonenumber + " extension " + consts().font_door_number + "@internal'";
+	return "docker exec -it asterisk asterisk -rx 'channel originate sip/" + phonenumber + " extension " + consts().front_door_number + "@internal'";
 }
 
 std::string get_channels() {
@@ -37,9 +37,9 @@ void ring(const std::string& phonenumber) {
 	std::cout << "ringing " << phonenumber << std::endl;
 	const std::vector<std::string> channels = get_channels();
 	for (const std::string& channel : channels) {
-		if (channel.find(consts().font_door_number) != std::string::npos) {
+		if (channel.find(consts().front_door_number) != std::string::npos) {
 			std::cout << "request hangup for channel " << channel << std::endl;
-			exec(commands::hangup(consts().font_door_number));
+			exec(commands::hangup(consts().front_door_number));
 		}
 	}
 

@@ -1,7 +1,7 @@
 #include "main.hpp"
 #include <exception>
 
-std::vector<Occupant> read_occupants() {
+std::vector<Occupant> read_occupants(const std::string& front_door_number, size_t max_occupant_name_length) {
 	std::vector<Occupant>	 occupants;
 	static const std::string path = get_binary_location().value() + "/occupants.csv";
 	std::string				 apt_file = read_file(path);
@@ -13,9 +13,10 @@ std::vector<Occupant> read_occupants() {
 		if (fields.size() > 2)
 			throw std::runtime_error("Invalid line \"" + line + "\" should only contain 2 elements");
 		Occupant occ = {.number = fields.at(0), .name = fields.at(1)};
-		if (occ.name.size() > consts().max_occupant_name_length)
-			throw std::runtime_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(consts().max_occupant_name_length));
-		if (occ.number == consts().font_door_number)
+		(void)max_occupant_name_length;
+		// if (occ.name.size() > max_occupant_name_length)
+		// 	throw std::runtime_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(max_occupant_name_length));
+		if (occ.number == front_door_number)
 			throw std::runtime_error("Phone number \"" + occ.number + "\" is already in use by the front door camera");
 		occupants.push_back(occ);
 	}
@@ -77,7 +78,7 @@ end:
 }
 
 std::vector<Occupant> get_occupants_scroll(size_t scroll_pos, size_t max_results) {
-	static const std::vector<Occupant> occupants = read_occupants();
+	static const std::vector<Occupant> occupants = read_occupants(consts().front_door_number, consts().max_occupant_name_length);
 	std::vector<Occupant>			   results(occupants.begin() + scroll_pos, occupants.begin() + scroll_pos + max_results);
 	return results;
 }

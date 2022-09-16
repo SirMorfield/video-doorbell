@@ -38,7 +38,7 @@ static ImFont* load_material_design_font(ImGuiIO& io) {
 ImGui_text		 ImText;
 const Constants& consts() {
 	static Constants consts = {
-		.window_width = 720.0f,
+		.window_width = 800.0f,
 		.window_height = 1280.0f,
 		.n_occupants = 5,
 		.occupants = read_occupants(),
@@ -78,9 +78,11 @@ int main(int, char**) {
 	// glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 #endif
 
-	// Create window with graphics context
-	// Someone (not me) is multiplying the resolution numbers by 2 somewhere
-	GLFWwindow* window = glfwCreateWindow(consts().window_width / 2, consts().window_height / 2, "video doorbell by Joppe Koers", NULL, NULL);
+	// Apple (not me) is multiplying the resolution numbers by 2 somewhere
+	constexpr auto window_w = __APPLE__ ? consts().window_width / 2 : consts().window_width;
+	constexpr auto window_h = __APPLE__ ? consts().window_width / 2 : consts().window_height;
+	GLFWwindow*	   window = glfwCreateWindow(window_w, window_h, "video doorbell by Joppe Koers", NULL, NULL);
+
 	if (window == NULL)
 		return 1;
 	glfwMakeContextCurrent(window);

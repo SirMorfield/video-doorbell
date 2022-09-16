@@ -1,6 +1,7 @@
 su root
 cd /root
 rm -rf Desktop/ Documents/ Music/ Pictures/ Templates/ Videos/
+userdel -rf <installed non-root-user>
 
 apt update && apt upgrade
 apt install -y xinit openbox git
@@ -11,6 +12,11 @@ git clone https://github.com/SirMorfield/video-doorbell
 startx
 
 reboot
+
+# vim  /etc/systemd/logind.conf
+# [Login]
+# NAutoVTs=1
+# ReserverVT=1
 
 systemctl edit getty@tty1
 # add the following lines

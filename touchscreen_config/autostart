@@ -2,14 +2,4 @@
 
 # This script is run when an Openbox X Session is started.
 
-
-# Keep screen on
-xset -dpms     # Disable DPMS (Energy Star) features
-xset s off     # Disable screensaver
-xset s noblank # Don't blank video device
-
-# Tell x-server to use the touchscreen display, also needed for ImGui in the app to work
-export DISPLAY=':0'
-
-sleep 15
 sh /root/video-doorbell/app/production.sh &

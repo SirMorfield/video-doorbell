@@ -46,6 +46,8 @@ const Constants& consts() {
 	return consts;
 }
 
+std::string resolution;
+
 //
 int main(int, char**) {
 	// Setup window
@@ -137,6 +139,7 @@ int main(int, char**) {
 
 			on_frame(); // The actual application is here
 
+			ImGui::Text("%s", resolution.c_str());
 			ImText.clear_stack();
 			// Cleanup
 			ImGui::End();
@@ -146,6 +149,7 @@ int main(int, char**) {
 		ImGui::Render();
 		int display_w, display_h;
 		glfwGetFramebufferSize(window, &display_w, &display_h);
+		resolution = std::to_string(display_w) + "x" + std::to_string(display_h);
 		glViewport(0, 0, display_w, display_h);
 		glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
 		glClear(GL_COLOR_BUFFER_BIT);

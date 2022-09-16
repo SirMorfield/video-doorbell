@@ -68,3 +68,13 @@ std::optional<std::string> get_binary_location() {
 	std::string path = buf;
 	return path.substr(0, path.find_last_of('/'));
 }
+
+std::string absolute_path(const std::string& relative_path) {
+	static std::optional<std::string> path = get_binary_location();
+	std::string						  absolute = path.value_or("");
+
+	if (relative_path.size() && relative_path[0] != '/')
+		absolute += '/';
+	absolute += relative_path;
+	return absolute;
+}

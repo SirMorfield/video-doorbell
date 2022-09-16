@@ -8,6 +8,8 @@ SCRIPT_DIR=$(dirname "$0")
 echo moving to $SCRIPT_DIR
 cd "$SCRIPT_DIR"
 
+make -C app
+
 # Tell x-server to use the touchscreen display, also needed for ImGui in the app to work
 export DISPLAY=':0'
 

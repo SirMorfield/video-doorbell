@@ -9,6 +9,7 @@
 #ifdef __APPLE__
 #include <mach-o/dyld.h>
 #else
+#include <linux/limits.h>
 #include <unistd.h>
 #endif
 
@@ -57,12 +58,11 @@ std::optional<std::string> get_binary_location() {
 	if (_NSGetExecutablePath(buf, &size) != 0)
 		return {};
 #else
-#include <unistd.h>
 	size_t	size = sizeof(buf);
 	ssize_t ret = readlink("/proc/self/exe", buf, size);
 	if (ret < 0)
 		return {};
-	dirNameBuffer[ret] = '\0';
+	buf[ret] = '\0';
 #endif
 
 	std::string path = buf;

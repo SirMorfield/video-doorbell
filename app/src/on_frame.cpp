@@ -6,7 +6,9 @@
 
 // Allows all the sizing to be relative, like in css
 #define SCALE 1.8f
-constexpr float	 scale(float n) { return n * SCALE; }
+constexpr float scale(float n) {
+	return n * SCALE;
+}
 constexpr ImVec2 scale(const ImVec2& v) {
 	return ImVec2(v.x * SCALE, v.y * SCALE);
 }
@@ -86,7 +88,7 @@ bool update_scroll_pos(size_t& pos) {
 bool update_query(std::string& query) {
 	const std::string start_value = query;
 
-	if (ImGui::Button(ICON_MD_BACKSPACE, ImVec2(100, 0)))
+	if (ImGui::Button(ICON_MD_BACKSPACE, scale(ImVec2(50, 0))))
 		query.resize(query.size() ? query.size() - 1 : 0);
 	ImText.text(ImGui_text::Font::Bold, query);
 	ImText.set_font(ImGui_text::Font::Regular);

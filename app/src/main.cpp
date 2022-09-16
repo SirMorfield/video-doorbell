@@ -30,7 +30,7 @@ static ImFont* load_material_design_font(ImGuiIO& io) {
 	ImFontConfig		 icons_config;
 	icons_config.MergeMode = true;
 	icons_config.PixelSnapH = true;
-	ImFont* font = io.Fonts->AddFontFromFileTTF(absolute_path(FONT_ICON_FILE_NAME_MD).c_str(), 20.0f, &icons_config, icons_ranges);
+	ImFont* font = io.Fonts->AddFontFromFileTTF(absolute_path(FONT_ICON_FILE_NAME_MD).c_str(), scale(13.0f), &icons_config, icons_ranges);
 	assert(font);
 	return font;
 }
@@ -79,9 +79,9 @@ int main(int, char**) {
 #endif
 
 	// Apple (not me) is multiplying the resolution numbers by 2 somewhere
-	constexpr auto window_w = __APPLE__ ? consts().window_width / 2 : consts().window_width;
-	constexpr auto window_h = __APPLE__ ? consts().window_width / 2 : consts().window_height;
-	GLFWwindow*	   window = glfwCreateWindow(window_w, window_h, "video doorbell by Joppe Koers", NULL, NULL);
+	const auto	window_w = __APPLE__ ? consts().window_width / 2 : consts().window_width;
+	const auto	window_h = __APPLE__ ? consts().window_height / 2 : consts().window_height;
+	GLFWwindow* window = glfwCreateWindow(window_w, window_h, "video doorbell by Joppe Koers", NULL, NULL);
 
 	if (window == NULL)
 		return 1;
@@ -106,8 +106,8 @@ int main(int, char**) {
 	io.Fonts->AddFontDefault();
 
 	// Fonts
-	ImFont* fonts[] = {io.Fonts->AddFontFromFileTTF(absolute_path("fonts/RobotoMono-Light.ttf").c_str(), 20.0f),
-					   io.Fonts->AddFontFromFileTTF(absolute_path("fonts/RobotoMono-Bold.ttf").c_str(), 20.0f),
+	ImFont* fonts[] = {io.Fonts->AddFontFromFileTTF(absolute_path("fonts/RobotoMono-Light.ttf").c_str(), scale(13.0f)),
+					   io.Fonts->AddFontFromFileTTF(absolute_path("fonts/RobotoMono-Bold.ttf").c_str(), scale(13.0f)),
 					   load_material_design_font(io)};
 
 	ImText = ImGui_text(fonts);

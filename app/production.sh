@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# prerequists:
+# prerequists: (may be incompete)
 # apt-get install -y make libglfw3-dev pkg-config build-essential
 
 # cd'ing to the directory where the script is located
@@ -15,7 +15,9 @@ export DISPLAY=':0'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+#TODO restart auto
 xinit /root/video-doorbell/app/app -- :0 -nocursor &
+
 # Keep screen on
 xset -dpms     # Disable DPMS (Energy Star) features
 xset s off     # Disable screensaver

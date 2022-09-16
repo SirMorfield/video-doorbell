@@ -17,8 +17,17 @@ export DISPLAY=':0'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+docker build -t asterisk asterisk || true
+docker run -d --rm --net=host --restart unless-stopped --name asterisk \
+-v $PWD/asterisk/sip.conf:/etc/asterisk/sip.conf \
+-v $PWD/asterisk/extensions.conf:/etc/asterisk/extensions.conf \
+-v $PWD/asterisk/voicemail.conf:/etc/asterisk/voicemail.conf \
+asterisk
+
 #TODO restart auto
 xinit /root/video-doorbell/app/app -- :0 -nocursor &
+
+sleep 10
 
 # Keep screen on
 xset -dpms     # Disable DPMS (Energy Star) features

@@ -17,7 +17,7 @@ CMD asterisk -vvvv -c
 
 
 # docker build -t asterisk . && \
-# docker run -it --rm --net=host --name asterisk \
+# docker run -it --rm --net=host --restart unless-stopped --name asterisk \
 # -v $PWD/sip.conf:/etc/asterisk/sip.conf \
 # -v $PWD/extensions.conf:/etc/asterisk/extensions.conf \
 # -v $PWD/voicemail.conf:/etc/asterisk/voicemail.conf \

@@ -1,7 +1,5 @@
-#
 # Cross Platform Makefile
-# Compatible with MSYS2/MINGW, Ubuntu 14.04.1 and Mac OS X
-#
+
 # You will need GLFW (http://www.glfw.org):
 # Linux:
 #   apt-get install -y make libglfw3-dev pkg-config build-essential

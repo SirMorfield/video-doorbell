@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# prerequists: (may be incompete)
-# apt-get install -y make libglfw3-dev pkg-config build-essential
+# See ./installation.sh for prerequists
 
 # cd'ing to the directory where the script is located
 SCRIPT_DIR=$(dirname "$0")

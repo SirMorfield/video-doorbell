@@ -22,8 +22,11 @@ std::vector<Occupant> read_occupants();
 std::vector<Occupant> get_occupants_query(const std::string& query, size_t max_results);
 std::vector<Occupant> get_occupants_scroll(size_t scroll_pos, size_t max_results);
 
-constexpr float		  scale(float n);
-constexpr ImVec2	  scale(const ImVec2& v);
+#define SCALE 1.8f
+constexpr float	 scale(float n) { return n * SCALE; }
+constexpr ImVec2 scale(const ImVec2& v) {
+	return ImVec2(v.x * SCALE, v.y * SCALE);
+}
 
 namespace commands {
 

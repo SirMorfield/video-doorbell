@@ -80,11 +80,11 @@ int main(int, char**) {
 
 #ifdef __APPLE__
 	// Apple (not me) is multiplying the resolution numbers by 2 somewhere
-	constexpr auto window_w = consts().window_width / 2;
-	constexpr auto window_h = consts().window_height / 2;
+	const auto window_w = consts().window_width / 2;
+	const auto window_h = consts().window_height / 2;
 #else
-	constexpr auto window_w = consts().window_width;
-	constexpr auto window_h = consts().window_height;
+	const auto window_w = consts().window_width;
+	const auto window_h = consts().window_height;
 #endif
 	GLFWwindow* window = glfwCreateWindow(window_w, window_h, "video doorbell by Joppe Koers", NULL, NULL);
 

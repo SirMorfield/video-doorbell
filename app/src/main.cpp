@@ -56,6 +56,8 @@ std::string resolution;
 
 //
 int main(int, char**) {
+
+	// std::vector<size_t> score = match_score("xx Hartenveld", "ha");
 	// Setup window
 	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit())

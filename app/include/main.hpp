@@ -45,7 +45,7 @@ void					 ring(const std::string& phonenumber);
 
 } // namespace sip
 
-unsigned int match_score(const std::string& name, const std::string& query);
+std::vector<size_t> match_score(const std::string& name, const std::string& query);
 
 typedef struct {
 	float				  window_width;

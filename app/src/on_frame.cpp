@@ -34,8 +34,7 @@ char get_key_pressed() {
 }
 
 void print_occupant(const Occupant& occupant, const std::string& query) {
-	std::string backlog;
-	size_t		query_pos = 0;
+	const std::vector<size_t> score = match_score(occupant.name, query);
 
 	//
 	const ImVec2 spacing = ImGui::GetStyle().ItemSpacing;
@@ -43,18 +42,20 @@ void print_occupant(const Occupant& occupant, const std::string& query) {
 	for (size_t i = 0; i < occupant.name.size(); i++) {
 		std::string s;
 		s += occupant.name[i];
-		if (query_pos < query.size() &&
-			std::tolower(occupant.name[i]) == std::tolower(query[query_pos])) {
-			ImText.text(ImGui_text::Font::Bold, s);
 
-			query_pos++;
-		}
+		if (std::find(score.begin(), score.end(), i) != score.end())
+			ImText.text(ImGui_text::Font::Bold, s);
 		else
 			ImText.text(ImGui_text::Font::Regular, s);
-		if (i + 1 != occupant.name.size()) {
+#ifndef PRODUCTION
+		if (i + 1 == occupant.name.size()) {
 			ImGui::SameLine();
+			ImText.text(ImGui_text::Font::Regular, " " + std::to_string(score.size()));
 		}
-	};
+#endif
+		if (i + 1 != occupant.name.size())
+			ImGui::SameLine();
+	}
 	ImText.set_font(ImGui_text::Font::Material_design);
 	sameLineRightAlign(scale(30));
 	std::string name = std::string(ICON_MD_PHONE) + std::string("###") + occupant.number + occupant.name; // making the label unique
@@ -94,7 +95,7 @@ bool update_query(std::string& query) {
 }
 
 void on_frame() {
-	static std::string	  query = "";
+	static std::string	  query = "dap";
 	static size_t		  scroll_position = 0;
 
 	std::vector<Occupant> occupants;
@@ -105,6 +106,9 @@ void on_frame() {
 	for (const Occupant& occupant : occupants) {
 		print_occupant(occupant, query);
 	}
+	for (size_t i = occupants.size(); i < consts().n_occupants; i++) // spacing
+		ImGui::InvisibleButton("##a", scale(ImVec2(25, 15)));
+
 	update_scroll_pos(scroll_position);
 	if (update_query(query))
 		scroll_position = 0;

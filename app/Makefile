@@ -86,7 +86,7 @@ $(BUILDDIR)/%.o: $(IMGUI_DIR)/%.cpp
 $(BUILDDIR)/%.o: $(IMGUI_DIR)/backends/%.cpp
 	$(CXX) $(FLAGS) -c -o $(BUILDDIR)/$(notdir $@) $<
 
-$(BUILDDIR)/:
+$(BUILDDIR):
 	mkdir -p $(BUILDDIR)
 
 clean:

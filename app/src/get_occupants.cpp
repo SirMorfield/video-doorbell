@@ -7,6 +7,9 @@ std::vector<Occupant> read_occupants(const std::string& front_door_number, size_
 	std::string				 apt_file = read_file(path);
 	std::vector<std::string> lines = ft_split(apt_file, "\n");
 	for (const std::string& line : lines) {
+		if (line.find('\t') != std::string::npos)
+			throw std::runtime_error("Found disallowed tab in line \"" + line + "\"");
+
 		std::vector<std::string> fields = ft_split(line, ",");
 		if (fields.size() < 2)
 			continue;
@@ -29,56 +32,61 @@ std::vector<Occupant> read_occupants(const std::string& front_door_number, size_
 
 // Returns equability score of name and query
 // Higher score means better match with name
-// Score 0~length of query
-unsigned int match_score(const std::string& name, const std::string& query) {
-	std::vector<std::string> words = ft_split(name, " ");
+// Score -1~length of query
+// -1 means that the query does not match the name
+std::vector<size_t> match_score(const std::string& name, const std::string& query) {
+	std::vector<size_t> score;
+	size_t				i_name = 0;
+	size_t				i_query = 0;
 
-	unsigned int			 score = 0;
-	for (const std::string& word : words) {
+	while (1) {
+		while (i_name < name.size() &&
+			   i_query < query.size() &&
+			   std::tolower(name[i_name]) == std::tolower(query[i_query])) {
+			score.push_back(i_name);
+			i_name++;
+			i_query++;
+		}
 
-		size_t i = 0;
-		if (query.size()) {
-			size_t start = word.find_first_of(query[0]);
-			if (start != std::string::npos)
-				i = start;
-		}
-		for (; i < word.size() &&
-			   score < query.size() &&
-			   std::tolower(word[i]) == std::tolower(query[score]);
-			 i++) {
-			score++;
-		}
+		// reached end of query so return number of matched chars
+		if (i_query >= query.size())
+			return score;
+
+		// skip to next word in name
+		while (i_name < name.size() && name[i_name++] != ' ')
+			;
+
+		if (i_name >= name.size())
+			return i_query < query.size() ? std::vector<size_t>() : score;
 	}
-	return score;
 }
 
 std::vector<Occupant> get_occupants_query(const std::string& query, size_t max_results) {
-	std::vector<unsigned int> scores;
+	std::vector<size_t>	  scores;
+	std::vector<Occupant> results;
+	size_t				  max_score = 0;
 
-	for (const Occupant& occupant : consts().occupants) {
-		scores.push_back(match_score(occupant.name, query));
+	for (const Occupant& occupant : consts().occupants)
+		max_score = std::max(max_score, match_score(occupant.name, query).size());
+
+	if (max_score == 0) // if the query matches no occupant names
+		return get_occupants_scroll(0, max_results);
+
+	while (max_score) {
+		for (const Occupant& occupant : consts().occupants) {
+			if (match_score(occupant.name, query).size() == max_score)
+				results.push_back(occupant);
+			if (results.size() == max_results)
+				return results;
+		}
+		max_score--;
 	}
 
-	std::vector<Occupant> results;
-	unsigned int		  highest_score = *std::max_element(scores.begin(), scores.end());
-	max_results = std::min(max_results, consts().occupants.size());
-	do {
-		for (size_t i = 0; i < scores.size(); i++) {
-			if (scores[i] == highest_score) {
-				results.push_back(consts().occupants[i]);
-				if (results.size() == max_results)
-					goto end;
-				scores[i] = -1;
-			}
-		}
-
-	} while (highest_score--);
-end:
 	return results;
 }
 
 std::vector<Occupant> get_occupants_scroll(size_t scroll_pos, size_t max_results) {
-	static const std::vector<Occupant> occupants = read_occupants(consts().front_door_number, consts().max_occupant_name_length);
-	std::vector<Occupant>			   results(occupants.begin() + scroll_pos, occupants.begin() + scroll_pos + max_results);
+	std::vector<Occupant> results(consts().occupants.begin() + scroll_pos,
+								  consts().occupants.begin() + scroll_pos + max_results);
 	return results;
 }

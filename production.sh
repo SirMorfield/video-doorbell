@@ -13,6 +13,7 @@ cd "$SCRIPT_DIR"
 # kill still runing instances of this app
 pkill --signal 9 app || true
 pkill --signal 9 xinit || true
+pkill --signal 9 Xorg || true
 # Optional: stop already running containers
 # docker stop $(docker ps -a -q) || true
 # docker rm $(docker ps -a -q) || true

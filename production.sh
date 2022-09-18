@@ -30,7 +30,7 @@ export LC_ALL=en_US.UTF-8
 
 # Run asterisk SIP server
 docker build -t asterisk asterisk || true
-docker run -d --rm --net=host --restart unless-stopped --name asterisk \
+docker run -d --net=host --restart unless-stopped --name asterisk \
 -v $PWD/asterisk/sip.conf:/etc/asterisk/sip.conf \
 -v $PWD/asterisk/extensions.conf:/etc/asterisk/extensions.conf \
 -v $PWD/asterisk/voicemail.conf:/etc/asterisk/voicemail.conf \

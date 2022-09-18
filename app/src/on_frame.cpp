@@ -22,9 +22,9 @@ char get_line_pressed(const std::string& line) {
 
 char get_key_pressed() {
 	char c[] = {
-		get_line_pressed("qwertyuiop"),
-		get_line_pressed(" asdfghjkl"),
-		get_line_pressed("  zxcvbnm")};
+		get_line_pressed("QWERTYUIOP"),
+		get_line_pressed(" ASDFGHJKL"),
+		get_line_pressed("  ZXCVBNM")};
 
 	for (size_t i = 0; i < sizeof(c) / sizeof(c[0]); i++)
 		if (c[i])
@@ -95,7 +95,7 @@ bool update_query(std::string& query) {
 }
 
 void on_frame() {
-	static std::string	  query = "dap";
+	static std::string	  query = "";
 	static size_t		  scroll_position = 0;
 
 	std::vector<Occupant> occupants;

@@ -119,8 +119,8 @@ int main(int, char**) {
 	io.Fonts->AddFontDefault();
 
 	// Fonts
-	ImFont* fonts[] = {io.Fonts->AddFontFromFileTTF(absolute_path("fonts/RobotoMono-Light.ttf").c_str(), scale(13.0f)),
-					   io.Fonts->AddFontFromFileTTF(absolute_path("fonts/RobotoMono-Bold.ttf").c_str(), scale(13.0f)),
+	ImFont* fonts[] = {io.Fonts->AddFontFromFileTTF(absolute_path("fonts/Roboto-Light.ttf").c_str(), scale(13.0f)),
+					   io.Fonts->AddFontFromFileTTF(absolute_path("fonts/Roboto-Bold.ttf").c_str(), scale(13.0f)),
 					   load_material_design_font(io)};
 
 	ImText = ImGui_text(fonts);

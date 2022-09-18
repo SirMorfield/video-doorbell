@@ -133,12 +133,12 @@ Strict UA Match    :1
 CSTA Enable        :0
 Notify Reboot      :1
 --SIP Line List--  :
-SIP1 Phone Number       :7003
-SIP1 Display Name       :7003
+SIP1 Phone Number       :<DEVICE_PHONE_NUMBER>
+SIP1 Display Name       :<DEVICE_PHONE_NUMBER>
 SIP1 Sip Name           :
 SIP1 Register Addr      :192.168.2.1
 SIP1 Register Port      :5060
-SIP1 Register User      :7003
+SIP1 Register User      :<DEVICE_PHONE_NUMBER>
 SIP1 Register Pswd      :
 SIP1 Register TTL       :3600
 SIP1 Need Reg On        :0

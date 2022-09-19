@@ -20,19 +20,9 @@
 - Netgear FS116P		Switch 8 PoE ports + 8 normal ports
 
 ## Links
-http://192.168.2.11/admin-bin/editcgi.cgi?file=/
-http://192.168.2.11/admin-bin/editcgi.cgi?file=/usr/html/axis-cgi
-
-http://192.168.2.11/axis-cgi/mjpg/video.cgi
-http://192.168.2.11/mjpg/video.mjpg
-rtsp://192.168.2.11:554/axis-media/media.amp
-
 https://github.com/mailrocketsystems/AsteriskVOIP
-https://mir-server.io/docs/make-a-secure-ubuntu-web-kiosk
-https://stackoverflow.com/questions/43743005/is-group-calling-over-sip-possible-with-asterisk
 https://github.com/antonraharja/book-asterisk-101/blob/master/book-contents/en/Chapter_04/Ring-Groups.md
-http://www.asteriskdocs.org/en/3rd_Edition/asterisk-book-html/asterisk-book.html
-
+https://wiki.linphone.org/xwiki/wiki/public/view/Linphone/Linphone%20and%20Raspberry%20Pi/
 
 ## Abbreviations
 SIP (Session Initiation Protocol)

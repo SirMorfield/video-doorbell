@@ -1,4 +1,3 @@
-# FROM ubuntu:20.04
 FROM ubuntu:latest
 
 # Ubuntu spesific timezone shenaningans
@@ -11,6 +10,7 @@ RUN apt-get install -y asterisk
 
 # print asterisk version
 # Or run: `core show version` in the asterisk cli
+# should be 18.10
 RUN asterisk -V
 
 CMD asterisk -vvvv -c

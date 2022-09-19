@@ -1,6 +1,33 @@
 # Digital Doorbell
 
+## Description
+This project is a video doorbell system that shows users who is at the front door and allows them to open it.\
+This system consists of a touchscreen computer that runs headless
+- `Debian` with  a
+- `xinit` window manager, that runs a
+- `C++17` application with a frontend in
+- `ImGui` with a
+- `OpenCV3` backend.\
+When the user selects a name to call the C++ application calls a
+- `docker` container that runs a
+- `asterisk` `SIP` server, and uses asterisk's
+- `originate` command to make the front door camera
+- `AXIS A8105-E` call a the selected client's
+- `IP video phone` model:
+- `Fanvil_I53W`\
+This happens over a local network that is not connected to the outside internet
+The `Touchscreen computer` runs a
+- `DHCP` server that manages all the clients, and assigns a
+- `static IP` to itself.\
+A user can also call a second SIP camera in the hallway powered by a
+- `Raspberry Pi 3` that runs a
+- `linphone` SIP client.\
+The system also supports
+- `calling between users`
+
 ## Components
+Why these components? Because they had already been bought, so I might as well use them.
+
 - FABS-810P/G(H)		Touchscreen computer
 
 - AXIS A8105-E 			Network	Video Door Station
@@ -17,7 +44,7 @@
 	- dtmf
 	- MCAST listening|paging
 
-- Netgear FS116P		Switch 8 PoE ports + 8 normal ports
+- HP 2520-24-PoE 28 port managed network switch
 
 ## Links
 https://github.com/mailrocketsystems/AsteriskVOIP

@@ -1691,8 +1691,8 @@ Fkey1 Value              :7004@1/f
 Fkey1 Title              :front door
 Fkey1 ICON               :Green
 Fkey2 Type               :0
-Fkey2 Value              :
-Fkey2 Title              :
+Fkey2 Value              :7005@1/f
+Fkey2 Title              :hallway
 Fkey2 ICON               :Green
 Fkey3 Type               :0
 Fkey3 Value              :

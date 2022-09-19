@@ -21,7 +21,7 @@ const outDir = 'generated'
 fs.mkdirSync(outDir, { recursive: true })
 const template = fs.readFileSync('./config_i53W.template.txt').toString()
 
-let extensionsConf = '[internal]\n'
+let extensionsConf = fs.readFileSync('extensions.template.conf').toString()
 let sipConf = fs.readFileSync('sip.template.conf').toString()
 
 const unique = uniq = [...new Set(occupantNumbers)].sort()

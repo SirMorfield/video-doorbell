@@ -33,7 +33,6 @@ docker build -t asterisk asterisk || true
 docker run -d --net=host --restart unless-stopped --name asterisk \
 -v $PWD/asterisk/sip.conf:/etc/asterisk/sip.conf \
 -v $PWD/asterisk/extensions.conf:/etc/asterisk/extensions.conf \
--v $PWD/asterisk/voicemail.conf:/etc/asterisk/voicemail.conf \
 asterisk
 
 # TODO restart after crash

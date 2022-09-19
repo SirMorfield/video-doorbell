@@ -133,12 +133,12 @@ Strict UA Match    :1
 CSTA Enable        :0
 Notify Reboot      :1
 --SIP Line List--  :
-SIP1 Phone Number       :<DEVICE_PHONE_NUMBER>
-SIP1 Display Name       :<DEVICE_PHONE_NUMBER>
+SIP1 Phone Number       :<PHONE_NUMBER>
+SIP1 Display Name       :<PHONE_NUMBER>
 SIP1 Sip Name           :
 SIP1 Register Addr      :192.168.2.1
 SIP1 Register Port      :5060
-SIP1 Register User      :<DEVICE_PHONE_NUMBER>
+SIP1 Register User      :<PHONE_NUMBER>
 SIP1 Register Pswd      :
 SIP1 Register TTL       :3600
 SIP1 Need Reg On        :0
@@ -1245,7 +1245,7 @@ Pickup Visual Alert:0
 Pickup Audio Alert :0
 Pickup Ring Type   :
 --Display Input--  :
-LCD Title          :Indoor Station
+LCD Title          :Indoor Station <PHONE_NUMBER>
 LCD Constrast      :5
 Enable Energysaving:4
 LCD Luminance Level:12

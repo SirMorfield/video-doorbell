@@ -19,6 +19,7 @@ PPPoE User         :user123
 PPPoE Password     :
 ARP Cache Life     :2
 MTU                :1500
+DHCP Hostname      :i53W-<PHONE_NUMBER>
 WAN6 IP             :
 WAN6 IP PREFIX      :
 WAN6 Gateway        :
@@ -30,6 +31,7 @@ DHCP6 Auto DNS      :1
 DHCP6 Auto Time     :0
 Use Vendor6 Class ID:0
 Vendor6 Class ID    :
+DHCP6 Hostname      :
 --WIFI Config--    :
 WIFI Enable        :0
 WIFI Log Enable    :0
@@ -45,6 +47,7 @@ DHCP Auto DNS      :1
 DHCP Option 100-101:1
 Use Vendor Class ID:0
 Vendor Class ID    :Fanvil i53W
+DHCP Hostname      :i53W-<PHONE_NUMBER>
 Enable PPPoE       :0
 PPPoE User         :user123
 PPPoE Password     :
@@ -58,6 +61,7 @@ Enable DHCP6        :1
 DHCP6 Auto DNS      :1
 Use Vendor6 Class ID:0
 Vendor6 Class ID    :
+DHCP6 Hostname      :
 --Net Global--     :
 Net Priority       :012
 
@@ -76,6 +80,8 @@ Opus Payload Type  :107
 Opus Sample  Rate  :0
 VAD                :0
 H264 Payload Type  :117
+H264 Packet Mode   :0
+H264 Profile       :0
 Resv Audio Band    :0
 H265 Payload Type  :98
 Mpa-robust Payload Type:121
@@ -89,11 +95,12 @@ RTCP CNAME Host    :
 Select Your Tone   :11
 Sidetone GAIN      :1
 Play Egress DTMF   :0
+Audio Profile      :
 Dial Tone          :350+440/0
 Ringback Tone      :440+480/2000,0/4000
 Busy Tone          :480+620/500,0/500
 Congestion Tone    :
-Call waiting Tone  :440/300,0/10000,440/300,0/10000,0/0
+Call waiting Tone  :425/100,0/100,425/100,0/9700,425/100,0/100,425/100,0/30000
 Holding Tone       :
 Error Tone         :
 Stutter Tone       :
@@ -124,7 +131,6 @@ STUN Refresh Time  :50
 SIP Wait Stun Time :800
 Extern NAT Addrs   :
 Reg Fail Interval  :32
-SIP Pswd Encryption:2
 Strict BranchPrefix:0
 Video Mute Attr    :0
 Enable Group Backup:0
@@ -132,11 +138,14 @@ Enable RFC4475     :1
 Strict UA Match    :1
 CSTA Enable        :0
 Notify Reboot      :1
+SMS direct Enabled :0
+SMS Save Enabled   :1
+SMS Ring Enabled   :1
 --SIP Line List--  :
 SIP1 Phone Number       :<PHONE_NUMBER>
 SIP1 Display Name       :<PHONE_NUMBER>
 SIP1 Sip Name           :
-SIP1 Register Addr      :192.168.2.1
+SIP1 Register Addr      :192.168.2.18
 SIP1 Register Port      :5060
 SIP1 Register User      :<PHONE_NUMBER>
 SIP1 Register Pswd      :
@@ -148,6 +157,7 @@ SIP1 Backup Transport   :0
 SIP1 Backup TTL         :3600
 SIP1 Backup Need Reg On :0
 SIP1 Enable Reg         :1
+SIP1 Backup Mode        :0
 SIP1 Proxy Addr         :
 SIP1 Proxy Port         :5060
 SIP1 Proxy User         :
@@ -161,6 +171,7 @@ SIP1 Failback Interval  :1800
 SIP1 Signal Failback    :0
 SIP1 Signal Retry Counts:3
 SIP1 SigCrypto Key      :
+SIP1 Enable OSRTP       :0
 SIP1 Media Crypto       :0
 SIP1 MedCrypto Key      :
 SIP1 SRTP Auth-Tag      :0
@@ -221,6 +232,7 @@ SIP1 Click to Talk      :0
 SIP1 MWI Num            :
 SIP1 CallPark Num       :
 SIP1 Retrieve Num       :
+SIP1 Retrieve Type      :0
 SIP1 MSRPHelp Num       :
 SIP1 User Is Phone      :0
 SIP1 Auto Answer        :0
@@ -290,6 +302,7 @@ SIP1 Unavailable Mode   :0
 SIP1 TCP Use Retry Timer:0
 SIP1 Call-ID Format     :$id@$ip
 SIP1 GB28181 Mode       :0
+SIP1 Proxy Require      :
 SIP2 Phone Number       :
 SIP2 Display Name       :
 SIP2 Sip Name           :
@@ -305,6 +318,7 @@ SIP2 Backup Transport   :0
 SIP2 Backup TTL         :3600
 SIP2 Backup Need Reg On :0
 SIP2 Enable Reg         :0
+SIP2 Backup Mode        :0
 SIP2 Proxy Addr         :
 SIP2 Proxy Port         :5060
 SIP2 Proxy User         :
@@ -318,6 +332,7 @@ SIP2 Failback Interval  :1800
 SIP2 Signal Failback    :0
 SIP2 Signal Retry Counts:3
 SIP2 SigCrypto Key      :
+SIP2 Enable OSRTP       :0
 SIP2 Media Crypto       :0
 SIP2 MedCrypto Key      :
 SIP2 SRTP Auth-Tag      :0
@@ -378,6 +393,7 @@ SIP2 Click to Talk      :0
 SIP2 MWI Num            :
 SIP2 CallPark Num       :
 SIP2 Retrieve Num       :
+SIP2 Retrieve Type      :0
 SIP2 MSRPHelp Num       :
 SIP2 User Is Phone      :0
 SIP2 Auto Answer        :0
@@ -447,6 +463,7 @@ SIP2 Unavailable Mode   :0
 SIP2 TCP Use Retry Timer:0
 SIP2 Call-ID Format     :$id@$ip
 SIP2 GB28181 Mode       :0
+SIP2 Proxy Require      :
 SIP3 Phone Number       :
 SIP3 Display Name       :
 SIP3 Sip Name           :
@@ -462,6 +479,7 @@ SIP3 Backup Transport   :0
 SIP3 Backup TTL         :3600
 SIP3 Backup Need Reg On :0
 SIP3 Enable Reg         :0
+SIP3 Backup Mode        :0
 SIP3 Proxy Addr         :
 SIP3 Proxy Port         :5060
 SIP3 Proxy User         :
@@ -475,6 +493,7 @@ SIP3 Failback Interval  :1800
 SIP3 Signal Failback    :0
 SIP3 Signal Retry Counts:3
 SIP3 SigCrypto Key      :
+SIP3 Enable OSRTP       :0
 SIP3 Media Crypto       :0
 SIP3 MedCrypto Key      :
 SIP3 SRTP Auth-Tag      :0
@@ -535,6 +554,7 @@ SIP3 Click to Talk      :0
 SIP3 MWI Num            :
 SIP3 CallPark Num       :
 SIP3 Retrieve Num       :
+SIP3 Retrieve Type      :0
 SIP3 MSRPHelp Num       :
 SIP3 User Is Phone      :0
 SIP3 Auto Answer        :0
@@ -604,6 +624,7 @@ SIP3 Unavailable Mode   :0
 SIP3 TCP Use Retry Timer:0
 SIP3 Call-ID Format     :$id@$ip
 SIP3 GB28181 Mode       :0
+SIP3 Proxy Require      :
 SIP4 Phone Number       :
 SIP4 Display Name       :
 SIP4 Sip Name           :
@@ -619,6 +640,7 @@ SIP4 Backup Transport   :0
 SIP4 Backup TTL         :3600
 SIP4 Backup Need Reg On :0
 SIP4 Enable Reg         :0
+SIP4 Backup Mode        :0
 SIP4 Proxy Addr         :
 SIP4 Proxy Port         :5060
 SIP4 Proxy User         :
@@ -632,6 +654,7 @@ SIP4 Failback Interval  :1800
 SIP4 Signal Failback    :0
 SIP4 Signal Retry Counts:3
 SIP4 SigCrypto Key      :
+SIP4 Enable OSRTP       :0
 SIP4 Media Crypto       :0
 SIP4 MedCrypto Key      :
 SIP4 SRTP Auth-Tag      :0
@@ -692,6 +715,7 @@ SIP4 Click to Talk      :0
 SIP4 MWI Num            :
 SIP4 CallPark Num       :
 SIP4 Retrieve Num       :
+SIP4 Retrieve Type      :0
 SIP4 MSRPHelp Num       :
 SIP4 User Is Phone      :0
 SIP4 Auto Answer        :0
@@ -761,6 +785,7 @@ SIP4 Unavailable Mode   :0
 SIP4 TCP Use Retry Timer:0
 SIP4 Call-ID Format     :$id@$ip
 SIP4 GB28181 Mode       :0
+SIP4 Proxy Require      :
 SIP5 Phone Number       :
 SIP5 Display Name       :
 SIP5 Sip Name           :
@@ -776,6 +801,7 @@ SIP5 Backup Transport   :0
 SIP5 Backup TTL         :3600
 SIP5 Backup Need Reg On :0
 SIP5 Enable Reg         :0
+SIP5 Backup Mode        :0
 SIP5 Proxy Addr         :
 SIP5 Proxy Port         :5060
 SIP5 Proxy User         :
@@ -789,6 +815,7 @@ SIP5 Failback Interval  :1800
 SIP5 Signal Failback    :0
 SIP5 Signal Retry Counts:3
 SIP5 SigCrypto Key      :
+SIP5 Enable OSRTP       :0
 SIP5 Media Crypto       :0
 SIP5 MedCrypto Key      :
 SIP5 SRTP Auth-Tag      :0
@@ -849,6 +876,7 @@ SIP5 Click to Talk      :0
 SIP5 MWI Num            :
 SIP5 CallPark Num       :
 SIP5 Retrieve Num       :
+SIP5 Retrieve Type      :0
 SIP5 MSRPHelp Num       :
 SIP5 User Is Phone      :0
 SIP5 Auto Answer        :0
@@ -918,6 +946,7 @@ SIP5 Unavailable Mode   :0
 SIP5 TCP Use Retry Timer:0
 SIP5 Call-ID Format     :$id@$ip
 SIP5 GB28181 Mode       :0
+SIP5 Proxy Require      :
 SIP6 Phone Number       :
 SIP6 Display Name       :
 SIP6 Sip Name           :
@@ -933,6 +962,7 @@ SIP6 Backup Transport   :0
 SIP6 Backup TTL         :3600
 SIP6 Backup Need Reg On :0
 SIP6 Enable Reg         :0
+SIP6 Backup Mode        :0
 SIP6 Proxy Addr         :
 SIP6 Proxy Port         :5060
 SIP6 Proxy User         :
@@ -946,6 +976,7 @@ SIP6 Failback Interval  :1800
 SIP6 Signal Failback    :0
 SIP6 Signal Retry Counts:3
 SIP6 SigCrypto Key      :
+SIP6 Enable OSRTP       :0
 SIP6 Media Crypto       :0
 SIP6 MedCrypto Key      :
 SIP6 SRTP Auth-Tag      :0
@@ -1006,6 +1037,7 @@ SIP6 Click to Talk      :0
 SIP6 MWI Num            :
 SIP6 CallPark Num       :
 SIP6 Retrieve Num       :
+SIP6 Retrieve Type      :0
 SIP6 MSRPHelp Num       :
 SIP6 User Is Phone      :0
 SIP6 Auto Answer        :0
@@ -1075,6 +1107,7 @@ SIP6 Unavailable Mode   :0
 SIP6 TCP Use Retry Timer:0
 SIP6 Call-ID Format     :$id@$ip
 SIP6 GB28181 Mode       :0
+SIP6 Proxy Require      :
 --SIP P2P Config-- :
 SIP P2P Enable Auto Answer:1
 SIP P2P Auto Answer Delay :30
@@ -1098,6 +1131,7 @@ P1 DND Mode           :0
 P1 Enable Space DND   :0
 P1 DND Start Time     :1500
 P1 DND End Time       :1730
+P1 DND Accept Mcast   :0
 P1 Enable White List  :1
 P1 Enable Black List  :1
 P1 Enable CallBar     :1
@@ -1230,7 +1264,7 @@ Push XML IP        :
 SIP Number Plan    :0
 LDAP Search        :0
 Search Path        :0
-Caller Display T   :5
+Caller Display Type:5
 CallLog DisplayType:0
 Enable Recv SMS    :1
 Enable Call History:1
@@ -1244,6 +1278,9 @@ Enable Push XML Auth:0
 Pickup Visual Alert:0
 Pickup Audio Alert :0
 Pickup Ring Type   :
+Pbook Display Attr :
+Display Business Card Timeout :0
+Display Call Duration:1
 --Display Input--  :
 LCD Title          :Indoor Station <PHONE_NUMBER>
 LCD Constrast      :5
@@ -1263,7 +1300,34 @@ Ring               :2
 Hold               :0
 Mute               :0
 Missed Call        :3
-Powser Saving      :1
+Power Saving       :1
+Idle Mute          :3
+Register Failed    :3
+DND                :0
+Power Color             :1
+MWI Or SMS Color        :1
+In Using Color          :1
+Ring Color              :1
+Hold Color              :1
+Mute Color              :1
+Missed Call Color       :1
+Idle Mute Color         :1
+Register Failed Color   :1
+Power Saving Color      :1
+DND Color               :1
+Event Notification LED  :0
+Standby Lamp Effect      :1
+Lamp Effect Play Time    :1
+Custom Lamp Effect Time  :1200
+Standby Lamp Effect Type :0
+Offhook Lamp Effect      :1
+Offhook Lamp Effect Color:0
+Ringing Lamp Effect      :0
+Ringing Lamp Effect Type :0
+Talking Lamp Effect      :0
+Talking Lamp Effect Type :0
+Calling Lamp Effect      :0
+Calling Lamp Effect Type :0
 --Line LED--       :
 Line Idle Color    :0
 Line Idle Ctl      :1
@@ -1410,6 +1474,7 @@ LDAP1 Displayname        :cn
 LDAP1 Number Filter      :(|(telephoneNumber=%)(mobile=%)(other=%))
 LDAP1 Name Filter        :(|(cn=%)(sn=%))
 LDAP1 Max Hits           :50
+LDAP1 Display Type       :0
 LDAP2 Title              :
 LDAP2 Server             :
 LDAP2 port               :389
@@ -1432,6 +1497,7 @@ LDAP2 Displayname        :cn
 LDAP2 Number Filter      :(|(telephoneNumber=%)(mobile=%)(other=%))
 LDAP2 Name Filter        :(|(cn=%)(sn=%))
 LDAP2 Max Hits           :50
+LDAP2 Display Type       :0
 LDAP3 Title              :
 LDAP3 Server             :
 LDAP3 port               :389
@@ -1454,6 +1520,7 @@ LDAP3 Displayname        :cn
 LDAP3 Number Filter      :(|(telephoneNumber=%)(mobile=%)(other=%))
 LDAP3 Name Filter        :(|(cn=%)(sn=%))
 LDAP3 Max Hits           :50
+LDAP3 Display Type       :0
 LDAP4 Title              :
 LDAP4 Server             :
 LDAP4 port               :389
@@ -1476,6 +1543,7 @@ LDAP4 Displayname        :cn
 LDAP4 Number Filter      :(|(telephoneNumber=%)(mobile=%)(other=%))
 LDAP4 Name Filter        :(|(cn=%)(sn=%))
 LDAP4 Max Hits           :50
+LDAP4 Display Type       :0
 LDAP5 Title              :
 LDAP5 Server             :
 LDAP5 port               :389
@@ -1498,6 +1566,7 @@ LDAP5 Displayname        :cn
 LDAP5 Number Filter      :(|(telephoneNumber=%)(mobile=%)(other=%))
 LDAP5 Name Filter        :(|(cn=%)(sn=%))
 LDAP5 Max Hits           :50
+LDAP5 Display Type       :0
 --Xml PhoneBook--  :
 XML-PBook1 Name               :
 XML-PBook1 Addr               :
@@ -1505,30 +1574,35 @@ XML-PBook1 UserName           :
 XML-PBook1 PassWd             :
 XML-PBook1 Sipline            :-1
 XML-PBook1 BindLine           :-1
+XML-PBook1 Phonebook Type     :0
 XML-PBook2 Name               :
 XML-PBook2 Addr               :
 XML-PBook2 UserName           :
 XML-PBook2 PassWd             :
 XML-PBook2 Sipline            :-1
 XML-PBook2 BindLine           :-1
+XML-PBook2 Phonebook Type     :0
 XML-PBook3 Name               :
 XML-PBook3 Addr               :
 XML-PBook3 UserName           :
 XML-PBook3 PassWd             :
 XML-PBook3 Sipline            :-1
 XML-PBook3 BindLine           :-1
+XML-PBook3 Phonebook Type     :0
 XML-PBook4 Name               :
 XML-PBook4 Addr               :
 XML-PBook4 UserName           :
 XML-PBook4 PassWd             :
 XML-PBook4 Sipline            :-1
 XML-PBook4 BindLine           :-1
+XML-PBook4 Phonebook Type     :0
 XML-PBook5 Name               :
 XML-PBook5 Addr               :
 XML-PBook5 UserName           :
 XML-PBook5 PassWd             :
 XML-PBook5 Sipline            :-1
 XML-PBook5 BindLine           :-1
+XML-PBook5 Phonebook Type     :0
 
 <DEVICE MANAGER MODULE>
 Onhook Time        :120
@@ -1598,6 +1672,10 @@ At Server          :
 --CTI IM CONFIG--  :
 Input1 Url         :
 Input2 Url         :
+Input3 Url         :
+Input1 RstUrl         :
+Input2 RstUrl         :
+Input3 RstUrl         :
 Output1 Url        :
 Output2 Url        :
 Output1 RstUrl     :
@@ -1610,9 +1688,12 @@ ATE Id            :0000000000000000
 <MCAST CFG MODULE>
 Priority           :0
 Enable Priority    :0
+Intercom Priority  :0
 Enable Prio Chan   :0
 Enable Emer Chan   :0
 Multicast Tone     :1
+Mcast Listening Renew Time:0
+Mcast Send DTMF Mode:0
 --Mcast Addr--     :
 MCAST1 Name               :
 MCAST1 Host               :
@@ -1691,8 +1772,8 @@ Fkey1 Value              :7004@1/f
 Fkey1 Title              :front door
 Fkey1 ICON               :Green
 Fkey2 Type               :0
-Fkey2 Value              :7005@1/f
-Fkey2 Title              :hallway
+Fkey2 Value              :
+Fkey2 Title              :
 Fkey2 ICON               :Green
 Fkey3 Type               :0
 Fkey3 Value              :
@@ -1702,9 +1783,9 @@ Fkey4 Type               :0
 Fkey4 Value              :
 Fkey4 Title              :
 Fkey4 ICON               :Green
-Fkey5 Type               :0
-Fkey5 Value              :
-Fkey5 Title              :
+Fkey5 Type               :1
+Fkey5 Value              :7005@1/f
+Fkey5 Title              :hallway
 Fkey5 ICON               :Green
 Fkey6 Type               :0
 Fkey6 Value              :
@@ -1772,6 +1853,411 @@ Fkey10 Type               :0
 Fkey10 Value              :
 Fkey10 Title              :
 Fkey10 ICON               :Green
+--Extern Console1--:
+exKey1 Type               :0
+exKey1 Value              :
+exKey1 Title              :
+exKey1 ICON               :Green
+exKey2 Type               :0
+exKey2 Value              :
+exKey2 Title              :
+exKey2 ICON               :Green
+exKey3 Type               :0
+exKey3 Value              :
+exKey3 Title              :
+exKey3 ICON               :Green
+exKey4 Type               :0
+exKey4 Value              :
+exKey4 Title              :
+exKey4 ICON               :Green
+exKey5 Type               :0
+exKey5 Value              :
+exKey5 Title              :
+exKey5 ICON               :Green
+exKey6 Type               :0
+exKey6 Value              :
+exKey6 Title              :
+exKey6 ICON               :Green
+exKey7 Type               :0
+exKey7 Value              :
+exKey7 Title              :
+exKey7 ICON               :Green
+exKey8 Type               :0
+exKey8 Value              :
+exKey8 Title              :
+exKey8 ICON               :Green
+exKey9 Type               :0
+exKey9 Value              :
+exKey9 Title              :
+exKey9 ICON               :Green
+exKey10 Type               :0
+exKey10 Value              :
+exKey10 Title              :
+exKey10 ICON               :Green
+exKey11 Type               :0
+exKey11 Value              :
+exKey11 Title              :
+exKey11 ICON               :Green
+exKey12 Type               :0
+exKey12 Value              :
+exKey12 Title              :
+exKey12 ICON               :Green
+exKey13 Type               :0
+exKey13 Value              :
+exKey13 Title              :
+exKey13 ICON               :Green
+exKey14 Type               :0
+exKey14 Value              :
+exKey14 Title              :
+exKey14 ICON               :Green
+exKey15 Type               :0
+exKey15 Value              :
+exKey15 Title              :
+exKey15 ICON               :Green
+exKey16 Type               :0
+exKey16 Value              :
+exKey16 Title              :
+exKey16 ICON               :Green
+exKey17 Type               :0
+exKey17 Value              :
+exKey17 Title              :
+exKey17 ICON               :Green
+exKey18 Type               :0
+exKey18 Value              :
+exKey18 Title              :
+exKey18 ICON               :Green
+exKey19 Type               :0
+exKey19 Value              :
+exKey19 Title              :
+exKey19 ICON               :Green
+exKey20 Type               :0
+exKey20 Value              :
+exKey20 Title              :
+exKey20 ICON               :Green
+--Extern Console2--:
+exKey1 Type               :0
+exKey1 Value              :
+exKey1 Title              :
+exKey1 ICON               :Green
+exKey2 Type               :0
+exKey2 Value              :
+exKey2 Title              :
+exKey2 ICON               :Green
+exKey3 Type               :0
+exKey3 Value              :
+exKey3 Title              :
+exKey3 ICON               :Green
+exKey4 Type               :0
+exKey4 Value              :
+exKey4 Title              :
+exKey4 ICON               :Green
+exKey5 Type               :0
+exKey5 Value              :
+exKey5 Title              :
+exKey5 ICON               :Green
+exKey6 Type               :0
+exKey6 Value              :
+exKey6 Title              :
+exKey6 ICON               :Green
+exKey7 Type               :0
+exKey7 Value              :
+exKey7 Title              :
+exKey7 ICON               :Green
+exKey8 Type               :0
+exKey8 Value              :
+exKey8 Title              :
+exKey8 ICON               :Green
+exKey9 Type               :0
+exKey9 Value              :
+exKey9 Title              :
+exKey9 ICON               :Green
+exKey10 Type               :0
+exKey10 Value              :
+exKey10 Title              :
+exKey10 ICON               :Green
+exKey11 Type               :0
+exKey11 Value              :
+exKey11 Title              :
+exKey11 ICON               :Green
+exKey12 Type               :0
+exKey12 Value              :
+exKey12 Title              :
+exKey12 ICON               :Green
+exKey13 Type               :0
+exKey13 Value              :
+exKey13 Title              :
+exKey13 ICON               :Green
+exKey14 Type               :0
+exKey14 Value              :
+exKey14 Title              :
+exKey14 ICON               :Green
+exKey15 Type               :0
+exKey15 Value              :
+exKey15 Title              :
+exKey15 ICON               :Green
+exKey16 Type               :0
+exKey16 Value              :
+exKey16 Title              :
+exKey16 ICON               :Green
+exKey17 Type               :0
+exKey17 Value              :
+exKey17 Title              :
+exKey17 ICON               :Green
+exKey18 Type               :0
+exKey18 Value              :
+exKey18 Title              :
+exKey18 ICON               :Green
+exKey19 Type               :0
+exKey19 Value              :
+exKey19 Title              :
+exKey19 ICON               :Green
+exKey20 Type               :0
+exKey20 Value              :
+exKey20 Title              :
+exKey20 ICON               :Green
+--Extern Console3--:
+exKey1 Type               :0
+exKey1 Value              :
+exKey1 Title              :
+exKey1 ICON               :Green
+exKey2 Type               :0
+exKey2 Value              :
+exKey2 Title              :
+exKey2 ICON               :Green
+exKey3 Type               :0
+exKey3 Value              :
+exKey3 Title              :
+exKey3 ICON               :Green
+exKey4 Type               :0
+exKey4 Value              :
+exKey4 Title              :
+exKey4 ICON               :Green
+exKey5 Type               :0
+exKey5 Value              :
+exKey5 Title              :
+exKey5 ICON               :Green
+exKey6 Type               :0
+exKey6 Value              :
+exKey6 Title              :
+exKey6 ICON               :Green
+exKey7 Type               :0
+exKey7 Value              :
+exKey7 Title              :
+exKey7 ICON               :Green
+exKey8 Type               :0
+exKey8 Value              :
+exKey8 Title              :
+exKey8 ICON               :Green
+exKey9 Type               :0
+exKey9 Value              :
+exKey9 Title              :
+exKey9 ICON               :Green
+exKey10 Type               :0
+exKey10 Value              :
+exKey10 Title              :
+exKey10 ICON               :Green
+exKey11 Type               :0
+exKey11 Value              :
+exKey11 Title              :
+exKey11 ICON               :Green
+exKey12 Type               :0
+exKey12 Value              :
+exKey12 Title              :
+exKey12 ICON               :Green
+exKey13 Type               :0
+exKey13 Value              :
+exKey13 Title              :
+exKey13 ICON               :Green
+exKey14 Type               :0
+exKey14 Value              :
+exKey14 Title              :
+exKey14 ICON               :Green
+exKey15 Type               :0
+exKey15 Value              :
+exKey15 Title              :
+exKey15 ICON               :Green
+exKey16 Type               :0
+exKey16 Value              :
+exKey16 Title              :
+exKey16 ICON               :Green
+exKey17 Type               :0
+exKey17 Value              :
+exKey17 Title              :
+exKey17 ICON               :Green
+exKey18 Type               :0
+exKey18 Value              :
+exKey18 Title              :
+exKey18 ICON               :Green
+exKey19 Type               :0
+exKey19 Value              :
+exKey19 Title              :
+exKey19 ICON               :Green
+exKey20 Type               :0
+exKey20 Value              :
+exKey20 Title              :
+exKey20 ICON               :Green
+--Extern Console4--:
+exKey1 Type               :0
+exKey1 Value              :
+exKey1 Title              :
+exKey1 ICON               :Green
+exKey2 Type               :0
+exKey2 Value              :
+exKey2 Title              :
+exKey2 ICON               :Green
+exKey3 Type               :0
+exKey3 Value              :
+exKey3 Title              :
+exKey3 ICON               :Green
+exKey4 Type               :0
+exKey4 Value              :
+exKey4 Title              :
+exKey4 ICON               :Green
+exKey5 Type               :0
+exKey5 Value              :
+exKey5 Title              :
+exKey5 ICON               :Green
+exKey6 Type               :0
+exKey6 Value              :
+exKey6 Title              :
+exKey6 ICON               :Green
+exKey7 Type               :0
+exKey7 Value              :
+exKey7 Title              :
+exKey7 ICON               :Green
+exKey8 Type               :0
+exKey8 Value              :
+exKey8 Title              :
+exKey8 ICON               :Green
+exKey9 Type               :0
+exKey9 Value              :
+exKey9 Title              :
+exKey9 ICON               :Green
+exKey10 Type               :0
+exKey10 Value              :
+exKey10 Title              :
+exKey10 ICON               :Green
+exKey11 Type               :0
+exKey11 Value              :
+exKey11 Title              :
+exKey11 ICON               :Green
+exKey12 Type               :0
+exKey12 Value              :
+exKey12 Title              :
+exKey12 ICON               :Green
+exKey13 Type               :0
+exKey13 Value              :
+exKey13 Title              :
+exKey13 ICON               :Green
+exKey14 Type               :0
+exKey14 Value              :
+exKey14 Title              :
+exKey14 ICON               :Green
+exKey15 Type               :0
+exKey15 Value              :
+exKey15 Title              :
+exKey15 ICON               :Green
+exKey16 Type               :0
+exKey16 Value              :
+exKey16 Title              :
+exKey16 ICON               :Green
+exKey17 Type               :0
+exKey17 Value              :
+exKey17 Title              :
+exKey17 ICON               :Green
+exKey18 Type               :0
+exKey18 Value              :
+exKey18 Title              :
+exKey18 ICON               :Green
+exKey19 Type               :0
+exKey19 Value              :
+exKey19 Title              :
+exKey19 ICON               :Green
+exKey20 Type               :0
+exKey20 Value              :
+exKey20 Title              :
+exKey20 ICON               :Green
+--Extern Console5--:
+exKey1 Type               :0
+exKey1 Value              :
+exKey1 Title              :
+exKey1 ICON               :Green
+exKey2 Type               :0
+exKey2 Value              :
+exKey2 Title              :
+exKey2 ICON               :Green
+exKey3 Type               :0
+exKey3 Value              :
+exKey3 Title              :
+exKey3 ICON               :Green
+exKey4 Type               :0
+exKey4 Value              :
+exKey4 Title              :
+exKey4 ICON               :Green
+exKey5 Type               :0
+exKey5 Value              :
+exKey5 Title              :
+exKey5 ICON               :Green
+exKey6 Type               :0
+exKey6 Value              :
+exKey6 Title              :
+exKey6 ICON               :Green
+exKey7 Type               :0
+exKey7 Value              :
+exKey7 Title              :
+exKey7 ICON               :Green
+exKey8 Type               :0
+exKey8 Value              :
+exKey8 Title              :
+exKey8 ICON               :Green
+exKey9 Type               :0
+exKey9 Value              :
+exKey9 Title              :
+exKey9 ICON               :Green
+exKey10 Type               :0
+exKey10 Value              :
+exKey10 Title              :
+exKey10 ICON               :Green
+exKey11 Type               :0
+exKey11 Value              :
+exKey11 Title              :
+exKey11 ICON               :Green
+exKey12 Type               :0
+exKey12 Value              :
+exKey12 Title              :
+exKey12 ICON               :Green
+exKey13 Type               :0
+exKey13 Value              :
+exKey13 Title              :
+exKey13 ICON               :Green
+exKey14 Type               :0
+exKey14 Value              :
+exKey14 Title              :
+exKey14 ICON               :Green
+exKey15 Type               :0
+exKey15 Value              :
+exKey15 Title              :
+exKey15 ICON               :Green
+exKey16 Type               :0
+exKey16 Value              :
+exKey16 Title              :
+exKey16 ICON               :Green
+exKey17 Type               :0
+exKey17 Value              :
+exKey17 Title              :
+exKey17 ICON               :Green
+exKey18 Type               :0
+exKey18 Value              :
+exKey18 Title              :
+exKey18 ICON               :Green
+exKey19 Type               :0
+exKey19 Value              :
+exKey19 Title              :
+exKey19 ICON               :Green
+exKey20 Type               :0
+exKey20 Value              :
+exKey20 Title              :
+exKey20 ICON               :Green
 
 <MMI CONFIG MODULE>
 Web Server Type    :0
@@ -1780,7 +2266,6 @@ Https Web Port     :443
 Remote Control     :1
 Enable MMI Filter  :0
 Web Authentication :0
-Enable Telnet      :0
 Telnet Port        :23
 Telnet Prompt      :
 Logon Timeout      :15
@@ -1810,9 +2295,6 @@ Enable TR069       :0
 ACS URL            :0.0.0.0
 ACS UserName       :admin
 ACS Password       :
-ACS Backup URL     :0.0.0.0
-ACS BackupUserName :
-ACS BackupPassword :
 CPE UserName       :dps
 CPE Password       :
 Periodix Interval  :3600
@@ -1822,10 +2304,13 @@ STUN Enable        :0
 STUN Server Addr   :
 STUN Server Port   :3478
 STUN Local Port    :30000
+STUN Max Period    :30
+STUN Min Period    :30
 
 <SIP Hotspot MODULE>
 Enable Hotspot     :1
 Mode               :1
+Version            :1
 Listen Type        :0
 Listen IP          :224.0.2.0
 Listen Port        :16360
@@ -1853,6 +2338,10 @@ VPN mode           :-1
 Enable VPN         :0
 Enable Nat         :0
 Openvpn mode       :0
+VPN Connect Timeout:60
+Openvpn Enable User Auth:0
+Openvpn User Name  :
+Openvpn Password   :
 L2TP Server Address:0.0.0.0
 L2TP User Name     :
 L2TP Password      :
@@ -1860,6 +2349,9 @@ L2TP Negotiate DNS :1
 PPTP Server Address:0.0.0.0
 PPTP User Name     :
 PPTP Password      :
+SSTP Server Address:0.0.0.0
+SSTP User Name     :
+SSTP Password      :
 
 <MAINTENANCE CONFIG MODULE>
 Contact Update Mode:0
@@ -1880,6 +2372,7 @@ Flash Protocol     :2
 Flash Mode         :0
 Flash Interval     :1
 update PB Interval :720
+AP Config Priority :0
 --Sip Pnp List--   :
 PNP Enable         :1
 PNP IP             :224.0.1.75
@@ -1891,6 +2384,8 @@ DHCP Option        :66
 DHCPv6 Option      :0
 Dhcp Option 120    :0
 Save DHCP Opion    :0
+Dhcp Renew Upgrade :1
+DHCP Option ACS    :0
 
 <FIRMWARE CHECK MODULE>
 Enable Auto Upgrade:0
@@ -1918,6 +2413,7 @@ LLDP Save Learn Data:0
 CDP Enable         :1
 CDP Refresh Time   :60
 DHCP Option Vlan   :132
+DHCP Vlan Data Type:0
 
 <DOT1X CONFIG MODULE>
 Xsup Mode          :0
@@ -1928,6 +2424,9 @@ Permission CTF     :0
 Common Name        :0
 CTF mode           :0
 Device Cert Mode   :0
+
+<RTSP CONFIG MODULE>
+Rtsp Client Work Mode:0
 
 <APP CONFIG MODULE>
 Watch Dog Enabled  :1
@@ -1945,8 +2444,18 @@ SPK Type          :0
 Audio Type        :0
 Line In           :1
 Skip Boottone     :1
+Vlan Speed        :100
+Support Temper    :0
 
 <SECURITY CONFIG MODULE>
+Enable Logs        :0
+Logs Server Type   :0
+Logs Server Addr   :
+Logs Format        :
+Enable VMD Alarm   :0
+VMD Duration       :3
+VMD Trigger Action :
+VMD Trigger Ring   :NONE
 Ringtone Duration  :5
 Alarm Server Addr  :
 DTMF Trigger Ring  :NONE
@@ -2012,10 +2521,59 @@ Input8 Trigger Ringtone  :default
 Input8 Name              :
 Input8 Reset Code         :1234
 
+<VSOT FEATURE MODULE>
+Save Power         :0
+-- Led List--      :
+Led1 Net Error Ctl      :3
+Led1 Net Error Color    :1
+Led1 Reg Failed Ctl     :3
+Led1 Reg Failed Color   :1
+Led1 Idle Ctl           :1
+Led1 Idle Color         :1
+Led1 Ring Ctl           :2
+Led1 Ring Color         :1
+Led1 Call Ctl           :2
+Led1 Call Color         :1
+Led1 Hold Ctl           :2
+Led1 Hold Color         :1
+Led1 Call Mute Ctl      :0
+Led1 Call Mute Color    :1
+Led1 Missed Call Ctl    :0
+Led1 Missed Call Color  :1
+Led1 New Message Ctl    :0
+Led1 New Message Color  :1
+Led1 Def Ctl            :1
+Led1 Def Color          :0
+Led1 Rst Ctl            :0
+Led1 Rst Color          :0
+Led1 Boot Ctl           :3
+Led1 Boot Color         :1
+
+<UI CONFIG MODULE>
+Identify Successful Title :$name
+Identify Successful Status:Successful
+Identify Successful Prompt:Welcome
+Identify Failure  Titles  :Stranger
+Identify Failure Status   :Failed
+Identify Failure Prompt   :Please contact the administrator
+Open Successful Status    :Successful
+Open Failure Status       :Failed
+Unset Time Failure Prompt :Failed
+Anomaly Temper Prompt     :Temperature Abnormal
+Timeout To Screensaver    :30
+Default Display :0
+Fill Light Count:16
+Fill Light Time :60
+Max Similarity  :0.375
+Infrared Light Mode  :0
+Face To Screen  :Please look straight at the camera
+
 <UI DEFINED CONFIG MODULE>
 Bluetooth Enabled:0
 Bluetooth Adapter Name:Fanvil i53W
 Bluetooth Ring Mode:1
+Display Language:en;cn;tc;ru;it;fr;de;he;es;cat;eus;gal;tr;hr;slo;cz;nl;ko;ua;pt;pl;
+Current material version:0x00000000
 
 <UI MAINTAIN CONFIG MODULE>
 Timeout To Screensaver :120
@@ -2030,6 +2588,7 @@ Other Popup            :1
 Enable Port Mirror     :0
 Auto Close Led         :0
 Display Provision prompt :0
+Desktop Time Display   :1
 
 <FDMS CONFIG MODULE>
 Community Name     :

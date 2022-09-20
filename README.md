@@ -25,9 +25,17 @@ A user can also call a second SIP camera in the hallway powered by a
 The system also supports
 - `calling between users`
 
-## Components
-Why these components? Because they had already been bought, so I might as well use them.
+## Changing apartment occupant(s) (names)
+1. Connect a computer to the `PoE switch`
+2. ssh into the `Touchscreen computer`: `ssh root@192.168.2.18`, password is `root`
+3. edit the occupants config file: `nano /root/video-doorbell/app/occupants.csv`
+4. run `/root/video-doorbell/production.sh` to load the config file, watch the output, it will tell you if you've not formatted the file correctly
+	- This script will also restart the `SIP` server, so give it at least 2 minutes for all the clients to reconnect.
+5. validate that the app has started correctly by making a test call
 
+## Components
+Why these components? Because they had already been bought, so I might as well use them.\
+This project uses names like `Indoor Station` throughout, this is a list of what those devices are.
 - FABS-810P/G(H)		Touchscreen computer
 
 - AXIS A8105-E 			Network	Video Door Station
@@ -35,7 +43,7 @@ Why these components? Because they had already been bought, so I might as well u
 	- ONVIF	(Open Network Video Interface Forum)
 	- VAPIX	(Video API for Axis Products)
 
-- Fanvil_I53W			IP Phone
+- Fanvil_I53W			IP Phone / Indoor Station
 	- SIP v1 (RFC2543), v2 (RFC3261) over UDP/TCP/TLS
 	- STUN (Session Traversal Utilities for NAT)
 		- RFC3489, RFC5389

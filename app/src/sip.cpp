@@ -34,14 +34,14 @@ std::vector<std::string> get_channels() {
 // let the front door camera ring the phonenumber
 void ring(const std::string& phonenumber) {
 	// first make sure that the front door camera is not already in a call
-	std::cout << "ringing " << phonenumber << std::endl;
-	const std::vector<std::string> channels = get_channels();
-	for (const std::string& channel : channels) {
-		if (channel.find(consts().front_door_number) != std::string::npos) {
-			std::cout << "request hangup for channel " << channel << std::endl;
-			exec(commands::hangup(consts().front_door_number));
-		}
-	}
+	// std::cout << "ringing " << phonenumber << std::endl;
+	// const std::vector<std::string> channels = get_channels();
+	// for (const std::string& channel : channels) {
+	// 	if (channel.find(consts().front_door_number) != std::string::npos) {
+	// 		std::cout << "request hangup for channel " << channel << std::endl;
+	// 		exec(commands::hangup(consts().front_door_number));
+	// 	}
+	// }
 
 	exec(commands::ring(phonenumber));
 }

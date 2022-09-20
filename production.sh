@@ -14,9 +14,12 @@ cd "$SCRIPT_DIR"
 pkill --signal 9 app || true
 pkill --signal 9 xinit || true
 pkill --signal 9 Xorg || true
+
 # Optional: stop already running containers
-# docker stop $(docker ps -a -q) || true
-# docker rm $(docker ps -a -q) || true
+if [ "$1" != "--ignore-docker" ]; then
+	docker stop $(docker ps -a -q) || true
+	docker rm $(docker ps -a -q) || true
+fi
 
 # Build frontend app
 PRODUCTION=1 make -C app
@@ -28,12 +31,14 @@ export DISPLAY=':0'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# Run asterisk SIP server
-docker build -t asterisk asterisk || true
-docker run -d --net=host --restart unless-stopped --name asterisk \
--v $PWD/asterisk/sip.conf:/etc/asterisk/sip.conf \
--v $PWD/asterisk/extensions.conf:/etc/asterisk/extensions.conf \
-asterisk
+# Optional: Run asterisk SIP server
+if [ "$1" != "--ignore-docker" ]; then
+	docker build -t asterisk asterisk || true
+	docker run -d --net=host --restart unless-stopped --name asterisk \
+	-v $PWD/asterisk/sip.conf:/etc/asterisk/sip.conf \
+	-v $PWD/asterisk/extensions.conf:/etc/asterisk/extensions.conf \
+	asterisk
+fi
 
 # TODO restart after crash
 xinit /root/video-doorbell/app/app -- :0 -nocursor &

@@ -11,14 +11,23 @@
 ## TODO
 - `Other`					Some remote popup when one of the clients is not connected
 - `Touchscreen computer`	Fix not rebooting correctly
-- `Touchscreen computer`	Disable cursor
-- `Touchscreen computer`	Limit occupant length
 - `Touchscreen computer`	Indicate to user that user has picked up the phone
+- `Indoor station`			Buy 19 units
+- `Indoor station`			Install 19X
+- `Indoor station`			Buy right angle rj45 cables (get length list)
+- `Touchscreen computer`	Use bell icon instead of telephone icon
+- `Touchscreen computer`	Fix hangup timeout not working
+- `Camera`					disconnect hallway camera after 30 seconds
+- `Indoor station`			Change ring volume
+- `Camera`					Stop call with hallway camera when a call on the touchscreen starts
+- `Touchscreen computer`	Try out bold text for keyboard
 
 ## DOING
-- `Touchscreen computer`	KIOSK mode
 
 ## DONE
+- `Touchscreen computer`	KIOSK mode
+- `Touchscreen computer`	Limit occupant length
+- `Touchscreen computer`	Disable cursor
 - `Touchscreen computer`	On startup stop all calls that might be dangling from a unexpected shutdown
 - `Touchscreen computer`	Start call per client
 - `Touchscreen computer`	Select clients by scrolling

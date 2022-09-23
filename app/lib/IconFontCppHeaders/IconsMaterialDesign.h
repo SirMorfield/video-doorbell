@@ -8,6 +8,13 @@
 // #define ICON_MD_BACKSPACE "\xee\x85\x8a"	// U+e14a
 // #define ICON_MD_EXPAND_LESS "\xee\x97\x8e"	// U+e5ce
 // #define ICON_MD_EXPAND_MORE "\xee\x97\x8f"	// U+e5cf
+// #define ICON_MD_NOTIFICATIONS "\xee\x9f\xb4"								 // U+e7f4
+// #define ICON_MD_NOTIFICATIONS_ACTIVE "\xee\x9f\xb7"							 // U+e7f7
+// #define ICON_MD_NOTIFICATIONS_NONE "\xee\x9f\xb5"							 // U+e7f5
+// #define ICON_MD_NOTIFICATIONS_OFF "\xee\x9f\xb6"							 // U+e7f6
+// #define ICON_MD_NOTIFICATIONS_ON "\xee\x9f\xb7"								 // U+e7f7
+// #define ICON_MD_NOTIFICATIONS_PAUSED "\xee\x9f\xb8"							 // U+e7f8
+// #define ICON_MD_DOORBELL "\xee\xbf\xbf"						   // U+efff
 
 #define FONT_ICON_FILE_NAME_MD "lib/IconFontCppHeaders/MaterialIcons-Regular.ttf"
 

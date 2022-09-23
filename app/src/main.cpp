@@ -26,11 +26,15 @@ static void glfw_error_callback(int error, const char* description) {
 }
 
 static ImFont* load_material_design_font(ImGuiIO& io) {
-	static const ImWchar icons_ranges[] = {ICON_MIN_MD, ICON_MAX_16_MD, 0};
-	ImFontConfig		 icons_config;
-	icons_config.MergeMode = true;
-	icons_config.PixelSnapH = true;
-	ImFont* font = io.Fonts->AddFontFromFileTTF(absolute_path(FONT_ICON_FILE_NAME_MD).c_str(), scale(13.0f), &icons_config, icons_ranges);
+	constexpr float	  fontsize = scale(13.0f);
+	constexpr ImWchar icons_ranges[] = {ICON_MIN_MD, ICON_MAX_16_MD, 0};
+	ImFontConfig	  cfg;
+
+	cfg.MergeMode = true;
+	cfg.PixelSnapH = true;
+	cfg.GlyphOffset.y += fontsize * 0.2f; // centering text
+
+	ImFont* font = io.Fonts->AddFontFromFileTTF(absolute_path(FONT_ICON_FILE_NAME_MD).c_str(), fontsize, &cfg, icons_ranges);
 	assert(font);
 	return font;
 }

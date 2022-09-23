@@ -14,7 +14,7 @@
 #endif
 
 std::optional<std::string> exec(const std::string& cmd) {
-	std::cout << "Exectuting: " << cmd << std::endl;
+	std::cout << "Exectuting     : " << cmd << std::endl;
 	std::array<char, 128>					 buffer;
 	std::string								 result;
 	std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
@@ -24,6 +24,7 @@ std::optional<std::string> exec(const std::string& cmd) {
 	while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
 		result += buffer.data();
 	}
+	std::cout << "Done exectuting: " << cmd << ", result: " << result << std::endl;
 	return result;
 }
 

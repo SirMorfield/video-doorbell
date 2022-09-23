@@ -12,7 +12,7 @@ rm -rf Desktop/ Documents/ Music/ Pictures/ Templates/ Videos/
 # On debian you have to install a extra user alongside the root user, we don't need that user
 userdel -rf <installed non-root-user>
 
-apt update && apt upgrade
+apt update -y && apt upgrade -y
 apt install -y xinit openbox git
 apt install -y make libglfw3-dev pkg-config build-essential
 

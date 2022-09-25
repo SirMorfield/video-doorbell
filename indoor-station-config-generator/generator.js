@@ -39,6 +39,6 @@ console.log('Wrote extentions to ' + extensionsPath)
 
 const sipPath = '../asterisk/sip.conf'
 fs.writeFileSync(sipPath, sipConf)
-console.log('Wrote SIP conf  to ' + sipPath)
+console.log('Wrote SIP conf to ' + sipPath)
 
 console.log(`Generated ${unique.length} clients`)

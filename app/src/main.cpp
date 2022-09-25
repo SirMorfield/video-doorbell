@@ -41,15 +41,18 @@ static ImFont* load_material_design_font(ImGuiIO& io) {
 
 ImGui_text		 ImText;
 const Constants& consts() {
-	static Constants consts = {
+	static const std::array<std::string, Camera_type::N> cameras =
+		{"7004",
+		 "7005"};
+	static const size_t	   max_occupant_name_length = 12;
+	static const Constants consts = {
 		.window_width = 800.0f,
 		.window_height = 1280.0f,
 		// Number of occupants to list on the frontend
 		.n_occupants = 12,
-		// The phone number of the front door SIP camera
-		.occupants = read_occupants("7004", 12),
-		.front_door_number = "7004",
-		.max_occupant_name_length = 12,
+		.occupants = read_occupants(cameras, max_occupant_name_length),
+		.camera_numbers = cameras,
+		.max_occupant_name_length = max_occupant_name_length,
 	};
 	return consts;
 }

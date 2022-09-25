@@ -19,14 +19,16 @@
 
 - `Touchscreen computer`	Use bell icon instead of telephone icon
 - `Touchscreen computer`	Fix hangup timeout not working
-- `Camera`					disconnect hallway camera after 30 seconds
+- `Camera`					Disconnect hallway camera after 30 seconds
 - `Indoor station`			Change ring volume
 - `Camera`					Hangup call with hallway camera when a call on the touchscreen starts
 - `Touchscreen computer`	Try out bold text for keyboard
-- `Touchscreen computer`	Fix frontend hang after starting call
+- `Touchscreen computer`	Try out not showing fornt end names, but first only a phonebook icon
+
 ## DOING
 
 ## DONE
+- `Touchscreen computer`	Fix frontend hang after starting call
 - `Touchscreen computer`	KIOSK mode
 - `Touchscreen computer`	Limit occupant length
 - `Touchscreen computer`	Disable cursor

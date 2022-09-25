@@ -1,7 +1,8 @@
 #include "main.hpp"
+#include <algorithm>
 #include <exception>
 
-std::vector<Occupant> read_occupants(const std::string& front_door_number, size_t max_occupant_name_length) {
+std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::N>& cameras, size_t max_occupant_name_length) {
 	std::vector<Occupant>	 occupants;
 	static const std::string path = get_binary_location().value() + "/occupants.csv";
 	std::string				 apt_file = read_file(path);
@@ -19,7 +20,7 @@ std::vector<Occupant> read_occupants(const std::string& front_door_number, size_
 		(void)max_occupant_name_length;
 		// if (occ.name.size() > max_occupant_name_length)
 		// 	throw std::runtime_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(max_occupant_name_length));
-		if (occ.number == front_door_number)
+		if (std::find(cameras.begin(), cameras.end(), occ.number) != cameras.end())
 			throw std::runtime_error("Phone number \"" + occ.number + "\" is already in use by the front door camera");
 		occupants.push_back(occ);
 	}
@@ -30,10 +31,10 @@ std::vector<Occupant> read_occupants(const std::string& front_door_number, size_
 	return occupants;
 }
 
-// Returns equability score of name and query
+// Returns equability score of name (as in human name like John Doe) and query
 // Higher score means better match with name
-// Score -1~length of query
-// -1 means that the query does not match the name
+// Score 0~length of query
+// 0 means that the query does not match the name or that 0 chars matched the name string
 std::vector<size_t> match_score(const std::string& name, const std::string& query) {
 	std::vector<size_t> score;
 	size_t				i_name = 0;

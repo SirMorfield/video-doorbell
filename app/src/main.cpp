@@ -26,9 +26,9 @@ static void glfw_error_callback(int error, const char* description) {
 }
 
 static ImFont* load_material_design_font(ImGuiIO& io) {
-	constexpr float	  fontsize = scale(13.0f);
-	constexpr ImWchar icons_ranges[] = {ICON_MIN_MD, ICON_MAX_16_MD, 0};
-	ImFontConfig	  cfg;
+	constexpr float		 fontsize = scale(13.0f);
+	static const ImWchar icons_ranges[] = {ICON_MIN_MD, ICON_MAX_16_MD, 0};
+	ImFontConfig		 cfg;
 
 	cfg.MergeMode = true;
 	cfg.PixelSnapH = true;

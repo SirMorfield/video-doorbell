@@ -10,13 +10,13 @@ SCRIPT_DIR=$(dirname "$0")
 echo moving to $SCRIPT_DIR
 cd "$SCRIPT_DIR"
 
-# kill still runing instances of this app
-pkill --signal 9 app || true
-wait app
-pkill --signal 9 xinit || true
-wait xinit
-pkill --signal 9 Xorg || true
-wait Xorg
+# kill still runing instances of this app, and wait for it to exit
+while $(pkill -0 --signal 9 app  2>/dev/null); do sleep 0.5; done
+while $(pkill -0 --signal 9 xinit 2>/dev/null); do sleep 0.5; done
+while $(pkill -0 --signal 9 Xorg 2>/dev/null); do sleep 0.5; done
+
+# hot reload config of asterisk
+docker exec -it asterisk asterisk -rx  'reload'
 
 # Optional: stop already running containers
 if [ "$1" = "--restart-docker" ]; then

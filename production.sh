@@ -25,7 +25,7 @@ if [ "$1" = "--restart-docker" ]; then
 fi
 
 # Build frontend app
-PRODUCTION=1 make -C app
+PRODUCTION=1 make -C app || exit 1
 
 # Tell x-server to use the touchscreen display, also needed for ImGui in the app to work
 export DISPLAY=':0'

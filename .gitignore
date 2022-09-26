@@ -1,3 +1,4 @@
 .DS_Store*
 /ignore/
-indoor-station-config-generator/generated
+/indoor-station-config-generator/generated
+/imgui.ini

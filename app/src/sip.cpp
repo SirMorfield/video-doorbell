@@ -3,7 +3,7 @@
 namespace commands {
 
 std::string ring(const std::string& phonenumber) {
-	return "docker exec asterisk asterisk -rx 'channel originate sip/" + phonenumber + " extension " + consts().front_door_number + "@internal'";
+	return "docker exec asterisk asterisk -rx 'channel originate sip/" + phonenumber + " extension " + consts().camera_numbers[Camera_type::FRONT_DOOR] + "@internal'";
 }
 
 std::string get_channels() {
@@ -30,13 +30,21 @@ std::vector<std::string> get_channels() {
 	return channel_names;
 }
 
+bool is_channel_with_camera(const std::string& channel) {
+	for (const std::string& camera_number : consts().camera_numbers) {
+		if (channel.find("SIP/" + camera_number) != std::string::npos)
+			return true;
+	}
+	return false;
+}
+
 // let the front door camera ring the phonenumber
 void ring(const std::string& phonenumber) {
-	// first make sure that the front door camera is not already in a call
+	// first make sure that none of the cameras are already in a call
 
 	const std::vector<std::string> channels = get_channels();
 	for (const std::string& channel : channels) {
-		if (channel.find(consts().front_door_number) != std::string::npos) {
+		if (is_channel_with_camera(channel)) {
 			std::cout << "request hangup for channel " << channel << std::endl;
 			exec(commands::hangup(channel));
 		}

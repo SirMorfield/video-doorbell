@@ -25,7 +25,6 @@ typedef struct {
 	size_t									n_occupants;
 	std::vector<Occupant>					occupants;
 	std::array<std::string, Camera_type::N> camera_numbers;
-	std::string								front_door_number;
 	size_t									max_occupant_name_length;
 } Constants;
 

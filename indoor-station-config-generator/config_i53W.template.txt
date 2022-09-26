@@ -2,9 +2,9 @@
 
 <NET CONFIG MODULE>
 WAN TYPE           :0
-WAN IP             :
+WAN IP             :192.168.1.179
 WAN Subnet Mask    :255.255.255.0
-WAN Gateway        :
+WAN Gateway        :192.168.1.1
 Domain Name        :
 Primary DNS        :8.8.8.8
 Secondary DNS      :202.96.134.133
@@ -36,9 +36,9 @@ DHCP6 Hostname      :
 WIFI Enable        :0
 WIFI Log Enable    :0
 WAN TYPE           :0
-WAN IP             :
+WAN IP             :192.168.1.179
 WAN Subnet Mask    :255.255.255.0
-WAN Gateway        :
+WAN Gateway        :192.168.1.1
 Domain Name        :
 Primary DNS        :8.8.8.8
 Secondary DNS      :202.96.134.133
@@ -142,12 +142,12 @@ SMS direct Enabled :0
 SMS Save Enabled   :1
 SMS Ring Enabled   :1
 --SIP Line List--  :
-SIP1 Phone Number       :<PHONE_NUMBER>
-SIP1 Display Name       :<PHONE_NUMBER>
+SIP1 Phone Number       :001
+SIP1 Display Name       :001
 SIP1 Sip Name           :
 SIP1 Register Addr      :192.168.2.18
 SIP1 Register Port      :5060
-SIP1 Register User      :<PHONE_NUMBER>
+SIP1 Register User      :001
 SIP1 Register Pswd      :
 SIP1 Register TTL       :3600
 SIP1 Need Reg On        :0
@@ -221,7 +221,7 @@ SIP1 Quota Name         :0
 SIP1 Presence Mode      :0
 SIP1 RFC Ver            :1
 SIP1 Phone Port         :0
-SIP1 Signal Port        :5583
+SIP1 Signal Port        :5108
 SIP1 Transport          :0
 SIP1 Use SRV Mixer      :0
 SIP1 SRV Mixer Uri      :
@@ -1146,7 +1146,7 @@ P1 CallConference     :1
 P1 Auto PickupNext    :0
 P1 Busy No Line       :1
 P1 Auto Onhook        :1
-P1 Auto Onhook Time   :3
+P1 Auto Onhook Time   :0
 P1 Enable Intercom    :1
 P1 Intercom Mute      :0
 P1 Intercom Tone      :1
@@ -1186,7 +1186,7 @@ P1 Enable Country Code:0
 P1 Country Code       :
 P1 Call Area Code     :
 P1 Number Privacy     :0
-P1 Privacy Rule       :
+P1 Privacy Rule       :.
 P1 Transf DTMF Code   :
 P1 Hold DTMF Code     :
 P1 Conf DTMF Code     :
@@ -1194,7 +1194,7 @@ P1 Disable Dial Search:0
 P1 Call Number Filter :
 P1 Auto Resume Current:1
 P1 Call Timeout       :120
-P1 Ring Timeout       :120
+P1 Ring Timeout       :20
 P1 Ring Priority      :1
 P1 Auto Answer Tone   :1
 P1 Alerting Tone      :1
@@ -1277,7 +1277,7 @@ Vqm Display Order  :
 Enable Push XML Auth:0
 Pickup Visual Alert:0
 Pickup Audio Alert :0
-Pickup Ring Type   :
+Pickup Ring Type   :Splash
 Pbook Display Attr :
 Display Business Card Timeout :0
 Display Call Duration:1
@@ -1363,7 +1363,7 @@ Headset Ring Vol   :5
 Headset Tone Vol   :3
 HandFree Vol       :1
 HandFree Mic Vol   :3
-HandFree Ring Vol  :5
+HandFree Ring Vol  :1
 HandFree Tone Vol  :3
 Ring Type          :1.wav
 --DateTime Config--:
@@ -2582,7 +2582,7 @@ User Change Sub Background :
 EHS Headset type :0
 Missed Call Popup      :1
 MWI Popup              :1
-Device Connect Popup   :1
+Device Connect Popup   :0
 SMS Popup              :1
 Other Popup            :1
 Enable Port Mirror     :0

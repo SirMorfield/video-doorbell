@@ -57,9 +57,10 @@ void print_occupant(const Occupant& occupant, const std::string& query) {
 			ImGui::SameLine();
 	}
 	ImText.set_font(ImGui_text::Font::Material_design);
-	sameLineRightAlign(scale(30));
+	constexpr float button_width = 25.0f;
+	sameLineRightAlign(scale(button_width));
 	std::string name = std::string(ICON_MD_NOTIFICATIONS) + std::string("###") + occupant.number + occupant.name; // making the label unique
-	if (ImGui::Button(name.c_str(), scale(ImVec2(25, 15))))
+	if (ImGui::Button(name.c_str(), scale(ImVec2(button_width, 15))))
 		sip::ring(occupant.number);
 	ImGui::GetStyle().ItemSpacing = spacing;
 }

@@ -35,7 +35,7 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 // Score 0~length of query
 // 0 means that the query does not match the name or that 0 chars matched the name string
 // it also ignoreas all non alphabetical chars, like "-" and "." that are commonly found in human names
-std::vector<size_t> match_score(std::string name, std::string query) {
+std::vector<size_t> match_score(const std::string& name, const std::string& query) {
 	std::vector<size_t> score;
 	size_t				i_name = 0;
 	size_t				i_query = 0;

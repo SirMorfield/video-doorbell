@@ -1,0 +1,5 @@
+# path: /etc/default/isc-dhcp-server
+# from: https://www.linuxfordevices.com/tutorials/ubuntu/dhcp-server-on-ubuntu
+
+INTERFACESv4="enp3s0"
+INTERFACESv6=""

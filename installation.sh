@@ -1,3 +1,5 @@
+# TODO: make this markdown
+
 # This file contains all the scripts required to install on a fresh computer
 # DO NOT just run this script, read it and execute all commands indivualy whilst using your brain
 
@@ -26,6 +28,16 @@ git clone https://github.com/SirMorfield/video-doorbell
 # [Login]
 # NAutoVTs=1
 # ReserverVT=1
+
+
+# configuring a dhcp server on the touchscren computer
+apt install -y isc-dhcp-server
+cp config/dhcpd.conf /etc/dhcp/dhcpd.conf
+cp config/interfaces /etc/network/interfaces
+cp config/isc-dhcp-server /etc/default/isc-dhcp-server
+systemctl stop isc-dhcp-server.service
+systemctl restart isc-dhcp-server.service
+systemctl enable isc-dhcp-server.service
 
 systemctl edit getty@tty1
 # add the following lines

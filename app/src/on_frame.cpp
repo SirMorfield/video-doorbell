@@ -21,6 +21,7 @@ char get_line_pressed(const std::string& line) {
 }
 
 char get_key_pressed() {
+	// ImText.set_font(ImGui_text::Font::Bold); // Whatever you prefer
 	char c[] = {
 		get_line_pressed("QWERTYUIOP"),
 		get_line_pressed(" ASDFGHJKL"),

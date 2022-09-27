@@ -44,7 +44,7 @@ const Constants& consts() {
 	static const std::array<std::string, Camera_type::N> cameras =
 		{"7004",
 		 "7005"};
-	static const size_t	   max_occupant_name_length = 12;
+	static const size_t	   max_occupant_name_length = 27;
 	static const Constants consts = {
 		.window_width = 800.0f,
 		.window_height = 1280.0f,

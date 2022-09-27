@@ -17,9 +17,8 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 		if (fields.size() > 2)
 			throw std::runtime_error("Invalid line \"" + line + "\" should only contain 2 elements");
 		Occupant occ = {.number = fields.at(0), .name = fields.at(1)};
-		(void)max_occupant_name_length;
-		// if (occ.name.size() > max_occupant_name_length)
-		// 	throw std::runtime_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(max_occupant_name_length));
+		if (occ.name.size() > max_occupant_name_length)
+			throw std::runtime_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(max_occupant_name_length));
 		if (std::find(cameras.begin(), cameras.end(), occ.number) != cameras.end())
 			throw std::runtime_error("Phone number \"" + occ.number + "\" is already in use by the front door camera");
 		occupants.push_back(occ);
@@ -35,18 +34,26 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 // Higher score means better match with name
 // Score 0~length of query
 // 0 means that the query does not match the name or that 0 chars matched the name string
-std::vector<size_t> match_score(const std::string& name, const std::string& query) {
+// it also ignoreas all non alphabetical chars, like "-" and "." that are commonly found in human names
+std::vector<size_t> match_score(std::string name, std::string query) {
 	std::vector<size_t> score;
 	size_t				i_name = 0;
 	size_t				i_query = 0;
 
 	while (1) {
-		while (i_name < name.size() &&
-			   i_query < query.size() &&
-			   std::tolower(name[i_name]) == std::tolower(query[i_query])) {
-			score.push_back(i_name);
-			i_name++;
-			i_query++;
+		while (i_name < name.size() && i_query < query.size()) {
+			if (!std::isalpha(name[i_name]) && name[i_name] != ' ') {
+				i_name++;
+				continue;
+			}
+
+			if (std::tolower(name[i_name]) == std::tolower(query[i_query])) {
+				score.push_back(i_name);
+				i_name++;
+				i_query++;
+			}
+			else
+				break;
 		}
 
 		// reached end of query so return number of matched chars

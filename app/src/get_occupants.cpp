@@ -2,6 +2,13 @@
 #include <algorithm>
 #include <exception>
 
+[[noreturn]] void occupants_error(const std::string& msg) {
+	std::cout << "\n\n========================================" << std::endl;
+	std::cout << msg << std::endl;
+	std::cout << "========================================\n\n " << std::endl;
+	exit(1);
+}
+
 std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::N>& cameras, size_t max_occupant_name_length) {
 	std::vector<Occupant>	 occupants;
 	static const std::string path = get_binary_location().value() + "/occupants.csv";
@@ -9,22 +16,22 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 	std::vector<std::string> lines = ft_split(apt_file, "\n");
 	for (const std::string& line : lines) {
 		if (line.find('\t') != std::string::npos)
-			throw std::runtime_error("Found disallowed tab in line \"" + line + "\"");
+			occupants_error("Found disallowed tab in line \"" + line + "\"");
 
 		std::vector<std::string> fields = ft_split(line, ",");
 		if (fields.size() < 2)
 			continue;
 		if (fields.size() > 2)
-			throw std::runtime_error("Invalid line \"" + line + "\" should only contain 2 elements");
+			occupants_error("Invalid line \"" + line + "\" should only contain 2 elements");
 		Occupant occ = {.number = fields.at(0), .name = fields.at(1)};
 		if (occ.name.size() > max_occupant_name_length)
-			throw std::runtime_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(max_occupant_name_length));
+			occupants_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(max_occupant_name_length));
 		if (std::find(cameras.begin(), cameras.end(), occ.number) != cameras.end())
-			throw std::runtime_error("Phone number \"" + occ.number + "\" is already in use by the front door camera");
+			occupants_error("Phone number \"" + occ.number + "\" is already in use by the front door camera");
 		occupants.push_back(occ);
 	}
 	if (occupants.size() == 0)
-		throw std::runtime_error("occupants.csv is empty");
+		occupants_error("occupants.csv is empty");
 
 	std::sort(occupants.begin(), occupants.end(), [](const Occupant& a, const Occupant& b) { return a.name < b.name; });
 	return occupants;

@@ -1,6 +1,6 @@
 # TODO
 
-## Nice to haves
+## NICE TO HAVES
 - `Indoor station`			Alarm function, eg during a fire
 - `Camera`					Multiple cameras at the Door
 - `Camera`					(Motion activated) security camera
@@ -8,26 +8,36 @@
 - `Indoor station`			Logging who opened the door when
 - `Indoor station`			Select best sound and video codecs
 
-## TODO
-- `Touchscreen computer`	Remove ssh keys
-- `Other`					Some remote popup when one of the clients is not connected
+## NOT DOING
 - `Touchscreen computer`	Fix not rebooting correctly
+- `Other`					Some remote popup when one of the clients is not connected
 - `Touchscreen computer`	Indicate to user that user has picked up the phone
+
+## TODO
+- `Indoor station`			Change ring volume
+- `Touchscreen computer`	Try out bold text for keyboard
+- `Touchscreen computer`	Try out not showing front end names, but first only a phonebook icon
+make install.sh markdown
+remove 20 in extensions.conf
+write better description
+checnk special chars
+make occupants.conf error bigger
+
+
+## WAITING FOR OTHERS
+- `Indoor station`			Open front door
+- `Touchscreen computer`	Remove ssh keys, clone with https instead
 - `Indoor station`			Buy 19 units
 - `Indoor station`			Install 19X
 - `Indoor station`			Buy right angle rj45 cables (get length list)
 
-- `Touchscreen computer`	Use bell icon instead of telephone icon
-- `Touchscreen computer`	Fix hangup timeout not working
-- `Camera`					Disconnect hallway camera after 30 seconds
-- `Indoor station`			Change ring volume
-- `Camera`					Hangup call with hallway camera when a call on the touchscreen starts
-- `Touchscreen computer`	Try out bold text for keyboard
-- `Touchscreen computer`	Try out not showing fornt end names, but first only a phonebook icon
-
 ## DOING
 
 ## DONE
+- `Touchscreen computer`	Fix hangup timeout not working
+- `Camera`					Disconnect hallway camera after 30 seconds
+- `Camera`					Hangup call with hallway camera when a call on the touchscreen starts
+- `Touchscreen computer`	Use bell icon instead of telephone icon
 - `Touchscreen computer`	Fix frontend hang after starting call
 - `Touchscreen computer`	KIOSK mode
 - `Touchscreen computer`	Limit occupant length
@@ -45,6 +55,3 @@
 - `Touchscreen computer`	Initiate call
 - `Indoor station`			Correct datetime on the indoor stations
 - `Indoor station`			More pixels
-
-## TO BE INSTALLED
-- `Indoor station`			Open front door

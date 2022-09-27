@@ -28,10 +28,10 @@ The system also supports
 ## Changing apartment occupant(s) (names)
 1. Connect a computer to the `PoE switch`
 2. ssh into the `Touchscreen computer`: `ssh root@192.168.2.18`, password is `root`
-3. edit the occupants config file: `nano /root/video-doorbell/app/occupants.csv`
-4. run `/root/video-doorbell/production.sh` to load the config file, watch the output, it will tell you if you've not formatted the file correctly
+3. Edit the occupants config file: `nano /root/video-doorbell/app/occupants.csv`
+4. Run `/root/video-doorbell/production.sh` to load the config file, watch the output, it will tell you if you've not formatted the file correctly
 	- This script will also restart the `SIP` server, so give it at least 2 minutes for all the clients to reconnect.
-5. validate that the app has started correctly by making a test call
+5. Validate that the app has started correctly by making a test call
 
 ## Components
 Why these components? Because they had already been bought, so I might as well use them.\

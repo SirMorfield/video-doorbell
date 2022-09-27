@@ -1,3 +1,5 @@
+# This docker container is not used in production because of a weird bug cousing 100% cpu utialisation
+
 FROM ubuntu:latest
 
 # Ubuntu spesific timezone shenaningans

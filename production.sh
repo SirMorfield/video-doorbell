@@ -15,13 +15,11 @@ while $(pkill -0 --signal 9 app  2>/dev/null); do sleep 0.5; done
 while $(pkill -0 --signal 9 xinit 2>/dev/null); do sleep 0.5; done
 while $(pkill -0 --signal 9 Xorg 2>/dev/null); do sleep 0.5; done
 
-# hot reload config of asterisk
-docker exec -it asterisk asterisk -rx  'reload'
 
 # Optional: stop already running containers
-if [ "$1" = "--restart-docker" ]; then
-	docker stop -t 3 $(docker ps -a -q) || true
-	docker rm -f $(docker ps -a -q) || true
+if [ "$1" = "--docker" ]; then
+# hot reload config of asterisk
+docker exec -it asterisk asterisk -rx  'reload'
 fi
 
 # Build frontend app
@@ -34,14 +32,10 @@ export DISPLAY=':0'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# Optional: Run asterisk SIP server
-if [ "$1" = "--restart-docker" ]; then
-	docker build -t asterisk asterisk || true
-	docker run -d --net=host --restart unless-stopped --name asterisk \
-	-v $PWD/asterisk/sip.conf:/etc/asterisk/sip.conf \
-	-v $PWD/asterisk/extensions.conf:/etc/asterisk/extensions.conf \
-	asterisk
-fi
+# install asterisk config files
+cp asterisk/sip.conf /etc/asterisk/sip.conf
+cp asterisk/extensions.conf /etc/asterisk/extensions.conf
+asterisk -rx reload
 
 # TODO restart after crash
 xinit /root/video-doorbell/app/app -- :0 -nocursor &

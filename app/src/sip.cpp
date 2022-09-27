@@ -3,15 +3,15 @@
 namespace commands {
 
 std::string ring(const std::string& phonenumber) {
-	return "docker exec asterisk asterisk -rx 'channel originate sip/" + phonenumber + " extension " + consts().camera_numbers[Camera_type::FRONT_DOOR] + "@internal'";
+	return "asterisk -rx 'channel originate sip/" + phonenumber + " extension " + consts().camera_numbers[Camera_type::FRONT_DOOR] + "@internal'";
 }
 
 std::string get_channels() {
-	return "docker exec -i asterisk asterisk -rx 'core show channels concise'";
+	return "asterisk -rx 'core show channels concise'";
 }
 
 std::string hangup(const std::string& phonenumber) {
-	return "docker exec asterisk asterisk -rx 'hangup request " + phonenumber + "'";
+	return "asterisk -rx 'hangup request " + phonenumber + "'";
 }
 
 }; // namespace commands

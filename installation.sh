@@ -29,6 +29,8 @@ git clone https://github.com/SirMorfield/video-doorbell
 # NAutoVTs=1
 # ReserverVT=1
 
+# Install SIP server
+apt install -y asterisk
 
 # configuring a dhcp server on the touchscren computer
 apt install -y isc-dhcp-server

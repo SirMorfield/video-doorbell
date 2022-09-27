@@ -16,6 +16,14 @@
 // #define ICON_MD_NOTIFICATIONS_PAUSED "\xee\x9f\xb8"							 // U+e7f8
 // #define ICON_MD_DOORBELL "\xee\xbf\xbf"						   // U+efff
 
+// #define ICON_MD_IMPORT_CONTACTS "\xee\x83\xa0"								 // U+e0e0
+// #define ICON_MD_MENU_BOOK "\xee\xa8\x99"									 // U+ea19
+
+// #define ICON_MD_BOOK_ONLINE "\xef\x88\x97"					   // U+f217
+// #define ICON_MD_MENU "\xee\x97\x92"											 // U+e5d2
+// #define ICON_MD_MENU_BOOK "\xee\xa8\x99"									 // U+ea19
+// #define ICON_MD_MENU_OPEN "\xee\xa6\xbd"									 // U+e9bd
+
 #define FONT_ICON_FILE_NAME_MD "lib/IconFontCppHeaders/MaterialIcons-Regular.ttf"
 
 #define ICON_MIN_MD 0xe000

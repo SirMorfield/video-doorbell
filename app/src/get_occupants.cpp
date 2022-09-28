@@ -94,7 +94,7 @@ std::vector<Occupant> get_occupants_query(const std::string& query, size_t max_r
 }
 
 std::vector<Occupant> get_occupants_scroll(size_t scroll_pos, size_t max_results) {
-	std::vector<Occupant> results(consts().occupants.begin() + scroll_pos,
-								  consts().occupants.begin() + scroll_pos + max_results);
+	std::vector<Occupant>::const_iterator end = std::min(consts().occupants.end(), consts().occupants.begin() + scroll_pos + max_results);
+	std::vector<Occupant>				  results(consts().occupants.begin() + scroll_pos, end);
 	return results;
 }

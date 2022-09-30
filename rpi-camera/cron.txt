@@ -1,0 +1,3 @@
+# add this to cron
+
+@reboot PATH=/root/linphone-sdk/build-raspberry/linphone-sdk/desktop/bin:$PATH && linphonecsh init -a -C -c /root/.linphonerc -d 6 -l /tmp/log.txt

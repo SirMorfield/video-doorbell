@@ -33,6 +33,12 @@ The system also supports
 	- This script will also restart the `SIP` server, so give it at least 2 minutes for all the clients to reconnect.
 5. Validate that the app has started correctly by making a test call
 
+
+## Description of all moving components
+### C++ front end application
+Resides in `./app/`
+
+
 ## Components
 Why these components? Because they had already been bought, so I might as well use them.\
 This project uses names like `Indoor Station` throughout, this is a list of what those devices are.

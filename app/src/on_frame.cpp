@@ -34,7 +34,9 @@ char get_key_pressed() {
 	return 0;
 }
 
-void print_occupant(const Occupant& occupant, const std::string& query) {
+void print_occupant(const Occupant& occupant, std::string& query) {
+	static std::optional<std::chrono::time_point<std::chrono::high_resolution_clock>> call_start;
+	//
 	const std::vector<size_t> score = match_score(occupant.name, query);
 
 	//
@@ -61,9 +63,21 @@ void print_occupant(const Occupant& occupant, const std::string& query) {
 	constexpr float button_width = 25.0f;
 	sameLineRightAlign(scale(button_width));
 	std::string name = std::string(ICON_MD_NOTIFICATIONS) + std::string("###") + occupant.number + occupant.name; // making the label unique
-	if (ImGui::Button(name.c_str(), scale(ImVec2(button_width, 15))))
+	if (ImGui::Button(name.c_str(), scale(ImVec2(button_width, 15)))) {
+		call_start = std::chrono::high_resolution_clock::now();
 		sip::ring(occupant.number);
+	}
 	ImGui::GetStyle().ItemSpacing = spacing;
+
+	// hangup call after x seconds
+	if (call_start.has_value()) {
+		const auto call_duration_sec = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - call_start.value()).count();
+		if (call_duration_sec >= consts().call_timeout_seconds) {
+			sip::end_calls_with_cameras();
+			query = "";
+			call_start = std::nullopt;
+		}
+	}
 }
 #define CONTROL_BUTTON scale(ImVec2(30, 0))
 

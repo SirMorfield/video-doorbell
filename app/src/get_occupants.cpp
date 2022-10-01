@@ -38,10 +38,10 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 }
 
 // Returns equability score of name (as in human name like John Doe) and query
-// Higher score means better match with name
+// Returns a array of the indexes matched, the longer the array the higher the match score
 // Score 0~length of query
 // 0 means that the query does not match the name or that 0 chars matched the name string
-// it also ignoreas all non alphabetical chars, like "-" and "." that are commonly found in human names
+// it also ignores all non alphabetical chars, like "-" and "." that are commonly found in human names
 std::vector<size_t> match_score(const std::string& name, const std::string& query) {
 	std::vector<size_t> score;
 	size_t				i_name = 0;

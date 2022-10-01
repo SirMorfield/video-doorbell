@@ -37,6 +37,7 @@ std::string ring(const std::string& client_phonenumber);
 namespace sip {
 
 std::vector<std::string> get_channels();
+void					 end_calls_with_cameras();
 void					 ring(const std::string& phonenumber);
 
 } // namespace sip

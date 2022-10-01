@@ -65,27 +65,37 @@ void print_occupant(const Occupant& occupant, const std::string& query) {
 		sip::ring(occupant.number);
 	ImGui::GetStyle().ItemSpacing = spacing;
 }
+#define CONTROL_BUTTON scale(ImVec2(30, 0))
 
 // returns true if there was an update
 bool update_scroll_pos(size_t& pos) {
 	const size_t start_value = pos;
 
-	if (ImGui::Button(ICON_MD_EXPAND_LESS) && pos > 0)
+	if (ImGui::Button(ICON_MD_EXPAND_LESS, CONTROL_BUTTON) && pos > 0)
 		pos--;
 	ImGui::SameLine();
-	if (ImGui::Button(ICON_MD_EXPAND_MORE) && pos + consts().n_occupants < consts().occupants.size())
+	if (ImGui::Button(ICON_MD_EXPAND_MORE, CONTROL_BUTTON) && pos + consts().n_occupants < consts().occupants.size())
 		pos++;
 	ImGui::SameLine();
 
 	return pos != start_value;
 }
 
+bool end_call_button() {
+	return ImGui::Button(ICON_MD_NOTIFICATIONS_OFF, CONTROL_BUTTON);
+}
+
 // returns true if there was an update
 bool update_query(std::string& query) {
 	const std::string start_value = query;
 
-	if (ImGui::Button(ICON_MD_BACKSPACE, scale(ImVec2(50, 0))))
+	if (ImGui::Button(ICON_MD_BACKSPACE, CONTROL_BUTTON))
 		query.resize(query.size() ? query.size() - 1 : 0);
+
+	ImGui::SameLine();
+	if (end_call_button())
+		sip::end_calls_with_cameras();
+
 	ImText.text(ImGui_text::Font::Bold, query);
 	ImText.set_font(ImGui_text::Font::Regular);
 

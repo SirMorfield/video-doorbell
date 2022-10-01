@@ -38,10 +38,7 @@ bool is_channel_with_camera(const std::string& channel) {
 	return false;
 }
 
-// let the front door camera ring the phonenumber
-void ring(const std::string& phonenumber) {
-	// first make sure that none of the cameras are already in a call
-
+void end_calls_with_cameras() {
 	const std::vector<std::string> channels = get_channels();
 	for (const std::string& channel : channels) {
 		if (is_channel_with_camera(channel)) {
@@ -49,7 +46,12 @@ void ring(const std::string& phonenumber) {
 			exec(commands::hangup(channel));
 		}
 	}
+}
 
+// let the front door camera ring the phonenumber
+void ring(const std::string& phonenumber) {
+	// first make sure that none of the cameras are already in a call
+	end_calls_with_cameras();
 	exec(commands::ring(phonenumber));
 }
 

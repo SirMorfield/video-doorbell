@@ -38,10 +38,9 @@ void print_occupant(const Occupant& occupant, std::string& query) {
 	static std::optional<std::chrono::time_point<std::chrono::high_resolution_clock>> call_start;
 	//
 	const std::vector<size_t> score = match_score(occupant.name, query);
+	const ImVec2			  pos = ImGui::GetCursorPos();
+	const ImVec2			  spacing = ImGui::GetStyle().ItemSpacing;
 
-	const auto				  pos = ImGui::GetCursorPos();
-	//
-	const ImVec2 spacing = ImGui::GetStyle().ItemSpacing;
 	ImGui::GetStyle().ItemSpacing.x = 0.0f;
 	for (size_t i = 0; i < occupant.name.size(); i++) {
 		std::string s;

@@ -12,16 +12,9 @@
 - `Touchscreen computer`	Fix not rebooting correctly
 - `Other`					Some remote popup when one of the clients is not connected
 - `Touchscreen computer`	Indicate to user that user has picked up the phone
+- `Touchscreen computer`	Try out not showing front end names, but first only a phonebook icon
 
 ## TODO
-- `Indoor station`			Change ring volume
-- `Touchscreen computer`	Try out bold text for keyboard
-- `Touchscreen computer`	Try out not showing front end names, but first only a phonebook icon
-make install.sh markdown
-remove 20 in extensions.conf
-write better description
-checnk special chars
-make occupants.conf error bigger
 
 
 ## WAITING FOR OTHERS
@@ -29,11 +22,18 @@ make occupants.conf error bigger
 - `Touchscreen computer`	Remove ssh keys, clone with https instead
 - `Indoor station`			Buy 19 units
 - `Indoor station`			Install 19X
-- `Indoor station`			Buy right angle rj45 cables (get length list)
 
 ## DOING
 
 ## DONE
+- `Indoor station`			Change ring volume
+- `Indoor station`			Buy right angle rj45 cables (get length list)
+- `Touchscreen computer`	Try out bold text for keyboard
+make install.sh markdown
+remove 20 in extensions.conf
+write better description
+check special chars
+make occupants.conf error bigger
 - `Touchscreen computer`	Fix hangup timeout not working
 - `Camera`					Disconnect hallway camera after 30 seconds
 - `Camera`					Hangup call with hallway camera when a call on the touchscreen starts

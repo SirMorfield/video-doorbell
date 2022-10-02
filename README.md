@@ -1,4 +1,5 @@
 # Digital Doorbell
+Designed by Joppe Koers in september 2022
 
 ## Description
 This project is a video doorbell system that shows users who is at the front door and allows them to open it.\
@@ -30,35 +31,16 @@ The system also supports
 2. ssh into the `Touchscreen computer`: `ssh root@192.168.2.18`, password is `root`
 3. Edit the occupants config file: `nano /root/video-doorbell/app/occupants.csv`
 4. Run `/root/video-doorbell/production.sh` to load the config file, watch the output, it will tell you if you've not formatted the file correctly
-	- This script will also restart the `SIP` server, so give it at least 2 minutes for all the clients to reconnect.
 5. Validate that the app has started correctly by making a test call
-
-
-## Description of all moving components
-### C++ front end application
-Resides in `./app/`
-
 
 ## Components
 Why these components? Because they had already been bought, so I might as well use them.\
-This project uses names like `Indoor Station` throughout, this is a list of what those devices are.
-- FABS-810P/G(H)		Touchscreen computer
-
-- AXIS A8105-E 			Network	Video Door Station
-	- SIP	(Session Initiation Protocol)
-	- ONVIF	(Open Network Video Interface Forum)
-	- VAPIX	(Video API for Axis Products)
-
-- Fanvil_I53W			IP Phone / Indoor Station
-	- SIP v1 (RFC2543), v2 (RFC3261) over UDP/TCP/TLS
-	- STUN (Session Traversal Utilities for NAT)
-		- RFC3489, RFC5389
-	- L2TP
-	- TR-069
-	- dtmf
-	- MCAST listening|paging
-
-- HP 2520-24-PoE 28 port managed network switch
+This project uses names like `Indoor Station` throughout, this is a list of what those devices are referring to.
+- FABS-810P/G(H)		`Touchscreen computer`
+- AXIS A8105-E 			Network	Video Door Station / `Front door camera`
+- Raspberry Pi 2B		linphone camera / `Hallway camera`
+- Fanvil_I53W			IP Phone / `Indoor Station`
+- HP 2520-24-PoE 28 	port managed `network switch`
 
 ## Links
 https://github.com/mailrocketsystems/AsteriskVOIP

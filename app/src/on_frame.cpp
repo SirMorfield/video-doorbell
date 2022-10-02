@@ -39,6 +39,7 @@ void print_occupant(const Occupant& occupant, std::string& query) {
 	//
 	const std::vector<size_t> score = match_score(occupant.name, query);
 
+	const auto				  pos = ImGui::GetCursorPos();
 	//
 	const ImVec2 spacing = ImGui::GetStyle().ItemSpacing;
 	ImGui::GetStyle().ItemSpacing.x = 0.0f;
@@ -50,24 +51,18 @@ void print_occupant(const Occupant& occupant, std::string& query) {
 			ImText.text(ImGui_text::Font::Bold, s);
 		else
 			ImText.text(ImGui_text::Font::Regular, s);
-#ifndef PRODUCTION
-		if (i + 1 == occupant.name.size()) {
-			ImGui::SameLine();
-			ImText.text(ImGui_text::Font::Regular, " " + std::to_string(score.size()));
-		}
-#endif
 		if (i + 1 != occupant.name.size())
 			ImGui::SameLine();
 	}
-	ImText.set_font(ImGui_text::Font::Material_design);
-	constexpr float button_width = 25.0f;
-	sameLineRightAlign(scale(button_width));
-	std::string name = std::string(ICON_MD_NOTIFICATIONS) + std::string("###") + occupant.number + occupant.name; // making the label unique
-	if (ImGui::Button(name.c_str(), scale(ImVec2(button_width, 15)))) {
+	ImGui::GetStyle().ItemSpacing = spacing;
+
+	// overlay text with button
+	const ImVec2 size = ImVec2(consts().window_width, ImGui::GetCursorPos().y - pos.y);
+	ImGui::SetCursorPos(pos);
+	if (ImGui::InvisibleButton(std::string("##" + occupant.name).c_str(), size)) {
 		call_start = std::chrono::high_resolution_clock::now();
 		sip::ring(occupant.number);
 	}
-	ImGui::GetStyle().ItemSpacing = spacing;
 
 	// hangup call after x seconds
 	if (call_start.has_value()) {
@@ -85,6 +80,7 @@ void print_occupant(const Occupant& occupant, std::string& query) {
 bool update_scroll_pos(size_t& pos) {
 	const size_t start_value = pos;
 
+	ImText.set_font(ImGui_text::Font::Material_design);
 	if (ImGui::Button(ICON_MD_EXPAND_LESS, CONTROL_BUTTON) && pos > 0)
 		pos--;
 	ImGui::SameLine();

@@ -34,9 +34,9 @@ char get_key_pressed() {
 	return 0;
 }
 
-void print_occupant(const Occupant& occupant, std::string& query) {
-	static std::optional<std::chrono::time_point<std::chrono::high_resolution_clock>> call_start;
-	//
+// returns true if the call key was pressed
+bool print_occupant(const Occupant& occupant, std::string& query) {
+
 	const std::vector<size_t> score = match_score(occupant.name, query);
 	const ImVec2			  pos = ImGui::GetCursorPos();
 	const ImVec2			  spacing = ImGui::GetStyle().ItemSpacing;
@@ -59,19 +59,12 @@ void print_occupant(const Occupant& occupant, std::string& query) {
 	const ImVec2 size = ImVec2(consts().window_width, ImGui::GetCursorPos().y - pos.y);
 	ImGui::SetCursorPos(pos);
 	if (ImGui::InvisibleButton(std::string("##" + occupant.name).c_str(), size)) {
-		call_start = std::chrono::high_resolution_clock::now();
+		sip::end_calls_with_cameras();
 		sip::ring(occupant.number);
+		return true;
 	}
 
-	// hangup call after x seconds
-	if (call_start.has_value()) {
-		const auto call_duration_sec = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - call_start.value()).count();
-		if (call_duration_sec >= consts().call_timeout_seconds) {
-			sip::end_calls_with_cameras();
-			query = "";
-			call_start = std::nullopt;
-		}
-	}
+	return false;
 }
 #define CONTROL_BUTTON scale(ImVec2(30, 0))
 
@@ -118,19 +111,28 @@ bool update_query(std::string& query) {
 void on_frame() {
 	static std::string	  query = "";
 	static size_t		  scroll_position = 0;
-
+	static Timeout		  timeout(consts().call_timeout_seconds);
 	std::vector<Occupant> occupants;
+
+	// Used to reset the frontend after n seconds of inactivity
+	if (timeout.expired()) {
+		query = "";
+		scroll_position = 0;
+	}
+
 	if (scroll_position)
 		occupants = get_occupants_scroll(scroll_position, consts().n_occupants);
 	else
 		occupants = get_occupants_query(query, consts().n_occupants);
 	for (const Occupant& occupant : occupants) {
-		print_occupant(occupant, query);
+		if (print_occupant(occupant, query))
+			timeout.update();
 	}
 	for (size_t i = occupants.size(); i < consts().n_occupants; i++) // spacing
 		ImGui::InvisibleButton("##a", scale(ImVec2(25, 15)));
 
-	update_scroll_pos(scroll_position);
+	if (update_scroll_pos(scroll_position))
+		timeout.update();
 	if (update_query(query))
 		scroll_position = 0;
 }

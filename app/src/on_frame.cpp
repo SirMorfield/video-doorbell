@@ -35,8 +35,7 @@ char get_key_pressed() {
 }
 
 // returns true if the call key was pressed
-bool print_occupant(const Occupant& occupant, std::string& query) {
-
+bool print_occupant(const Occupant& occupant, const std::string& query, bool selected) {
 	const std::vector<size_t> score = match_score(occupant.name, query);
 	const ImVec2			  pos = ImGui::GetCursorPos();
 	const ImVec2			  spacing = ImGui::GetStyle().ItemSpacing;
@@ -46,7 +45,7 @@ bool print_occupant(const Occupant& occupant, std::string& query) {
 		std::string s;
 		s += occupant.name[i];
 
-		if (std::find(score.begin(), score.end(), i) != score.end())
+		if (selected || std::find(score.begin(), score.end(), i) != score.end())
 			ImText.text(ImGui_text::Font::Bold, s);
 		else
 			ImText.text(ImGui_text::Font::Regular, s);
@@ -111,6 +110,7 @@ bool update_query(std::string& query) {
 void on_frame() {
 	static std::string	  query = "";
 	static size_t		  scroll_position = 0;
+	static std::string	  selected_occupant;
 	static Timeout		  timeout(consts().call_timeout_seconds);
 	std::vector<Occupant> occupants;
 
@@ -118,6 +118,7 @@ void on_frame() {
 	if ((query != "" || scroll_position) && timeout.expired()) {
 		query = "";
 		scroll_position = 0;
+		selected_occupant = "";
 		std::cout << "Timeout reached, resetting to default" << std::endl;
 	}
 
@@ -126,11 +127,11 @@ void on_frame() {
 	else
 		occupants = get_occupants_query(query, consts().n_occupants);
 	for (const Occupant& occupant : occupants) {
-		if (print_occupant(occupant, query))
+		if (print_occupant(occupant, query, occupant.name == selected_occupant)) {
 			timeout.update();
+			selected_occupant = occupant.name;
+		}
 	}
-	for (size_t i = occupants.size(); i < consts().n_occupants; i++) // spacing
-		ImGui::InvisibleButton("##a", scale(ImVec2(25, 15)));
 
 	if (update_scroll_pos(scroll_position))
 		timeout.update();

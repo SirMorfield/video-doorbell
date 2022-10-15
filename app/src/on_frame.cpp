@@ -115,9 +115,10 @@ void on_frame() {
 	std::vector<Occupant> occupants;
 
 	// Used to reset the frontend after n seconds of inactivity
-	if (timeout.expired()) {
+	if ((query != "" || scroll_position) && timeout.expired()) {
 		query = "";
 		scroll_position = 0;
+		std::cout << "Timeout reached, resetting to default" << std::endl;
 	}
 
 	if (scroll_position)
@@ -133,6 +134,8 @@ void on_frame() {
 
 	if (update_scroll_pos(scroll_position))
 		timeout.update();
-	if (update_query(query))
+	if (update_query(query)) {
+		timeout.update();
 		scroll_position = 0;
+	}
 }

@@ -133,6 +133,7 @@ void on_frame() {
 		}
 	}
 
+	ImGui::SetCursorPosY(scale(192.2f));
 	if (update_scroll_pos(scroll_position))
 		timeout.update();
 	if (update_query(query)) {

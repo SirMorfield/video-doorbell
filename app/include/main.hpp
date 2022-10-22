@@ -42,7 +42,7 @@ void					 ring(const std::string& phonenumber);
 
 } // namespace sip
 
-std::vector<size_t> match_score(const std::string& name, const std::string& query);
+std::vector<size_t> match_score(std::string name, std::string query);
 
 // simulating JavaScript's Date.now()
 std::chrono::milliseconds::rep date_now();

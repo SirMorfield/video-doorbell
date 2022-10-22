@@ -37,12 +37,23 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 	return occupants;
 }
 
+static std::vector<size_t> match_score_continuous(const std::string& name, const std::string& query) {
+	std::vector<size_t> score;
+	const size_t		substring_i = name.find(query);
+
+	if (substring_i != std::string::npos && (substring_i == 0 || name.at(substring_i - 1) == ' ')) {
+		for (size_t i = 0; i < query.size(); i++)
+			score.push_back(substring_i + i);
+	}
+	return score;
+}
+
 // Returns equability score of name (as in human name like John Doe) and query
 // Returns a array of the indexes matched, the longer the array the higher the match score
 // Score 0~length of query
 // 0 means that the query does not match the name or that 0 chars matched the name string
 // it also ignores all non alphabetical chars, like "-" and "." that are commonly found in human names
-std::vector<size_t> match_score(const std::string& name, const std::string& query) {
+static std::vector<size_t> match_score_interrupted(const std::string& name, const std::string& query) {
 	std::vector<size_t> score;
 	size_t				i_name = 0;
 	size_t				i_query = 0;
@@ -54,7 +65,7 @@ std::vector<size_t> match_score(const std::string& name, const std::string& quer
 				continue;
 			}
 
-			if (std::tolower(name[i_name]) == std::tolower(query[i_query])) {
+			if (name[i_name] == query[i_query]) {
 				score.push_back(i_name);
 				i_name++;
 				i_query++;
@@ -74,6 +85,16 @@ std::vector<size_t> match_score(const std::string& name, const std::string& quer
 		if (i_name >= name.size())
 			return i_query < query.size() ? std::vector<size_t>() : score;
 	}
+}
+
+std::vector<size_t> match_score(std::string name, std::string query) {
+	std::transform(name.begin(), name.end(), name.begin(), [](unsigned char c) { return std::tolower(c); });
+	std::transform(query.begin(), query.end(), query.begin(), [](unsigned char c) { return std::tolower(c); });
+
+	auto continuous = match_score_continuous(name, query);
+	auto interrupted = match_score_interrupted(name, query);
+
+	return continuous.size() > interrupted.size() ? continuous : interrupted;
 }
 
 std::vector<Occupant> get_occupants_query(const std::string& query, size_t max_results) {

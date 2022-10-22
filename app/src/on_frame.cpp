@@ -80,17 +80,17 @@ int get_scroll_position() {
 }
 
 bool end_call_button() {
-	return ImGui::Button(ICON_MD_NOTIFICATIONS_OFF, CONTROL_BUTTON);
+	const bool update = ImGui::Button(ICON_MD_NOTIFICATIONS_OFF, CONTROL_BUTTON);
+	ImGui::SameLine();
+	if (update)
+		sip::end_calls_with_cameras();
+	return update;
 }
 
 // returns unchanged or updated query
 std::string get_query(std::string query) {
 	if (ImGui::Button(ICON_MD_BACKSPACE, CONTROL_BUTTON))
 		query.resize(query.size() ? query.size() - 1 : 0);
-
-	ImGui::SameLine();
-	if (end_call_button())
-		sip::end_calls_with_cameras();
 
 	ImText.text(ImGui_text::Font::Bold, query);
 	ImText.set_font(ImGui_text::Font::Regular);
@@ -122,6 +122,8 @@ void on_frame() {
 #endif
 
 	state.update_scroll_position(get_scroll_position());
+	if (end_call_button())
+		state.unset_selected_occupant();
 	state.set_query(get_query(state.query()));
 
 	if (state.interaction()) {

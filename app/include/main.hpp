@@ -90,6 +90,10 @@ class State {
 			this->_selected_occupant = occ.name;
 		}
 	}
+	void unset_selected_occupant() {
+		this->_selected_occupant = std::nullopt;
+		this->_interaction = true;
+	}
 	bool is_selected(const Occupant& occ) const {
 		return this->_selected_occupant == occ.name;
 	}

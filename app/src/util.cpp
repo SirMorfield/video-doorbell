@@ -80,3 +80,7 @@ std::string absolute_path(const std::string& relative_path) {
 	absolute += relative_path;
 	return absolute;
 }
+
+std::chrono::milliseconds::rep date_now() {
+	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+}

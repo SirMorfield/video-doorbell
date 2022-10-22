@@ -1,10 +1,7 @@
 #include "IconsMaterialDesign.h"
 #include "imgui_helpers.hpp"
 #include "main.hpp"
-// #include "test.hpp"
 #include <algorithm>
-
-// Allows all the sizing to be relative, like in css
 
 char get_line_pressed(const std::string& line) {
 	char pressed = 0;
@@ -67,29 +64,27 @@ bool print_occupant(const Occupant& occupant, const std::string& query, bool sel
 }
 #define CONTROL_BUTTON scale(ImVec2(30, 0))
 
-// returns true if there was an update
-bool update_scroll_pos(size_t& pos) {
-	const size_t start_value = pos;
+// returns 1 for up, 0 for no change, -1 for down
+int get_scroll_position() {
+	int change;
 
 	ImText.set_font(ImGui_text::Font::Material_design);
-	if (ImGui::Button(ICON_MD_EXPAND_LESS, CONTROL_BUTTON) && pos > 0)
-		pos--;
+	if (ImGui::Button(ICON_MD_EXPAND_LESS, CONTROL_BUTTON))
+		change = -1;
 	ImGui::SameLine();
-	if (ImGui::Button(ICON_MD_EXPAND_MORE, CONTROL_BUTTON) && pos + consts().n_occupants < consts().occupants.size())
-		pos++;
+	if (ImGui::Button(ICON_MD_EXPAND_MORE, CONTROL_BUTTON))
+		change = 1;
 	ImGui::SameLine();
 
-	return pos != start_value;
+	return change;
 }
 
 bool end_call_button() {
 	return ImGui::Button(ICON_MD_NOTIFICATIONS_OFF, CONTROL_BUTTON);
 }
 
-// returns true if there was an update
-bool update_query(std::string& query) {
-	const std::string start_value = query;
-
+// returns unchanged or updated query
+std::string get_query(std::string query) {
 	if (ImGui::Button(ICON_MD_BACKSPACE, CONTROL_BUTTON))
 		query.resize(query.size() ? query.size() - 1 : 0);
 
@@ -104,32 +99,19 @@ bool update_query(std::string& query) {
 	if (key_pressed) {
 		query += key_pressed;
 	}
-	return start_value != query;
+	return query;
 }
 
+#define NEVER 0
 void on_frame() {
-	static std::string	  query = "";
-	static size_t		  scroll_position = 0;
-	static std::string	  selected_occupant;
-	static Timeout		  timeout(consts().call_timeout_seconds);
-	std::vector<Occupant> occupants;
+	static State						  state;
+	static std::chrono::milliseconds::rep last_input = NEVER;
 
-	// Used to reset the frontend after n seconds of inactivity
-	if ((query != "" || scroll_position) && timeout.expired()) {
-		query = "";
-		scroll_position = 0;
-		selected_occupant = "";
-		std::cout << "Timeout reached, resetting to default" << std::endl;
-	}
+	state.start_frame();
 
-	if (scroll_position)
-		occupants = get_occupants_scroll(scroll_position, consts().n_occupants);
-	else
-		occupants = get_occupants_query(query, consts().n_occupants);
-	for (const Occupant& occupant : occupants) {
-		if (print_occupant(occupant, query, occupant.name == selected_occupant)) {
-			timeout.update();
-			selected_occupant = occupant.name;
+	for (const Occupant& occupant : state.occupants()) {
+		if (print_occupant(occupant, state.query(), state.is_selected(occupant))) {
+			state.set_selected_occupant(occupant);
 		}
 	}
 
@@ -139,10 +121,15 @@ void on_frame() {
 	ImGui::SetCursorPosY(scale(192.0f));
 #endif
 
-	if (update_scroll_pos(scroll_position))
-		timeout.update();
-	if (update_query(query)) {
-		timeout.update();
-		scroll_position = 0;
+	state.update_scroll_position(get_scroll_position());
+	state.set_query(get_query(state.query()));
+
+	if (state.interaction()) {
+		last_input = date_now();
+	}
+
+	if (last_input != NEVER && date_now() - last_input > consts().call_timeout_seconds * 1000) {
+		state = State();
+		last_input = NEVER;
 	}
 }

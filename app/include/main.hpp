@@ -43,3 +43,63 @@ void					 ring(const std::string& phonenumber);
 } // namespace sip
 
 std::vector<size_t> match_score(const std::string& name, const std::string& query);
+
+// simulating JavaScript's Date.now()
+std::chrono::milliseconds::rep date_now();
+
+// Is this a bad idea? We shall see
+class State {
+  public:
+	State() {
+		this->_occupants = get_occupants_scroll(0, consts().n_occupants);
+	}
+
+	void start_frame() {
+		this->_interaction = false;
+	}
+
+	bool interaction() const { return this->_interaction; }
+
+	// query
+	void set_query(const std::string& query) {
+		if (this->_query != query) {
+			this->_interaction = true;
+			this->_query = query;
+			this->_occupants = get_occupants_query(query, consts().n_occupants);
+		}
+	}
+	const std::string& query() const { return this->_query; }
+
+	// scroll
+	void update_scroll_position(int change) {
+		if (change == 0)
+			return;
+		this->_interaction = true;
+
+		change += this->_scroll_position;
+		if (change >= 0) {
+			this->_scroll_position = (size_t)change;
+			this->_occupants = get_occupants_scroll(this->_scroll_position, consts().n_occupants);
+		}
+	}
+
+	// selected_occupant
+	void set_selected_occupant(const Occupant& occ) {
+		if (this->_selected_occupant != occ.name) {
+			this->_interaction = true;
+			this->_selected_occupant = occ.name;
+		}
+	}
+	bool is_selected(const Occupant& occ) const {
+		return this->_selected_occupant == occ.name;
+	}
+
+	const std::vector<Occupant>& occupants() const { return this->_occupants; }
+
+  private:
+	bool					   _interaction = false;
+	std::string				   _query = "";
+	size_t					   _scroll_position = 0;
+	std::optional<std::string> _selected_occupant;
+	std::vector<Occupant>	   _occupants;
+};

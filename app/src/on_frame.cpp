@@ -133,7 +133,12 @@ void on_frame() {
 		}
 	}
 
-	ImGui::SetCursorPosY(scale(192.2f));
+#ifdef __APPLE__
+	ImGui::SetCursorPosY(scale(220.2f));
+#else
+	ImGui::SetCursorPosY(scale(192.0f));
+#endif
+
 	if (update_scroll_pos(scroll_position))
 		timeout.update();
 	if (update_query(query)) {

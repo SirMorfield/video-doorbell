@@ -13,7 +13,10 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 	std::vector<Occupant>	 occupants;
 	static const std::string path = get_binary_location().value() + "/occupants.csv";
 	std::string				 apt_file = read_file(path);
+
+	apt_file.erase(std::remove(apt_file.begin(), apt_file.end(), '\r'), apt_file.end()); // remove carriage returns that come with windows line endings
 	std::vector<std::string> lines = ft_split(apt_file, "\n");
+
 	for (const std::string& line : lines) {
 		if (line.find('\t') != std::string::npos)
 			occupants_error("Found disallowed tab in line \"" + line + "\"");

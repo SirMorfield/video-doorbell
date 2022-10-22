@@ -27,7 +27,7 @@ typedef struct {
 	std::vector<Occupant>					occupants;
 	std::array<std::string, Camera_type::N> camera_numbers;
 	size_t									max_occupant_name_length;
-	std::chrono::seconds::rep				call_timeout_seconds;
+	std::chrono::milliseconds::rep			call_timeout;
 } Constants;
 
 const Constants& consts();

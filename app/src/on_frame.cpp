@@ -130,7 +130,7 @@ void on_frame() {
 		last_input = date_now();
 	}
 
-	if (last_input != NEVER && date_now() - last_input > consts().call_timeout_seconds * 1000) {
+	if (last_input != NEVER && date_now() - last_input > consts().call_timeout) {
 		state = State();
 		last_input = NEVER;
 	}

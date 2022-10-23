@@ -66,7 +66,7 @@ bool print_occupant(const Occupant& occupant, const std::string& query, bool sel
 
 // returns 1 for up, 0 for no change, -1 for down
 int get_scroll_position() {
-	int change;
+	int change = 0;
 
 	ImText.set_font(ImGui_text::Font::Material_design);
 	if (ImGui::Button(ICON_MD_EXPAND_LESS, CONTROL_BUTTON))

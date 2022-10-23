@@ -17,7 +17,7 @@ When the user selects a name to call the C++ application calls a
 - `IP video phone` model:
 - `Fanvil_I53W`\
 This happens over a local network that is not connected to the outside internet
-The `Touchscreen computer` runs a
+The `touchscreen computer` runs a
 - `DHCP` server that manages all the clients, and assigns a
 - `static IP` to itself.\
 A user can also call a second SIP camera in the hallway powered by a
@@ -28,19 +28,20 @@ The system also supports
 
 ## Changing apartment occupant(s) (names)
 1. Connect a computer to the `PoE switch`
-2. ssh into the `Touchscreen computer`: `ssh root@192.168.2.18`, password is `root`
+2. ssh into the `touchscreen computer`: `ssh root@192.168.2.18`, password is `root`
 3. Edit the occupants config file: `nano /root/video-doorbell/app/occupants.csv`
 4. Run `/root/video-doorbell/production.sh` to load the config file, watch the output, it will tell you if you've not formatted the file correctly
 5. Validate that the app has started correctly by making a test call
 
 ## Components
 Why these components? Because they had already been bought, so I might as well use them.\
-This project uses names like `Indoor Station` throughout, this is a list of what those devices are referring to.
-- FABS-810P/G(H)		`Touchscreen computer`
-- AXIS A8105-E 			Network	Video Door Station / `Front door camera`
-- Raspberry Pi 2B		linphone camera / `Hallway camera`
-- Fanvil_I53W			IP Phone / `Indoor Station`
-- HP 2520-24-PoE 28 	port managed `network switch`
+This project uses names like `indoor Station` throughout, this is a list of what those devices are referring to.
+- FABS-810P/G(H)			`touchscreen computer`
+- AXIS A8105-E 				network	video door station / `front door camera`
+- AXIS A8105-E 				network	video door station / `hallway camera`
+- Raspberry Pi 2B			linphone camera / `rpi camera`
+- Fanvil_I53W				ip phone / `indoor station`
+- HP 2520-24-PoE 28 port	managed `network switch`
 
 ## Links
 https://github.com/mailrocketsystems/AsteriskVOIP

@@ -44,17 +44,17 @@ endif
 FLAGS			+= -DGL_SILENCE_DEPRECATION
 LIBS			=
 
-ifeq ($(UNAME_S), Linux) #LINUX
+ifeq ($(UNAME_S), Linux) # LINUX
 	LIBS += -lGL `pkg-config --static --libs glfw3`
 # LIBS += -lGLESv2 `pkg-config --static --libs glfw3`
 
 	FLAGS += `pkg-config --cflags glfw3`
 	CFLAGS = $(FLAGS)
 
-	NCPU = $(shell nproc --all) $(NAME)
+	NCPU = $(shell nproc --all)
 endif
 
-ifeq ($(UNAME_S), Darwin) #APPLE
+ifeq ($(UNAME_S), Darwin) # APPLE
 	LIBS += -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 	LIBS += -L/usr/local/lib -L/opt/local/lib -L/opt/homebrew/lib
 	#LIBS += -lglfw3
@@ -63,10 +63,10 @@ ifeq ($(UNAME_S), Darwin) #APPLE
 	FLAGS += -I/usr/local/include -I/opt/local/include -I/opt/homebrew/include
 	CFLAGS = $(FLAGS)
 
-	NCPU = $(shell sysctl -n hw.ncpu) $(NAME)
+	NCPU = $(shell sysctl -n hw.ncpu)
 endif
 
-MAKEFLAGS+="j $(NCPU)"
+MAKEFLAGS+="j $(NCPU) $(NAME)"
 
 ##---------------------------------------------------------------------
 ## BUILD RULES

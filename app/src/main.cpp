@@ -44,7 +44,7 @@ const Constants& consts() {
 		.occupants = read_occupants(cameras, max_occupant_name_length),
 		.camera_numbers = cameras,
 		.max_occupant_name_length = max_occupant_name_length,
-		.call_timeout_seconds = 20000,
+		.call_timeout = 20000,
 	};
 	return consts;
 }

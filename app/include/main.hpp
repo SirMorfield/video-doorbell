@@ -82,7 +82,7 @@ class State {
 		this->_interaction = true;
 
 		change += this->_scroll_position;
-		if (change >= 0) {
+		if (change >= 0 && change + consts().n_occupants <= consts().occupants.size()) {
 			this->_scroll_position = (size_t)change;
 			this->_occupants = get_occupants_scroll(this->_scroll_position, consts().n_occupants);
 		}

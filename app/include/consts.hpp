@@ -9,6 +9,7 @@
 
 enum Camera_type {
 	FRONT_DOOR = 0,
+	RPI,
 	HALLWAY,
 	N // counter
 };

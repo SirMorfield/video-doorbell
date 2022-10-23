@@ -65,6 +65,7 @@ class State {
 		if (this->_query != query) {
 			this->_interaction = true;
 			this->_query = query;
+			this->_scroll_position = 0;
 			this->_occupants = get_occupants_query(query, consts().n_occupants);
 		}
 	}
@@ -73,6 +74,10 @@ class State {
 	// scroll
 	void update_scroll_position(int change) {
 		if (change == 0)
+			return;
+
+		// don't scroll when there is a query and the scroll position will not change the displayed names
+		if (this->_query != "" && this->_occupants.size() < consts().n_occupants)
 			return;
 		this->_interaction = true;
 

@@ -2,6 +2,11 @@
 #include <algorithm>
 #include <exception>
 
+std::ostream& operator<<(std::ostream& os, const Occupant& occ) {
+	os << occ.name << " " << occ.number;
+	return os;
+}
+
 [[noreturn]] void occupants_error(const std::string& msg) {
 	std::cout << "\n\n========================================" << std::endl;
 	std::cout << msg << std::endl;
@@ -9,29 +14,34 @@
 	exit(1);
 }
 
+// expecting line format of <name>,<number>[,<number>...]\n
 std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::N>& cameras, size_t max_occupant_name_length) {
 	std::vector<Occupant>	 occupants;
 	static const std::string path = get_binary_location().value() + "/occupants.csv";
 	std::string				 apt_file = read_file(path);
 
 	apt_file.erase(std::remove(apt_file.begin(), apt_file.end(), '\r'), apt_file.end()); // remove carriage returns that come with windows line endings
+	apt_file.erase(std::remove(apt_file.begin(), apt_file.end(), '\t'), apt_file.end()); // remove tabs
+
 	std::vector<std::string> lines = ft_split(apt_file, "\n");
 
 	for (const std::string& line : lines) {
-		if (line.find('\t') != std::string::npos)
-			occupants_error("Found disallowed tab in line \"" + line + "\"");
+		size_t comma = line.find(',');
+		if (comma == std::string::npos) {
+			occupants_error("Error: occupants.csv on line " + line + " is not formatted correctly. Expected format is <name>,<number>[,<number>...]");
+		}
+		std::string number = line.substr(comma + 1);
+		number.erase(std::remove(number.begin(), number.end(), ','), number.end()); // remove ,
 
-		std::vector<std::string> fields = ft_split(line, ",");
-		if (fields.size() < 2)
-			continue;
-		if (fields.size() > 2)
-			occupants_error("Invalid line \"" + line + "\" should only contain 2 elements");
-		Occupant occ = {.number = fields.at(0), .name = fields.at(1)};
+		Occupant occ = {.number = number, .name = line.substr(0, comma)};
+
 		if (occ.name.size() > max_occupant_name_length)
 			occupants_error("Occupant name \"" + occ.name + "\" too long, max is " + std::to_string(max_occupant_name_length));
 		if (std::find(cameras.begin(), cameras.end(), occ.number) != cameras.end())
 			occupants_error("Phone number \"" + occ.number + "\" is already in use by the front door camera");
+
 		occupants.push_back(occ);
+		std::cout << "Added occupant " << occ << std::endl;
 	}
 	if (occupants.size() == 0)
 		occupants_error("occupants.csv is empty");

@@ -1,4 +1,4 @@
-// This script reads the occupants.csv in the ./app directory, and generates all the different config files that are needed for the indoor panels and asterisk
+// This script reads the occupants.conf in the ./app directory, and generates all the different config files that are needed for the indoor panels and asterisk
 // Requires NodeJS >= 17
 
 import fs from 'fs'
@@ -17,7 +17,7 @@ interface Occupant {
 	numbers: string[];
 }
 
-const occupants: Occupant[] = fs.readFileSync('../app/occupants.csv')
+const occupants: Occupant[] = fs.readFileSync('../app/occupants.conf')
 	.toString()
 	.replaceAll('\r', '')
 	.split('\n')

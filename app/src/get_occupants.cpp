@@ -17,7 +17,7 @@ std::ostream& operator<<(std::ostream& os, const Occupant& occ) {
 // expecting line format of <name>,<number>[,<number>...]\n
 std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::N>& cameras, size_t max_occupant_name_length) {
 	std::vector<Occupant>	 occupants;
-	static const std::string path = get_binary_location().value() + "/occupants.csv";
+	static const std::string path = get_binary_location().value() + "/occupants.conf";
 	std::string				 apt_file = read_file(path);
 
 	apt_file.erase(std::remove(apt_file.begin(), apt_file.end(), '\r'), apt_file.end()); // remove carriage returns that come with windows line endings
@@ -28,7 +28,7 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 	for (const std::string& line : lines) {
 		size_t comma = line.find(',');
 		if (comma == std::string::npos) {
-			occupants_error("Error: occupants.csv on line " + line + " is not formatted correctly. Expected format is <name>,<number>[,<number>...]");
+			occupants_error("Error: occupants.conf on line " + line + " is not formatted correctly. Expected format is <name>,<number>[,<number>...]");
 		}
 		std::string number = line.substr(comma + 1);
 		number.erase(std::remove(number.begin(), number.end(), ','), number.end()); // remove ,
@@ -44,7 +44,7 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 		std::cout << "Added occupant " << occ << std::endl;
 	}
 	if (occupants.size() == 0)
-		occupants_error("occupants.csv is empty");
+		occupants_error("occupants.conf is empty");
 
 	std::sort(occupants.begin(), occupants.end(), [](const Occupant& a, const Occupant& b) { return a.name < b.name; });
 	return occupants;

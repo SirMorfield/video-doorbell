@@ -32,6 +32,10 @@ export DISPLAY=':0'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+cd config-generator
+ts-node generator.ts || exit 1
+cd ..
+
 # install asterisk config files
 cp asterisk/sip.conf /etc/asterisk/sip.conf
 cp asterisk/extensions.conf /etc/asterisk/extensions.conf
@@ -43,19 +47,19 @@ xinit /root/video-doorbell/app/app -- :0 -nocursor &
 sleep 1
 # Apply some X settings
 setup_display () {
-# Keep screen on
-xset -dpms     # Disable DPMS (Energy Star) features
-xset s off     # Disable screensaver
-xset s noblank # Don't blank video device
+	# Keep screen on
+	xset -dpms     # Disable DPMS (Energy Star) features
+	xset s off     # Disable screensaver
+	xset s noblank # Don't blank video device
 
-# Orient display vertical
-xrandr -o right
+	# Orient display vertical
+	xrandr -o right
 
-# Making sure that the touch part of the touchscreen is also rotated
-# Syntax: xinput map-to-output <device> <output name>
-# find <device> with:		xrandr --listmonitors
-# find <output name> with:	xinput
-xinput map-to-output 11 eDP-1
+	# Making sure that the touch part of the touchscreen is also rotated
+	# Syntax: xinput map-to-output <device> <output name>
+	# find <device> with:		xrandr --listmonitors
+	# find <output name> with:	xinput
+	xinput map-to-output 11 eDP-1
 }
 
 while ! setup_display; do

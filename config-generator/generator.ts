@@ -1,44 +1,67 @@
 // This script reads the occupants.csv in the ./app directory, and generates all the different config files that are needed for the indoor panels and asterisk
 // Requires NodeJS >= 17
 
-const fs = require('fs')
+import fs from 'fs'
 
-function generateExtension(number) {
-	return fs.readFileSync('extensions_client.template.conf').toString().replaceAll('<PHONE_NUMBER>', number)
+
+function generateExtension(number: string, dial: string = number): string {
+	return fs.readFileSync('extensions_client.template.conf').toString().replaceAll('<PHONE_NUMBER>', number).replaceAll('<DIAL>', dial)
 }
 
-function generateSIPclient(number) {
+function generateSIPclient(number: string): string {
 	return fs.readFileSync('sip_client.template.conf').toString().replaceAll('<PHONE_NUMBER>', number)
 }
 
-const occupantNumbers = fs.readFileSync('../app/occupants.csv')
+interface Occupant {
+	name: string;
+	numbers: string[];
+}
+
+const occupants: Occupant[] = fs.readFileSync('../app/occupants.csv')
 	.toString()
+	.replaceAll('\r', '')
 	.split('\n')
-	.filter(line => line.includes(','))
-	.map(line => line.split(',')[0])
+	.filter(line => line.split(',').length >= 2 && !/\s*#/g.test(line))
+	.map(line => {
+		return {
+			name: line.split(',')[0].trim(),
+			numbers: line.split(',').slice(1).map(number => number.trim())
+		}
+	})
 
 const outDir = 'generated'
 fs.mkdirSync(outDir, { recursive: true })
-const template = fs.readFileSync('./config_i53W.template.txt').toString()
 
-let extensionsConf = fs.readFileSync('extensions.template.conf').toString()
-let sipConf = fs.readFileSync('sip.template.conf').toString()
+const templates = {
+	extensions: fs.readFileSync('extensions.template.conf').toString(),
+	sip: fs.readFileSync('sip.template.conf').toString(),
+	indoorStation: fs.readFileSync('./config_i53W.template.txt').toString(),
+}
 
-const unique = uniq = [...new Set(occupantNumbers)].sort()
-for (const number of unique) {
-	let config = template.replaceAll('<PHONE_NUMBER>', number)
-	fs.writeFileSync(`${outDir}/config_i53W_${number}.txt`, config)
+const numbersDone: string[] = []
+for (const occupant of occupants) {
 
-	extensionsConf += generateExtension(number)
-	sipConf += generateSIPclient(number)
+	for (const number of occupant.numbers) {
+		if (!numbersDone.includes(number)) {
+			let config = templates.indoorStation.replaceAll('<PHONE_NUMBER>', occupant.numbers[0])
+			fs.writeFileSync(`${outDir}/config_i53W_${occupant.numbers[0]}.txt`, config)
+			templates.sip += generateSIPclient(number)
+			templates.extensions += generateExtension(number)
+			numbersDone.push(number)
+		}
+	}
+	if (occupant.numbers.length > 1) {
+		templates.extensions += generateExtension(occupant.numbers.join(''), occupant.numbers.join('&'))
+	}
 }
 
 const extensionsPath = '../asterisk/extensions.conf'
-fs.writeFileSync(extensionsPath, extensionsConf)
+fs.writeFileSync(extensionsPath, templates.extensions)
 console.log('Wrote extentions to ' + extensionsPath)
 
 const sipPath = '../asterisk/sip.conf'
-fs.writeFileSync(sipPath, sipConf)
+fs.writeFileSync(sipPath, templates.sip)
 console.log('Wrote SIP conf to ' + sipPath)
 
-console.log(`Generated ${unique.length} clients`)
+console.log(`Found ${occupants.length} clients`)
+console.log(`Generated ${numbersDone.length} indoor station configs in ./${outDir}`)

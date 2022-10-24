@@ -1,20 +1,15 @@
 # Frontend APP
 
-This folder contains the C++17 app that allows users to call a apartment
+This folder contains the C++17 app that allows users to call indoor station(s) in an apartment.
 
-It should be launched on a full screen touch screen computer. In this case `/production.sh` handles that using xinit
+It should be launched on a full screen touch screen computer. In this case `/production.sh` handles it.
 
 And because this is a fully custom app there is no limit to it's configurability.
 
-## occupants.csv
-The app reads `occupants.csv` (see `occupants.example.csv` for how to configure it) and displays the information as selections on the frontend.
-`occupants.csv` is easily configurable and allows for:
+## occupants.conf
+The app reads `occupants.conf` (see `occupants.example.csv` for how to configure it) and displays the information as selections on the frontend.
+`occupants.conf` is easily configurable and allows for:
 - Unlimited occupant names per apartment
 - Unlimited users
 - Unlimited apartments
-
-Syntax:
-```
-<sip phone number>,<Occupant name>
-```
-`<sip phone number>` is the phone number configured in `/asterisk/sip.conf`
+- Calling multiple indoor stations at once, for example 1 station upstairs and 1 downstairs

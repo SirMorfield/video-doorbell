@@ -4,6 +4,7 @@
 
 #include <array>
 #include <chrono>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -18,7 +19,7 @@ typedef struct {
 	std::string number;
 	std::string name;
 } Occupant;
-
+std::ostream&		  operator<<(std::ostream& os, const Occupant& occ);
 std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::N>& cameras, size_t max_occupant_name_length);
 
 typedef struct {

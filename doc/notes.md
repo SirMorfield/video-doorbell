@@ -1,5 +1,16 @@
 # Notes
 
+
+## Fanvill i53W power consumption
+Official numbers
+	Power Consumption (PoE): 1.44W~4.76W
+	So *21 = 30.24W~99.96W
+
+Measured
+1.62~2.64W
+So *21 = 34.02~55.44W
+
+
 ## IPs
 sip server
 192.168.2.1

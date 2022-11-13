@@ -6,14 +6,14 @@
 set -o xtrace
 
 # cd'ing to the directory where the script is located
-SCRIPT_DIR=$(dirname "$0")
+SCRIPT_DIR="${0%/*}"
 echo moving to $SCRIPT_DIR
 cd "$SCRIPT_DIR"
 
 # kill still runing instances of this app, and wait for it to exit
-while $(pkill -0 --signal 9 app  2>/dev/null); do sleep 0.5; done
-while $(pkill -0 --signal 9 xinit 2>/dev/null); do sleep 0.5; done
-while $(pkill -0 --signal 9 Xorg 2>/dev/null); do sleep 0.5; done
+while $(pkill -0 --signal 9 app  2> /dev/null); do sleep 0.5; done
+while $(pkill -0 --signal 9 xinit 2> /dev/null); do sleep 0.5; done
+while $(pkill -0 --signal 9 Xorg 2> /dev/null); do sleep 0.5; done
 
 
 # Optional: stop already running containers

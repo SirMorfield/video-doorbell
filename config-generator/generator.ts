@@ -4,7 +4,7 @@
 import fs from 'fs'
 
 
-function generateExtension(number: string, dial: string = number): string {
+function generateExtension(number: string, dial: string): string {
 	return fs.readFileSync('extensions_client.template.conf').toString().replaceAll('<PHONE_NUMBER>', number).replaceAll('<DIAL>', dial)
 }
 
@@ -46,12 +46,12 @@ for (const occupant of occupants) {
 			let config = templates.indoorStation.replaceAll('<PHONE_NUMBER>', occupant.numbers[0])
 			fs.writeFileSync(`${outDir}/config_i53W_${occupant.numbers[0]}.txt`, config)
 			templates.sip += generateSIPclient(number)
-			templates.extensions += generateExtension(number)
+			templates.extensions += generateExtension(number, `SIP/${number}`)
 			numbersDone.push(number)
 		}
 	}
 	if (occupant.numbers.length > 1) {
-		templates.extensions += generateExtension(occupant.numbers.join(''), occupant.numbers.join('&'))
+		templates.extensions += generateExtension(occupant.numbers.join(''), occupant.numbers.map(n => `SIP/${n}`).join('&'))
 	}
 }
 

@@ -33,7 +33,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 cd config-generator
-ts-node generator.ts || exit 1
+# ts-node generator.ts || exit 1
 cd ..
 
 # install asterisk config files

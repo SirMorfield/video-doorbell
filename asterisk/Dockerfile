@@ -6,13 +6,11 @@ FROM ubuntu:latest
 ENV TZ=Europe/Amsterdam
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-
 RUN apt-get update -y -qq
 RUN apt-get install -y asterisk
 
 # print asterisk version
 # Or run: `core show version` in the asterisk cli
-# should be 18.10
 RUN asterisk -V
 
 CMD asterisk -vvvv -c

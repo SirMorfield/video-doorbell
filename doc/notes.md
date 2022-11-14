@@ -15,7 +15,7 @@ Contains:
 	- A script uses `occupants.conf` to generate configuration files for the `Indoor Stations`
 
 It also contains this repository.
-IP: `192.168.2.8`
+IP: `192.168.2.18`
 `number`: (defined in `app/occupants.conf`)
 ```
 username: root

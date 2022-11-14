@@ -1,4 +1,5 @@
 # TODO
+This list is not complete, many more things have been done
 
 ## NICE TO HAVES
 - `Indoor station`			Alarm function, eg during a fire
@@ -15,7 +16,7 @@
 - `Touchscreen computer`	Try out not showing front end names, but first only a phonebook icon
 
 ## TODO
-
+- `Touchscreen computer`	Multi indoor station per apartment
 
 ## WAITING FOR OTHERS
 - `Indoor station`			Open front door

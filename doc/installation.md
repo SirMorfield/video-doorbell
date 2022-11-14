@@ -35,7 +35,7 @@ And change:
 GRUB_CMDLINE_LINUX="reboot=pci"
 ```
 
-Get this repo
+### Get this repo
 ```shell
 git clone https://github.com/SirMorfield/video-doorbell
 ```
@@ -80,6 +80,7 @@ ExecStart=-/sbin/agetty --autologin root --noclear %I 38400 linux
 ```shell
 systemctl enable getty@tty1.service
 ```
+
 ### Run the production.sh script on startup
 ```shell
 echo '# if this terminal is not a ssh session execute the script script' >> /root/.bashrc
@@ -89,7 +90,7 @@ reboot
 
 # Install NodeJS and ts-node
 ```shell
-curl -sL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 apt install -y nodejs
 npm i -g ts-node
 ```

@@ -52,6 +52,7 @@ void end_calls_with_cameras() {
 void ring(const std::string& phonenumber) {
 	// first make sure that none of the cameras are already in a call
 	end_calls_with_cameras();
+	append_to_logfile("ringing " + phonenumber);
 	exec(commands::ring(phonenumber));
 }
 

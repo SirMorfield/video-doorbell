@@ -46,6 +46,8 @@ std::vector<size_t> match_score(std::string name, std::string query);
 
 // simulating JavaScript's Date.now()
 std::chrono::milliseconds::rep date_now();
+std::string					   get_ISO_timestamp();
+bool						   append_to_logfile(const std::string& content);
 
 // Is this a bad idea? We shall see
 class State {

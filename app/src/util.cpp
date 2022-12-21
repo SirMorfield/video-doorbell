@@ -4,6 +4,7 @@
 #include <memory>
 #include <streambuf>
 #include <string>
+#include <sys/time.h>
 
 // for get_binary_location
 #ifdef __APPLE__
@@ -81,6 +82,35 @@ std::string absolute_path(const std::string& relative_path) {
 	return absolute;
 }
 
+// returns current time in milliseconds since epoch
+// same as JS Date.now()
 std::chrono::milliseconds::rep date_now() {
 	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+}
+
+std::string get_ISO_timestamp() {
+	timeval curTime;
+	gettimeofday(&curTime, NULL);
+
+	int	  milli = curTime.tv_usec / 1000;
+	char  buf[sizeof "2011-10-08T07:07:09.000Z"];
+	char* p = buf + strftime(buf, sizeof buf, "%FT%T", gmtime(&curTime.tv_sec));
+	sprintf(p, ".%dZ", milli);
+
+	return buf;
+}
+
+// return true on success
+bool append_to_logfile(const std::string& content) {
+	if (content.empty())
+		return true;
+
+	std::ofstream file("./out.log", std::ios::app);
+	if (!file.is_open())
+		return false;
+	file << get_ISO_timestamp() << " | " << content;
+	if (content.at(content.size() - 1) != '\n')
+		file << std::endl;
+
+	return true;
 }

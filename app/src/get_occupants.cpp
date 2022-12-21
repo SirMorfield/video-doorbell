@@ -41,7 +41,6 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 			occupants_error("Phone number \"" + occ.number + "\" is already in use by the front door camera");
 
 		occupants.push_back(occ);
-		std::cout << "Added occupant " << occ << std::endl;
 	}
 	if (occupants.size() == 0)
 		occupants_error("occupants.conf is empty");

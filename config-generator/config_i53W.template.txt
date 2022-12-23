@@ -1361,9 +1361,9 @@ Headset Vol        :5
 Headset Mic Vol    :3
 Headset Ring Vol   :5
 Headset Tone Vol   :3
-HandFree Vol       :1
+HandFree Vol       :5
 HandFree Mic Vol   :3
-HandFree Ring Vol  :1
+HandFree Ring Vol  :9
 HandFree Tone Vol  :3
 Ring Type          :1.wav
 --DateTime Config--:
@@ -2270,12 +2270,9 @@ Telnet Port        :23
 Telnet Prompt      :
 Logon Timeout      :15
 --MMI Account--    :
-Account1 Name               :admin
-Account1 Password           :
+Account1 Name               :root
+Account1 Password           :joppe2022
 Account1 Level              :10
-Account2 Name               :guest
-Account2 Password           :
-Account2 Level              :5
 
 <LOG CONFIG MODULE>
 Level              :ERROR

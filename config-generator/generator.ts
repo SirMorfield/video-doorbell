@@ -24,7 +24,7 @@ const occupants: Occupant[] = fs.readFileSync('../app/occupants.conf')
 	.filter(line => line.split(',').length >= 2 && !/\s*#/g.test(line))
 	.map(line => {
 		return {
-			name: line.split(',')[0].trim(),
+			name: line.split(',')[0]!.trim(),
 			numbers: line.split(',').slice(1).map(number => number.trim())
 		}
 	})
@@ -43,7 +43,7 @@ for (const occupant of occupants) {
 
 	for (const number of occupant.numbers) {
 		if (!numbersDone.includes(number)) {
-			let config = templates.indoorStation.replaceAll('<PHONE_NUMBER>', occupant.numbers[0])
+			let config = templates.indoorStation.replaceAll('<PHONE_NUMBER>', occupant.numbers[0]!)
 			fs.writeFileSync(`${outDir}/config_i53W_${occupant.numbers[0]}.txt`, config)
 			templates.sip += generateSIPclient(number)
 			templates.extensions += generateExtension(number, `SIP/${number}`)

@@ -1784,7 +1784,7 @@ Fkey4 Value              :
 Fkey4 Title              :
 Fkey4 ICON               :Green
 Fkey5 Type               :1
-Fkey5 Value              :7005@1/f
+Fkey5 Value              :7006@1/f
 Fkey5 Title              :hallway
 Fkey5 ICON               :Green
 Fkey6 Type               :0

@@ -2290,7 +2290,7 @@ CPE SerialNumber   :00100400FV02001000000c383e1149c4
 ACS Server Type    :1
 Enable TR069       :0
 ACS URL            :0.0.0.0
-ACS UserName       :admin
+ACS UserName       :root
 ACS Password       :
 CPE UserName       :dps
 CPE Password       :
@@ -2414,7 +2414,7 @@ DHCP Vlan Data Type:0
 
 <DOT1X CONFIG MODULE>
 Xsup Mode          :0
-Xsup User          :admin
+Xsup User          :root
 Xsup Password      :
 --SSL Mode--       :
 Permission CTF     :0

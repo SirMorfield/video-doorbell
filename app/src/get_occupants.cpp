@@ -31,8 +31,9 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 			continue; // skip comments
 
 		size_t comma = line.find(',');
-		if (comma == std::string::npos) {
-			occupants_error("Error: occupants.conf on line " + line + " is not formatted correctly. Expected format is <name>,<number>[,<number>...]");
+		if (comma == std::string::npos ||
+			std::count(line.begin(), line.end(), ',') != 1) {
+			occupants_error("Error: occupants.conf on line " + line + " is not formatted correctly. Expected format is <name>,<number>");
 		}
 		std::string number = line.substr(comma + 1);
 		number.erase(std::remove(number.begin(), number.end(), ','), number.end()); // remove ,

@@ -12,4 +12,3 @@ The app reads `occupants.conf` (see `occupants.example.csv` for how to configure
 - Unlimited occupant names per apartment
 - Unlimited users
 - Unlimited apartments
-- Calling multiple indoor stations at once, for example 1 station upstairs and 1 downstairs

@@ -19,7 +19,7 @@ while $(pkill -0 --signal 9 Xorg 2> /dev/null); do sleep 0.5; done
 # Optional: stop already running containers
 if [ "$1" = "--docker" ]; then
 	# hot reload config of asterisk
-	docker exec -it asterisk asterisk -rx 'reload'
+	docker exec -it asterisk asterisk -rx  'reload'
 fi
 
 # Build frontend app
@@ -32,9 +32,9 @@ export DISPLAY=':0'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# cd config-generator
+cd config-generator
 # ts-node generator.ts || exit 1
-# cd ..
+cd ..
 
 # install asterisk config files
 cp asterisk/sip.conf /etc/asterisk/sip.conf

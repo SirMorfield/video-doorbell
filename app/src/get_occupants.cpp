@@ -1,6 +1,7 @@
 #include "main.hpp"
 #include <algorithm>
 #include <exception>
+#include <regex>
 
 std::ostream& operator<<(std::ostream& os, const Occupant& occ) {
 	os << occ.name << " " << occ.number;
@@ -26,6 +27,9 @@ std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::
 	std::vector<std::string> lines = ft_split(apt_file, "\n");
 
 	for (const std::string& line : lines) {
+		if (std::regex_search(line, std::regex("^\\s*#")))
+			continue; // skip comments
+
 		size_t comma = line.find(',');
 		if (comma == std::string::npos) {
 			occupants_error("Error: occupants.conf on line " + line + " is not formatted correctly. Expected format is <name>,<number>[,<number>...]");

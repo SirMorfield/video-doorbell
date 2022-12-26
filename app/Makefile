@@ -94,3 +94,8 @@ ifneq ($(BUILDDIR),.)
 	/bin/rm -rf $(BUILDDIR)/
 endif
 	rm -f $(NAME)
+
+re:
+	$(MAKE) clean
+	rm -f $(NAME)
+	$(MAKE)

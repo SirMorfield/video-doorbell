@@ -111,6 +111,6 @@ bool append_to_logfile(const std::string& content) {
 	file << get_ISO_timestamp() << " | " << content;
 	if (content.at(content.size() - 1) != '\n')
 		file << std::endl;
-
+	file.close();
 	return true;
 }

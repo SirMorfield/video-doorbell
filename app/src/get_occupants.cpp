@@ -9,9 +9,9 @@ std::ostream& operator<<(std::ostream& os, const Occupant& occ) {
 }
 
 [[noreturn]] void occupants_error(const std::string& msg) {
-	std::cout << "\n\n========================================" << std::endl;
-	std::cout << msg << std::endl;
-	std::cout << "========================================\n\n " << std::endl;
+	log("\n\n========================================");
+	log(msg);
+	log("========================================\n\n ");
 	exit(1);
 }
 

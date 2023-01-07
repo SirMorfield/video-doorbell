@@ -29,7 +29,7 @@ See `doc/notes.md` for more information.
 
 ## Changing apartment occupant(s) (names)
 1. Connect a computer to the `PoE switch`
-2. ssh into the `touchscreen computer`: `ssh root@192.168.2.18`, password is `root`
+2. ssh into the `touchscreen computer`: `ssh root@192.168.2.18`, password is `joppe2022`
 3. Edit the occupants config file: `nano /root/video-doorbell/app/occupants.conf`
 	See `/root/video-doorbell/app/occupants.example.csv` for how to configure it
 4. Run `/root/video-doorbell/production.sh` to load the config file, watch the output, it will tell you if you've not formatted the file correctly

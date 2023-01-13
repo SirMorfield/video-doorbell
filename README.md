@@ -35,6 +35,10 @@ See `doc/notes.md` for more information.
 4. Run `/root/video-doorbell/production.sh` to load the config file, watch the output, it will tell you if you've not formatted the file correctly
 5. Validate that the app has started correctly by making a test call
 
+### Get a list connected `indoor stations` and their IPs
+1. ssh into the `touchscreen computer` as described above
+2. run `asterisk -rx 'sip show peers'`
+
 ## Components
 Why these components? Because they had already been bought, so I might as well use them.\
 This project uses names like `indoor Station` throughout, this is a list of what those devices are referring to.

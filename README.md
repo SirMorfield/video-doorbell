@@ -4,7 +4,7 @@ Designed by Joppe Koers in september 2022
 ## Description
 This project is a video doorbell system that shows users who is at the front door and allows them to open it.\
 This system consists of a touchscreen computer that runs headless
-- `Debian` with  a
+- `Debian` with  a=
 - `xinit` window manager, that runs a
 - `C++17` application with a frontend in
 - `ImGui` with a

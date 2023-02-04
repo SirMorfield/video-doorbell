@@ -51,7 +51,7 @@ const Constants& consts() {
 }
 
 int main(int, char**) {
-	append_to_logfile("Starting up");
+	log("Starting up");
 
 	// Setup window
 	glfwSetErrorCallback(glfw_error_callback);

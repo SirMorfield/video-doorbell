@@ -42,7 +42,7 @@ void end_calls_with_cameras() {
 	const std::vector<std::string> channels = get_channels();
 	for (const std::string& channel : channels) {
 		if (is_channel_with_camera(channel)) {
-			std::cout << "request hangup for channel " << channel << std::endl;
+			log("request hangup for channel " + channel);
 			exec(commands::hangup(channel));
 		}
 	}
@@ -52,7 +52,7 @@ void end_calls_with_cameras() {
 void ring(const std::string& phonenumber) {
 	// first make sure that none of the cameras are already in a call
 	end_calls_with_cameras();
-	append_to_logfile("ringing " + phonenumber);
+	log("ringing " + phonenumber);
 	exec(commands::ring(phonenumber));
 }
 

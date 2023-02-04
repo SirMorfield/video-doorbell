@@ -15,7 +15,8 @@
 #endif
 
 std::optional<std::string> exec(const std::string& cmd) {
-	std::cout << "Exectuting     : " << cmd << std::endl;
+	log("Exectuting     : " + cmd);
+
 	std::array<char, 128>					 buffer;
 	std::string								 result;
 	std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
@@ -25,7 +26,7 @@ std::optional<std::string> exec(const std::string& cmd) {
 	while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
 		result += buffer.data();
 	}
-	std::cout << "Done exectuting: " << cmd << ", result: " << result << std::endl;
+	log("Done exectuting: " + cmd + ", result: " + result);
 	return result;
 }
 
@@ -101,16 +102,20 @@ std::string get_ISO_timestamp() {
 }
 
 // return true on success
-bool append_to_logfile(const std::string& content) {
-	if (content.empty())
+bool log(const std::string& content) {
+	if (!content.size())
 		return true;
 
-	std::ofstream file("./out.log", std::ios::app);
-	if (!file.is_open())
+	std::cout << content << std::endl;
+
+	std::ofstream file(absolute_path("out.log"), std::ios::app);
+	if (!file.is_open()) {
+		std::cout << "err" << std::endl;
 		return false;
+	}
 	file << get_ISO_timestamp() << " | " << content;
 	if (content.at(content.size() - 1) != '\n')
 		file << std::endl;
-
+	file.close();
 	return true;
 }

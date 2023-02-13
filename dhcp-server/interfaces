@@ -14,6 +14,9 @@ iface lo inet loopback
 allow-hotplug enp3s0
 auto enp3s0
 
+# Autoconfigured IPv6 interface
+iface enp3s0 inet6 auto
+
 # Use this single line for dhcp (option 1)
 # iface enp3s0 inet dhcp
 
@@ -23,6 +26,3 @@ iface enp3s0 inet static
 address 192.168.2.18
 netmask 255.255.255.0
 gateway 192.168.2.254
-
-# Autoconfigured IPv6 interface
-iface enp3s0 inet6 auto

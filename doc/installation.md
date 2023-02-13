@@ -51,10 +51,9 @@ apt install -y asterisk
 
 ### Configure the dhcp server
 ```shell
-apt install -y isc-dhcp-server
-cp dhcp-server/dhcpd.conf /etc/dhcp/dhcpd.conf
-cp dhcp-server/interfaces /etc/network/interfaces
-cp dhcp-server/isc-dhcp-server /etc/default/isc-dhcp-server
+cp dhcp-server/dhcpd.conf /etc/dhcp
+cp dhcp-server/interfaces /etc/network
+cp dhcp-server/isc-dhcp-server /etc/default
 systemctl restart isc-dhcp-server.service
 systemctl enable isc-dhcp-server.service
 ```
@@ -63,14 +62,25 @@ systemctl enable isc-dhcp-server.service
 ```shell
 systemctl edit getty@tty1
 ```
-Add the following lines:
+Add the following lines:\
+The `ExecStart=` line is required (do not ask why)
 ```conf
+# ...
+### Anything between here and the comment below will become the new contents of the file
 [Service]
+ExecStart=
 ExecStart=-/sbin/agetty --autologin root --noclear %I 38400 linux
+# ...
 ```
 
 ```shell
 systemctl enable getty@tty1.service
+```
+
+### Disable the wait for network startup service
+We don't need a internet connection for this project
+```shell
+ systemctl disable systemd-networkd-wait-online.service
 ```
 
 ### Run the production.sh script on startup

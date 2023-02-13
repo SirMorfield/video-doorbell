@@ -22,8 +22,10 @@ userdel -rf <installed non-root-user>
 ### Requirements, might not be complete
 ```shell
 apt update -y && apt upgrade -y
-apt install -y xinit openbox git
-apt install -y make libglfw3-dev pkg-config build-essential
+apt install -y git rsync # tools
+apt install -y xinit xinput x11-xserver-utils openbox # x11
+apt install -y make libglfw3-dev pkg-config build-essential	# for the c++ app
+apt install -y isc-dhcp-server ifconfig # for the dhcp server
 ```
 
 ### Get this repo

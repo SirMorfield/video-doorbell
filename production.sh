@@ -36,6 +36,10 @@ export LC_ALL=en_US.UTF-8
 # ts-node generator.ts || exit 1
 # cd ..
 
+# The isc-dhcp-server cannot start without the interface having a ip
+# We set that here
+ifconfig enp3s0 192.168.2.18
+systemctl restart isc-dhcp-server.service
 
 # install asterisk config files
 cp asterisk/sip.conf /etc/asterisk/sip.conf

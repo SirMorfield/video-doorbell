@@ -29,8 +29,8 @@ PRODUCTION=1 make -C app || exit 1
 export DISPLAY=':0'
 
 # Setting language locales
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
 
 # cd config-generator
 # ts-node generator.ts || exit 1

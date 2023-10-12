@@ -3,15 +3,13 @@
 This file contains all the steps required to install on a fresh touchscreen computer
 
 ### Operating system
-1. Install a debian version
-2. When you get to the "Software Selection" part of the installation, only select the SSH server
-3. Follow steps below
+1. Install ubuntu server
+2. Follow steps below
 
 ### Remove defaults
 ```shell
 su root
 cd /root
-rm -rf Desktop/ Documents/ Music/ Pictures/ Templates/ Videos/
 ```
 
 ### On debian based systems you have to install a extra user alongside the root user, we don't need that
@@ -25,7 +23,8 @@ apt update -y && apt upgrade -y
 apt install -y git rsync # tools
 apt install -y xinit xinput x11-xserver-utils openbox # x11
 apt install -y make libglfw3-dev pkg-config build-essential	# for the c++ app
-apt install -y isc-dhcp-server ifconfig # for the dhcp server
+apt install -y isc-dhcp-server net-tools # for the dhcp server
+apt install -y asterisk
 ```
 
 ### Get this repo
@@ -44,16 +43,15 @@ NAutoVTs=1
 ReserverVT=1
 ```
 
-### Install SIP server
-```shell
-apt install -y asterisk
-```
-
 ### Configure the dhcp server
 ```shell
+mv /etc/dhcp/dhcpd.conf{,.backup}
 cp dhcp-server/dhcpd.conf /etc/dhcp
+mv /etc/network/interfaces{,.backup}
 cp dhcp-server/interfaces /etc/network
+mv /etc/default/isc-dhcp-server{,.backup}
 cp dhcp-server/isc-dhcp-server /etc/default
+
 systemctl restart isc-dhcp-server.service
 systemctl enable isc-dhcp-server.service
 ```

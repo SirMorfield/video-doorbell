@@ -3,3 +3,4 @@
 /config-generator/generated
 /imgui.ini
 node_modules/
+/tmp

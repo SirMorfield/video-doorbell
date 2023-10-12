@@ -15,7 +15,7 @@ std::ostream& operator<<(std::ostream& os, const Occupant& occ) {
 	exit(1);
 }
 
-// expecting line format of <name>,<number>[,<number>...]\n
+// expecting line format of <name>,<sip phone number>\n
 std::vector<Occupant> read_occupants(const std::array<std::string, Camera_type::N>& cameras, size_t max_occupant_name_length) {
 	std::vector<Occupant>	 occupants;
 	static const std::string path = get_binary_location().value() + "/occupants.conf";

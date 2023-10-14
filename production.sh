@@ -15,13 +15,6 @@ while $(pkill -0 --signal 9 app  2> /dev/null); do sleep 0.5; done
 while $(pkill -0 --signal 9 xinit 2> /dev/null); do sleep 0.5; done
 while $(pkill -0 --signal 9 Xorg 2> /dev/null); do sleep 0.5; done
 
-
-# Optional: stop already running containers
-if [ "$1" = "--docker" ]; then
-	# hot reload config of asterisk
-	docker exec -it asterisk asterisk -rx  'reload'
-fi
-
 # Build frontend app
 PRODUCTION=1 make -C app || exit 1
 
@@ -31,10 +24,6 @@ export DISPLAY=':0'
 # Setting language locales
 export LC_CTYPE=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
-
-# cd config-generator
-# ts-node generator.ts || exit 1
-# cd ..
 
 # The isc-dhcp-server cannot start without the interface having a ip
 # We set that here
@@ -49,7 +38,9 @@ asterisk -rx reload
 # TODO restart after crash
 xinit /root/video-doorbell/app/app -- :0 -nocursor &
 
+# waiting for the app to start
 sleep 1
+
 # Apply some X settings
 setup_display () {
 	# Keep screen on
@@ -57,7 +48,7 @@ setup_display () {
 	xset s off     # Disable screensaver
 	xset s noblank # Don't blank video device
 
-	# Orient display vertical
+	# Orient display vertically
 	xrandr -o right
 
 	# Making sure that the touch part of the touchscreen is also rotated
@@ -67,6 +58,7 @@ setup_display () {
 	xinput map-to-output 11 eDP-1
 }
 
+# retrying until it succeeds
 while ! setup_display; do
 	sleep 1
 done

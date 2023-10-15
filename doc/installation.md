@@ -6,12 +6,6 @@ This file contains all the steps required to install on a fresh touchscreen comp
 1. Install ubuntu server
 2. Follow steps below
 
-### Remove defaults
-```shell
-su root
-cd /root
-```
-
 ### On debian based systems you have to install a extra user alongside the root user, we don't need that
 ```shell
 userdel -rf <installed non-root-user>
@@ -25,6 +19,8 @@ apt install -y xinit xinput x11-xserver-utils openbox # x11
 apt install -y make libglfw3-dev pkg-config build-essential	# for the c++ app
 apt install -y isc-dhcp-server net-tools # for the dhcp server
 apt install -y asterisk
+apt instal -y unzip # for bun
+curl -fsSL https://bun.sh/install | bash
 ```
 
 ### Get this repo
@@ -81,16 +77,16 @@ We don't need a internet connection for this project
  systemctl disable systemd-networkd-wait-online.service
 ```
 
+### Install config deps
+```shell
+cd /root/video-doorbell/config
+bun i # internet connection required
+```
+
 ### Run the production.sh script on startup
 ```shell
 echo '# if this terminal is not a ssh session execute the script script' >> /root/.bashrc
 echo '[ -z "${SSH_CLIENT}" ] && /root/video-doorbell/production.sh' >> /root/.bashrc
+echo "alias config='bun /root/video-doorbell/config/config.ts'" >> /root/.bashrc
 reboot
-```
-
-# Install NodeJS and ts-node
-```shell
-curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-apt install -y nodejs
-npm i -g ts-node
 ```

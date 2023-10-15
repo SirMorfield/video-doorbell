@@ -1,0 +1,9 @@
+{
+	"scripts": {
+		"postinstall": "bunx @puppeteer/browsers install chrome@stable --path $HOME/.cache/puppeteer"
+	},
+	"dependencies": {
+		"bun-types": "^1.0.6",
+		"puppeteer": "^20.7.4"
+	}
+}

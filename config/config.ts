@@ -42,7 +42,7 @@ if (command === 'sync-indoor-units') {
 	const units = getI53W()
 	console.log('Found peers:')
 	console.log(units.map(u => `${u.name} ${u.ip}`).join('\n'))
-	await syncI53Ws(units.map(peer => peer.ip))
+	await syncI53Ws(units)
 	exitWith(0)
 }
 
@@ -84,12 +84,14 @@ function formatDate(d: Date) {
 	return `${date} ${h.padStart(2, '0')}:${m.padStart(2, '0')}`
 }
 
-async function syncI53Ws(ips: string[]) {
+async function syncI53Ws(ips: { name: string, ip: string }[]) {
 	const { page, browser } = await openBrowser(true)
-	for (const ip of ips) {
+	for (const { ip , name} of ips) {
 		try {
-			console.log('Setting time for', ip)
-			await setDateTimeI53W(page, `http://${ip}`, new Date())
+			const d = new Date()
+			d.setHours(Math.round(Math.random() * 24))
+			console.log(`Setting time for ${name}\t${ip}\t${formatDate(d)}`)
+			await setDateTimeI53W(page, `http://${ip}`, d)
 		} catch (e) {
 			console.error(e)
 		}

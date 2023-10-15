@@ -41,8 +41,10 @@ if (command === 'get-time') {
 if (command === 'sync-indoor-units') {
 	const units = getI53W()
 	console.log('Found peers:')
-	console.log(units.map(u => `${u.name} ${u.ip}`).join('\n'))
-	await syncI53Ws(units)
+	console.log(stations.map(u => `    ${u.name} ${u.ip}`).join('\n'))
+	await syncI53Ws(stations)
+
+	console.log('If after running this command the time is still not correct, wait a maximum of 30 minutes for the changes to propagate.')
 	exitWith(0)
 }
 
@@ -89,7 +91,6 @@ async function syncI53Ws(ips: { name: string, ip: string }[]) {
 	for (const { ip , name} of ips) {
 		try {
 			const d = new Date()
-			d.setHours(Math.round(Math.random() * 24))
 			console.log(`Setting time for ${name}\t${ip}\t${formatDate(d)}`)
 			await setDateTimeI53W(page, `http://${ip}`, d)
 		} catch (e) {
@@ -139,6 +140,7 @@ function getI53W() {
 	return showPeers()
 		.split("\n")
 		.map(line => line.trim())
+		.filter(line => line.endsWith('indoor-station'))
 		.map(line => line.match(/^(\d+\/\d+)\s+(\d+\.\d+\.\d+\.\d+)/)) // 001/001 192.168.2.101 D Yes Yes 5108  Unmonitored
 		.filter(Boolean).map(line => line as string[])
 		.map(([_, name, ip]) => ({ name, ip }))

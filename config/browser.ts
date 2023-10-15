@@ -11,19 +11,19 @@ import os from "os";
 //    see https://github.com/puppeteer/puppeteer/blob/puppeteer-v21.1.1/packages/puppeteer/package.json#L43
 //    see https://bun.sh/docs/cli/install#trusted-dependencies
 async function browserInstall() {
-    let downloaded = false;
-    const chromeVersion = PUPPETEER_REVISIONS.chrome;
-    return await browsers.install({
-        browser: "chrome",
-        buildId: chromeVersion,
-        cacheDir: `${os.homedir()}/.cache/puppeteer`,
-        downloadProgressCallback: (downloadedBytes, totalBytes) => {
-            if (!downloaded) {
-                downloaded = true;
-                console.log(`Downloading the browser Chrome/${chromeVersion}...`);
-            }
-        },
-    });
+	let downloaded = false;
+	const chromeVersion = PUPPETEER_REVISIONS.chrome;
+	return await browsers.install({
+		browser: "chrome",
+		buildId: chromeVersion,
+		cacheDir: `${os.homedir()}/.cache/puppeteer`,
+		downloadProgressCallback: (downloadedBytes, totalBytes) => {
+			if (!downloaded) {
+				downloaded = true;
+				console.log(`Downloading the browser Chrome/${chromeVersion}...`);
+			}
+		},
+	});
 }
 
 
@@ -35,9 +35,15 @@ export async function openBrowser(headless: boolean) {
 		args: [
 			// "--start-maximized"
 			"--no-sandbox", // required for root execution
+			`--window-size=1920,1080`,
+
 		],
 		//headless: "new",
 		headless: headless ? "new" : false,
+		defaultViewport: {
+			width: 1920,
+			height: 1080
+		}
 	});
 	const page = await browser.newPage();
 	const client = await page.target().createCDPSession()

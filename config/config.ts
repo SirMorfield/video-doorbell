@@ -106,18 +106,21 @@ async function setDateTimeI53W(page: Page, link: string, date: Date) {
 		await page.type("#password", "joppe2022")
 		await page.click("#logonButton")
 		await page.waitForNavigation()
-	} catch (e) { }
-	await page.goto(link + "/time.htm")
+		await page.waitForNetworkIdle()
+		await page.waitForTimeout(3000)
 
+	} catch (e) {
+		console.log('Could not login')
+	}
+	await page.goto(link + "/time.htm")
 	const { d, h, m } = destructDate(date)
-	console.log(`Setting date to  ${formatDate(date)}`)
 	await page.evaluate((d) => {
 		(document.querySelector("#calendarSet") as HTMLInputElement).value = d
 	}, d)
 
 	await page.select("#TIM_ManualHour", h)
 	await page.select("#TIM_ManualMinute", m)
-	await page.click("body > div.content > div.navbar > form:nth-child(2) > div.OptDiv > table > tbody > tr > td:nth-child(5) > input")
+	await page.click("body > div.content > div.navbar > form:nth-child(2) > div.OptDiv > table > tbody > tr > td:nth-child(5) > input") // submit
 }
 
 function setLocalTime(date: Date) {

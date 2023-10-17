@@ -25,6 +25,8 @@ export DISPLAY=':0'
 export LC_CTYPE=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
 
+(cd config-generator && bun generator.ts || exit 1)
+
 # The isc-dhcp-server cannot start without the interface having a ip
 # We set that here
 ifconfig enp3s0 192.168.2.18

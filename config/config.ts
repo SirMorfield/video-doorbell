@@ -5,8 +5,8 @@ import { execSync } from "child_process"
 const commands = {
 	'set-time': 'Sets the time of this device, usage example: config settime 2021-01-01 12:00',
 	'get-time': 'Gets the time of this device',
-	'sync-indoor-units': 'Syncs the time on all i53w devices',
-	'show-peers': 'Shows all indoor units and cameras that are connected',
+	'sync-indoor-stations': 'Syncs the time on all i53w devices, use in combination with set-time to set the time on all devices',
+	'show-peers': 'Shows all indoor stations and cameras that are connected',
 	'update-occupants': 'After changing the occupants.conf, run this command to update the app to use the new occupants'
 } as const
 
@@ -38,8 +38,7 @@ if (command === 'get-time') {
 	exitWith(0)
 }
 
-if (command === 'sync-indoor-units') {
-	const units = getI53W()
+if (command === 'sync-indoor-stations') {
 	console.log('Found peers:')
 	console.log(stations.map(u => `    ${u.name} ${u.ip}`).join('\n'))
 	await syncI53Ws(stations)

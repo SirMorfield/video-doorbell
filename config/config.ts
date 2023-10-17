@@ -54,7 +54,7 @@ if (command === 'show-peers') {
 }
 
 if (command === 'update-occupants') {
-	exec('/root/video-doorbell/production.sh', true)
+	exec('bun /root/video-doorbell/config-generator/generator.ts', true)
 	exitWith(0)
 }
 

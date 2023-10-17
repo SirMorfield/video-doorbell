@@ -27,17 +27,12 @@ export DISPLAY=':0'
 export LC_CTYPE=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
 
-(cd config-generator && bun generator.ts || exit 1)
+bun config-generator/generator.ts
 
 # The isc-dhcp-server cannot start without the interface having a ip
 # We set that here
 ifconfig enp3s0 192.168.2.18
 systemctl restart isc-dhcp-server.service
-
-# install asterisk config files
-cp asterisk/sip.conf /etc/asterisk/sip.conf
-cp asterisk/extensions.conf /etc/asterisk/extensions.conf
-asterisk -rx reload
 
 # TODO restart after crash
 xinit /root/video-doorbell/app/app -- :0 -nocursor &

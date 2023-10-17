@@ -1,15 +1,34 @@
 // This script reads the occupants.conf in the ./app directory, and generates all the different config files that are needed for the indoor panels and asterisk
-// Requires NodeJS >= 17
+import nodeFs from 'fs'
+import { execSync } from 'child_process'
 
-import fs from 'fs'
+function relative(path: string): string {
+	path = path.trim()
+	if (path.startsWith('/')) {
+		return path
+	}
+	return `${__dirname}/${path}`
+}
 
+const fs = {
+	readFileSync(path: string): string { return nodeFs.readFileSync(relative(path)).toString() },
+	writeFileSync(path: string, content: string) { nodeFs.writeFileSync(relative(path), content) },
+	mkdirSync(path: string) { return nodeFs.mkdirSync(relative(path), { recursive: true }) },
+	existsSync(path: string) { return nodeFs.existsSync(relative(path)) },
+	copyFileSync(from: string, to: string) { return nodeFs.copyFileSync(relative(from), relative(to)) },
+} as const
+
+function exec(command: string) {
+	console.log('Executing:', command)
+	return execSync(command).toString()
+}
 
 function generateExtension(number: string, dial: string): string {
-	return fs.readFileSync('extensions_client.template.conf').toString().replaceAll('<PHONE_NUMBER>', number).replaceAll('<DIAL>', dial)
+	return fs.readFileSync('extensions_client.template.conf').replaceAll('<PHONE_NUMBER>', number).replaceAll('<DIAL>', dial)
 }
 
 function generateSIPclient(number: string): string {
-	return fs.readFileSync('sip_client.template.conf').toString().replaceAll('<PHONE_NUMBER>', number)
+	return fs.readFileSync('sip_client.template.conf').replaceAll('<PHONE_NUMBER>', number)
 }
 
 interface Occupant {
@@ -30,12 +49,12 @@ const occupants: Occupant[] = fs.readFileSync('../app/occupants.conf')
 	})
 
 const outDir = 'generated'
-fs.mkdirSync(outDir, { recursive: true })
+fs.mkdirSync(outDir)
 
 const templates = {
-	extensions: fs.readFileSync('extensions.template.conf').toString(),
-	sip: fs.readFileSync('sip.template.conf').toString(),
-	indoorStation: fs.readFileSync('./config_i53W.template.txt').toString(),
+	extensions: fs.readFileSync('extensions.template.conf'),
+	sip: fs.readFileSync('sip.template.conf'),
+	indoorStation: fs.readFileSync('./config_i53W.template.txt'),
 }
 
 const numbersDone: string[] = []
@@ -65,3 +84,13 @@ console.log('Wrote SIP conf to ' + sipPath)
 
 console.log(`Found ${occupants.length} clients`)
 console.log(`Generated ${numbersDone.length} indoor station configs in ./${outDir}`)
+
+const asterisk = '/etc/asterisk'
+if (!fs.existsSync(asterisk)) {
+	console.log('Asterisk not found at, skipping asterisk reload')
+}
+else {
+	fs.copyFileSync('../asterisk/extensions.conf', `${asterisk}/extensions.conf`)
+	fs.copyFileSync('../asterisk/sip.conf', `${asterisk}/sip.conf`)
+	exec('asterisk -rx "reload"')
+}

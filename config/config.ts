@@ -39,6 +39,7 @@ if (command === 'get-time') {
 }
 
 if (command === 'sync-indoor-stations') {
+	const stations = getI53W()
 	console.log('Found peers:')
 	console.log(stations.map(u => `    ${u.name} ${u.ip}`).join('\n'))
 	await syncI53Ws(stations)

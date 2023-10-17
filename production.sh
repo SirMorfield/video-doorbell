@@ -10,6 +10,8 @@ SCRIPT_DIR="${0%/*}"
 echo moving to $SCRIPT_DIR
 cd "$SCRIPT_DIR"
 
+timedatectl set-timezone Europe/Amsterdam
+
 # kill still runing instances of this app, and wait for it to exit
 while $(pkill -0 --signal 9 app  2> /dev/null); do sleep 0.5; done
 while $(pkill -0 --signal 9 xinit 2> /dev/null); do sleep 0.5; done
